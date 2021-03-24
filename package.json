@@ -1,0 +1,39 @@
+{
+  "name": "Simulator",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack",
+    "start": "webpack serve --port 8000"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babylonjs/core": "^4.2.0",
+    "@babylonjs/inspector": "^4.2.0",
+    "ammo.js": "github:kripken/ammo.js",
+    "clean-webpack-plugin": "^3.0.0",
+    "css-loader": "^5.0.2",
+    "file-loader": "^6.2.0",
+    "html-webpack-plugin": "^5.1.0",
+    "style-loader": "^2.0.0",
+    "ts-loader": "^8.0.17",
+    "typescript": "^4.2.2",
+    "webpack": "^5.24.2",
+    "webpack-cli": "^4.5.0",
+    "webpack-dev-server": "^3.11.2"
+  },
+  "dependencies": {
+    "avr8js": "^0.15.0",
+    "babylonjs": "^4.2.0",
+    "babylonjs-gui": "^4.2.0",
+    "cannon": "^0.6.2",
+    "intel-hex": "^0.1.2",
+    "monaco-editor": "^0.22.3",
+    "monaco-editor-webpack-plugin": "^3.0.0",
+    "oimo": "^1.0.9",
+    "path": "^0.12.7"
+  }
+}
