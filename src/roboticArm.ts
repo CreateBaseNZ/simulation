@@ -6,7 +6,7 @@ import { Mesh } from 'babylonjs/Meshes/index';
 import { _ThinInstanceDataStorage } from 'babylonjs/Meshes/mesh';
 import { TransformNode } from 'babylonjs/Meshes/transformNode';
 import { MeshAssetTask } from 'babylonjs/Misc/assetsManager';
-import { LevelManager } from './levelManager';
+import { SceneManager } from './SceneManager';
 import { Robot } from './robot';
 import { UIManager } from './uiManager';
 

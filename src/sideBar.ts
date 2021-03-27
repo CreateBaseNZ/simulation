@@ -4,7 +4,7 @@ import "@babylonjs/loaders";
 import { Robot } from './robot';
 import { RoboticArm } from './roboticArm';
 import { UIManager } from './uiManager';
-import { LevelManager } from "./levelManager";
+import { SceneManager } from "./SceneManager";
 
 export class SideBar {
 

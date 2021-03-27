@@ -12,7 +12,6 @@ import {
   portDConfig,
   usart0Config,
 } from 'avr8js';
-import { LevelManager } from '../levelManager';
 import { loadHex } from './intelhex';
 import { MicroTaskScheduler } from './task-scheduler';
 

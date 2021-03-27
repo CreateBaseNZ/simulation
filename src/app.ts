@@ -1,5 +1,5 @@
 import * as BABYLON from '@babylonjs/core';
-import { LevelManager } from "./levelManager";
+import { SceneManager } from "./SceneManager";
 
 export class App {
 
@@ -9,7 +9,7 @@ export class App {
     protected _engine: BABYLON.Engine;
 
     //Scene - related
-    protected _levelManager: LevelManager;
+    protected _sceneManager: SceneManager;
 
     constructor() {
         this._styleDocument();
@@ -19,7 +19,7 @@ export class App {
         // initialize babylon engine
         this._engine = new BABYLON.Engine(this._canvas, true);
 
-        this._levelManager = new LevelManager(this._engine);
+        this._sceneManager = new SceneManager(this._engine);
 
         // run the main render loop
         this._main();
@@ -70,7 +70,7 @@ export class App {
     }
 
     private async _main(): Promise<void> {
-        this._levelManager.start();
+        this._sceneManager.Start();
 
         //resize if the screen is resized/rotated
         window.addEventListener('resize', () => {

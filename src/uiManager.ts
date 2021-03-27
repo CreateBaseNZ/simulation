@@ -2,7 +2,7 @@ import * as GUI from "@babylonjs/gui";
 import * as BABYLON from '@babylonjs/core';
 import "@babylonjs/loaders";
 import { SideBar } from './sideBar';
-import { LevelManager, State } from './levelManager';
+import { SceneManager } from './SceneManager';
 import { Interactable } from './interactable';
 import { Robot } from './robot';
 import { IDE } from "./ide";
@@ -25,7 +25,7 @@ export class UIManager {
     public ide: IDE;
     public colorPicker: GUI.ColorPicker;
 
-    public scene: BABYLON.Scene = new BABYLON.Scene(LevelManager.instance.engine);
+    public scene: BABYLON.Scene = new BABYLON.Scene(SceneManager.instance.engine);
 
     constructor(scene, robots) {
         if (UIManager.instance == null) {
@@ -66,7 +66,6 @@ export class UIManager {
         menuBtn.onPointerDownObservable.add(() => {
             advancedTexture.dispose();
             this.scene.dispose();
-            LevelManager.instance.targetState = State.MENU;
         });
 
         // Objective display
@@ -135,7 +134,7 @@ export class UIManager {
         if (this.collectedStars < 4) {
             this.objComplete.alpha = 0;
             if(this.startTimer){
-                this.elapsedTime += LevelManager.instance.engine.getDeltaTime()/1000;
+                this.elapsedTime += SceneManager.instance.engine.getDeltaTime()/1000;
             }
         }
         else {
@@ -146,6 +145,6 @@ export class UIManager {
 
         this.objective.text = "Collect the Stars\n" + this.collectedStars + "/4";
         this.timer.text = new Date(this.elapsedTime * 1000).toISOString().substr(14, 8);
-        this.fps.text = "FPS: " + LevelManager.instance.engine.getFps().toFixed(0);
+        this.fps.text = "FPS: " + SceneManager.instance.engine.getFps().toFixed(0);
     }
 }
