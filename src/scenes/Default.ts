@@ -1,12 +1,13 @@
 import * as BABYLON from "@babylonjs/core";
 import { RoboticArm } from "../roboticArm";
 
-export let alphaScene = (scene: BABYLON.Scene) => {
+export let defaultScene = (scene: BABYLON.Scene) => {
 
     // Create ground
     const ground = BABYLON.MeshBuilder.CreateBox("ground", { width: 10, height: 1, depth: 10 }, scene);
     ground.position.y -= 1;
     ground.material = null;
+    ground.receiveShadows = true; // Shadows are disabled by default
 
     // Create roboticArm
     new RoboticArm('roboticArm', scene);
@@ -32,6 +33,7 @@ export let alphaScene = (scene: BABYLON.Scene) => {
             meshes.forEach(mesh => {
                 if (mesh.parent) {
                     mesh.material = starMat;
+                    mesh.receiveShadows = true;
                 }
                 else if (!mesh.parent) {
                     mesh.position = position;

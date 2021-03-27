@@ -5,7 +5,7 @@ import { RoboticArm } from './roboticArm';
 import { Interactable } from './interactable';
 import { UIManager } from './uiManager';
 import { createPs } from "./particles";
-import { alphaScene } from "./scenes/Alpha";
+import { defaultScene } from "./scenes/Default";
 import { CBObject } from "./CBObject";
 import { SceneManager } from "./SceneManager";
 window.CANNON = require('cannon');
@@ -25,6 +25,6 @@ export class GameManager extends CBObject{
     }
 
     Start(){
-        SceneManager.instance.LoadScene(alphaScene);
+        SceneManager.instance.LoadScene(defaultScene);
     }
 }

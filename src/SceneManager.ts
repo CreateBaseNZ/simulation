@@ -14,7 +14,6 @@ export class SceneManager {
     public static instance: SceneManager;
     public engine: BABYLON.Engine;
     public scene: BABYLON.Scene;
-
     public objects: CBObject[];
 
     constructor(engine) {
@@ -56,6 +55,7 @@ export class SceneManager {
         this.scene.dispose();
         this.scene = new BABYLON.Scene(this.engine);
         this.CreateEnvironment(this.scene);
+        await this.scene.whenReadyAsync();
         sceneFunction(this.scene);
         await this.scene.whenReadyAsync();
         this.engine.hideLoadingUI();
@@ -68,27 +68,28 @@ export class SceneManager {
         scene.collisionsEnabled = true;
         scene.environmentTexture = BABYLON.CubeTexture.CreateFromPrefilteredData("http://localhost:5000/skybox/Country.env", scene);
 
+        const gravityVector = new BABYLON.Vector3(0, -9.81, 0);
+        scene.enablePhysics(gravityVector, new BABYLON.CannonJSPlugin());
+
         const glow = new BABYLON.GlowLayer("glow", scene);
         glow.intensity = 0.5;
 
-        const camera = new BABYLON.ArcRotateCamera("Camera", 0, 0.8, 10, BABYLON.Vector3.Zero(), scene);
+        const camera = new BABYLON.ArcRotateCamera("camera", 0, 0.8, 10, BABYLON.Vector3.Zero(), scene);
         camera.attachControl();
         camera.lowerRadiusLimit = 3;
         camera.upperRadiusLimit = 20;
         camera.wheelPrecision = 20;
 
-        const hemiLight = new BABYLON.HemisphericLight("HemiLight1", new BABYLON.Vector3(1, 1, 0), scene);
+        const hemiLight = new BABYLON.HemisphericLight("hemiLight", new BABYLON.Vector3(1, 1, 0), scene);
         hemiLight.diffuse = new BABYLON.Color3(0.95, 0.98, 0.97);
         hemiLight.intensity = 0.4;
 
-        const pointLight = new BABYLON.PointLight("PointLight", new BABYLON.Vector3(30, 20, 10), scene);
-        pointLight.diffuse = new BABYLON.Color3(1, 1, 1);
-        pointLight.intensity = 1;
-        pointLight.shadowMinZ = 0;
-        pointLight.shadowMaxZ = 100;
-
-        const gravityVector = new BABYLON.Vector3(0, -9.81, 0);
-        scene.enablePhysics(gravityVector, new BABYLON.CannonJSPlugin());
+        const directionalLight = new BABYLON.DirectionalLight("directionalLight", new BABYLON.Vector3(-30, -40, 0), scene);
+        directionalLight.diffuse = new BABYLON.Color3(1, 1, 1);
+        directionalLight.intensity = 1;
+        directionalLight.shadowMinZ = 0;
+        directionalLight.shadowMaxZ = 100;
+        
     }
 }
 
