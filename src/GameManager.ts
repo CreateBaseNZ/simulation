@@ -1,15 +1,7 @@
-import * as GUI from "@babylonjs/gui";
 import * as BABYLON from '@babylonjs/core';
-import "@babylonjs/loaders";
-import { RoboticArm } from './roboticArm';
-import { Interactable } from './interactable';
-import { UIManager } from './uiManager';
-import { createPs } from "./particles";
 import { defaultScene } from "./scenes/Default";
 import { CBObject } from "./CBObject";
 import { SceneManager } from "./SceneManager";
-import { scene1 } from "./scenes/Scenes1";
-window.CANNON = require('cannon');
 
 export class GameManager extends CBObject{
 
@@ -26,6 +18,6 @@ export class GameManager extends CBObject{
     }
 
     Start(){
-        SceneManager.instance.LoadScene(scene1);
+        SceneManager.instance.LoadScene(defaultScene);
     }
 }

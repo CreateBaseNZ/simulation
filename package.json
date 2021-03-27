@@ -13,7 +13,7 @@
   "devDependencies": {
     "@babylonjs/core": "^4.2.0",
     "@babylonjs/inspector": "^4.2.0",
-    "ammo.js": "github:kripken/ammo.js",
+    "@types/node": "^14.14.37",
     "clean-webpack-plugin": "^3.0.0",
     "css-loader": "^5.0.2",
     "file-loader": "^6.2.0",
@@ -33,7 +33,6 @@
     "intel-hex": "^0.1.2",
     "monaco-editor": "^0.22.3",
     "monaco-editor-webpack-plugin": "^3.0.0",
-    "oimo": "^1.0.9",
     "path": "^0.12.7"
   }
 }

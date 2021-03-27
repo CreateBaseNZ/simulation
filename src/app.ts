@@ -13,7 +13,7 @@ export class App {
 
     constructor() {
         this._styleDocument();
-        this._editor = this._createEditor(this._editor);
+        //this._editor = this._createEditor(this._editor);
         this._canvas = this._createCanvas(this._canvas);
 
         // initialize babylon engine
@@ -53,7 +53,7 @@ export class App {
     }
 
     private _createEditor(editor: HTMLDivElement): HTMLDivElement {
-
+        
         // Creating a div element
         var editor = document.createElement("div");
         editor.style.height = "75%";

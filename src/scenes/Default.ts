@@ -1,14 +1,16 @@
 import * as BABYLON from "@babylonjs/core";
+import { FresnelParameters } from "babylonjs/Materials/fresnelParameters";
 import { RoboticArm } from "../roboticArm";
 
 export let defaultScene = (scene: BABYLON.Scene) => {
 
     // Create ground
-    const ground = BABYLON.MeshBuilder.CreateBox("ground", { width: 10, height: 1, depth: 10 }, scene);
+    const ground = BABYLON.MeshBuilder.CreateBox("ground", { width: 30, height: 1, depth: 30 }, scene);
     ground.position.y -= 1;
     ground.material = null;
     ground.receiveShadows = true; // Shadows are disabled by default
 
+    /*
     // Create roboticArm
     new RoboticArm('roboticArm', scene);
 
@@ -47,7 +49,7 @@ export let defaultScene = (scene: BABYLON.Scene) => {
     createStar(new BABYLON.Vector3(0, 1.5, 1.5));
     createStar(new BABYLON.Vector3(-1.6, 2.1, 0));
     createStar(new BABYLON.Vector3(0, 3, -1.8));
-
+    */
     let createBox = (color: BABYLON.Color3, position: BABYLON.Vector3) => {
         let box = BABYLON.MeshBuilder.CreateBox("box", { size: 1 }, scene);
         box.position = position;
