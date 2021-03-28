@@ -2,7 +2,7 @@ import * as GUI from "@babylonjs/gui";
 import * as BABYLON from '@babylonjs/core';
 import "@babylonjs/loaders";
 import { Robot } from './robot';
-import { RoboticArm } from './roboticArm';
+import { RoboticArm } from './RoboticArm';
 import { UIManager } from './uiManager';
 import { SceneManager } from "./SceneManager";
 

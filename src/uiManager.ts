@@ -6,7 +6,7 @@ import { SceneManager } from './SceneManager';
 import { Interactable } from './interactable';
 import { Robot } from './robot';
 import { IDE } from "./ide";
-import { RoboticArm } from "./roboticArm";
+import { RoboticArm } from "./RoboticArm";
 
 export class UIManager {
 

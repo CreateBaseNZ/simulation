@@ -55,7 +55,6 @@ export class SceneManager {
 
     private CreateEnvironment(scene: BABYLON.Scene) {
         // These are the default components that EVERY scene should have.
-        const player = new Player(scene);
 
         scene.clearColor = new BABYLON.Color4(0.8, 0.8, 0.8, 1);
         scene.shadowsEnabled = true;
@@ -68,23 +67,14 @@ export class SceneManager {
         const glow = new BABYLON.GlowLayer("glow", scene);
         glow.intensity = 0.5;
 
-        const camera = new BABYLON.ArcRotateCamera("camera", 0, 0.8, 10, BABYLON.Vector3.Zero(), scene);
-        camera.parent = player.playerMesh;
+        const camera = new BABYLON.ArcRotateCamera("mainCamera", 0, 0.8, 10, BABYLON.Vector3.Zero(), scene);
         camera.lowerRadiusLimit = 3;
         camera.upperRadiusLimit = 30;
         camera.lowerBetaLimit = 0;
         camera.upperBetaLimit = Math.PI / 2;
         camera.inertia = 0;
         camera.wheelPrecision = 5;
-        camera.inputs.remove(camera.inputs.attached.pointers);
-        let pointerInput = new BABYLON.ArcRotateCameraPointersInput();
-        pointerInput.panningSensibility = 0;
-        pointerInput.buttons = [1, 2];
-        pointerInput.angularSensibilityX = 300;
-        pointerInput.angularSensibilityY = 300;
-        camera.inputs.add(pointerInput);
-        camera.attachControl();
-
+        
         const hemiLight = new BABYLON.HemisphericLight("hemiLight", new BABYLON.Vector3(1, 1, 0), scene);
         hemiLight.diffuse = new BABYLON.Color3(0.95, 0.98, 0.97);
         hemiLight.intensity = 0.4;
@@ -97,81 +87,7 @@ export class SceneManager {
     }
 
     private PostEnvironment(scene: BABYLON.Scene) {
-        let navigationPlugin = new BABYLON.RecastJSPlugin();
-        var parameters = {
-            cs: 0.2,
-            ch: 0.2,
-            walkableSlopeAngle: 35,
-            walkableHeight: 1,
-            walkableClimb: 1,
-            walkableRadius: 1,
-            maxEdgeLen: 1,
-            maxSimplificationError: 1.3,
-            minRegionArea: 8,
-            mergeRegionArea: 20,
-            maxVertsPerPoly: 6,
-            detailSampleDist: 6,
-            detailSampleMaxError: 1,
-        };
-        let navMeshList = []
-        scene.getActiveMeshes().forEach(mesh => {
-            if (mesh.name != "player") {
-                navMeshList.push(mesh);
-            }
-        })
-        navigationPlugin.createNavMesh(navMeshList, parameters);
-        let navmeshdebug = navigationPlugin.createDebugNavMesh(scene);
-        navmeshdebug.position = new BABYLON.Vector3(0, 0.01, 0);
-        var matdebug = new BABYLON.StandardMaterial('matdebug', scene);
-        matdebug.diffuseColor = new BABYLON.Color3(0.1, 0.2, 1);
-        matdebug.alpha = 0.2;
-        navmeshdebug.material = matdebug;
 
-        var crowd = navigationPlugin.createCrowd(1, 0.35, scene);
-        var agentParameters = {
-            radius: 0.35,
-            height: 1.7,
-            maxAcceleration: 4,
-            maxSpeed: 2,
-            collisionQueryRange: 0.5,
-            pathOptimizationRange: 0.0,
-            separationWeight: 1.0
-        };
-
-        var transform = new BABYLON.TransformNode("agent");
-        crowd.addAgent(BABYLON.Vector3.Zero(), agentParameters, transform);
-        scene.getMeshByName("player").parent = transform;
-        var startingPoint;
-
-        var getGroundPosition = () => {
-            var pickinfo = scene.pick(scene.pointerX, scene.pointerY);
-            if (pickinfo.hit) {
-                return pickinfo.pickedPoint;
-            }
-
-            return null;
-        }
-
-        var pointerDown = () => {
-            startingPoint = getGroundPosition();
-            if (startingPoint) {
-                var agents = crowd.getAgents();
-                agents.forEach(agent => {
-                    crowd.agentGoto(agent, navigationPlugin.getClosestPoint(startingPoint));
-                });
-            }
-        }
-
-        scene.onPointerObservable.add((pointerInfo) => {
-            switch (pointerInfo.type) {
-                case BABYLON.PointerEventTypes.POINTERDOWN:
-                    if (pointerInfo.pickInfo.hit && pointerInfo.event.button == 0) {
-                        pointerDown();
-                    }
-                    break;
-            }
-        });
-        return scene;
     }
 }
 
