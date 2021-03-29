@@ -1,5 +1,4 @@
 import * as BABYLON from '@babylonjs/core';
-import { CBObject } from "./CBObject";
 import { SceneManager } from "./SceneManager";
 
 export class PlayerController {
@@ -15,7 +14,7 @@ export class PlayerController {
         let agentParameters = {
             radius: 0.35,
             height: 1.7,
-            maxAcceleration: 4,
+            maxAcceleration: 10,
             maxSpeed: 2,
             collisionQueryRange: 0.5,
             pathOptimizationRange: 0.0,

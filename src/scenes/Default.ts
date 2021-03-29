@@ -11,16 +11,14 @@ export let defaultScene = (scene: BABYLON.Scene) => {
     ground.position.y -= 1;
     ground.material = null;
     ground.receiveShadows = true; // Shadows are disabled by default
-
-    /*
+    
     // Create roboticArm
     new RoboticArm('roboticArm', scene);
-    */
 
-    new Star(scene, new BABYLON.Vector3(2, 2, 1.5));
-    new Star(scene, new BABYLON.Vector3(0, 1.5, 1.5));
-    new Star(scene, new BABYLON.Vector3(-1.6, 2.1, 0));
-    new Star(scene, new BABYLON.Vector3(0, 3, -1.8));
+    new Star(scene, new BABYLON.Vector3(2, 0.3, 1.5));
+    new Star(scene, new BABYLON.Vector3(0, 0.3, 1.5));
+    new Star(scene, new BABYLON.Vector3(-1.6, 0.3, 0));
+    new Star(scene, new BABYLON.Vector3(0, 0.3, -1.8));
 
     let createBox = (color: BABYLON.Color3, position: BABYLON.Vector3) => {
         let box = BABYLON.MeshBuilder.CreateBox("box", { size: 1 }, scene);
@@ -36,6 +34,4 @@ export let defaultScene = (scene: BABYLON.Scene) => {
     createBox(BABYLON.Color3.Green(), new BABYLON.Vector3(-3, 0, 3));
     createBox(BABYLON.Color3.Green(), new BABYLON.Vector3(-3, 0, -3));
     createBox(BABYLON.Color3.Red(), new BABYLON.Vector3(3, 0, -3));
-
-    const player = new Player(scene);
 }

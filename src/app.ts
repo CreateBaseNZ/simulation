@@ -70,13 +70,10 @@ export class App {
     }
 
     private async _main(): Promise<void> {
-        this._sceneManager.Start();
-
         //resize if the screen is resized/rotated
         window.addEventListener('resize', () => {
             this._engine.resize();
         });
     }
-
 }
 new App();

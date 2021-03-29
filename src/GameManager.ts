@@ -1,23 +1,19 @@
 import * as BABYLON from '@babylonjs/core';
 import { defaultScene } from "./scenes/Default";
-import { CBObject } from "./CBObject";
 import { SceneManager } from "./SceneManager";
+import { Objective } from './Objective';
+import { Player } from './Player';
 
-export class GameManager extends CBObject{
+export class GameManager {
 
     public static instance: GameManager;
 
-    constructor(scene: BABYLON.Scene) {
-        super();
+    constructor() {
         if (GameManager.instance == null) {
             GameManager.instance = this;
         }
         else {
             return GameManager.instance;
         }
-    }
-
-    Start(){
-        SceneManager.instance.LoadScene(defaultScene);
     }
 }

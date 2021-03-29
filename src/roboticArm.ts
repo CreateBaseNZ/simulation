@@ -1,14 +1,7 @@
 import * as BABYLON from '@babylonjs/core';
 import "@babylonjs/loaders";
-import { PhysicsImpostor, Scene, SimplificationSettings, SimplificationType } from 'babylonjs';
-import { Quaternion, Vector3 } from 'babylonjs/Maths/math.vector';
-import { Mesh } from 'babylonjs/Meshes/index';
 import { _ThinInstanceDataStorage } from 'babylonjs/Meshes/mesh';
-import { TransformNode } from 'babylonjs/Meshes/transformNode';
-import { MeshAssetTask } from 'babylonjs/Misc/assetsManager';
-import { SceneManager } from './SceneManager';
 import { Robot } from './robot';
-import { UIManager } from './uiManager';
 
 export class RoboticArm extends Robot {
 

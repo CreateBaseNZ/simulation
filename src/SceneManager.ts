@@ -1,8 +1,10 @@
 import * as BABYLON from '@babylonjs/core';
 import "@babylonjs/loaders";
-import { CBObject } from "./CBObject";
+import { Environment } from './Environment';
 import { GameManager } from "./GameManager";
+import { ObjectiveManager } from './ObjectiveManager';
 import { Player } from "./Player";
+import { defaultScene } from './scenes/Default';
 window.CANNON = require('cannon');
 
 export class SceneManager {
@@ -10,7 +12,6 @@ export class SceneManager {
     public static instance: SceneManager;
     public engine: BABYLON.Engine;
     public scene: BABYLON.Scene;
-    public objects: CBObject[];
 
     constructor(engine) {
         if (SceneManager.instance == null) {
@@ -21,73 +22,21 @@ export class SceneManager {
         }
         this.engine = engine;
         this.scene = new BABYLON.Scene(engine);
-        this.objects = new Array<CBObject>();
-    }
-
-    public Start() {
-        new GameManager(this.scene);
-
+        new GameManager();
+        new ObjectiveManager();
+        this.LoadScene(defaultScene);
         this.engine.runRenderLoop(() => {
-
-            this.objects.forEach(object => {
-                object.Update();
-            });
-
             this.scene.render();
-
-            this.objects.forEach(object => {
-                object.LateUpdate();
-            });
         });
-
     }
 
     public async LoadScene(sceneFunction: (scene: BABYLON.Scene) => void) {
         this.engine.displayLoadingUI();
         this.scene.dispose();
         this.scene = new BABYLON.Scene(this.engine);
-        this.CreateEnvironment(this.scene);
-        sceneFunction(this.scene);
+        new Environment(this.scene, sceneFunction);
         await this.scene.whenReadyAsync();
-        this.PostEnvironment(this.scene);
         this.engine.hideLoadingUI();
-    }
-
-    private CreateEnvironment(scene: BABYLON.Scene) {
-        // These are the default components that EVERY scene should have.
-
-        scene.clearColor = new BABYLON.Color4(0.8, 0.8, 0.8, 1);
-        scene.shadowsEnabled = true;
-        scene.collisionsEnabled = true;
-        scene.environmentTexture = BABYLON.CubeTexture.CreateFromPrefilteredData("http://localhost:5000/skybox/Country.env", scene);
-
-        const gravityVector = new BABYLON.Vector3(0, -9.81, 0);
-        scene.enablePhysics(gravityVector, new BABYLON.CannonJSPlugin());
-
-        const glow = new BABYLON.GlowLayer("glow", scene);
-        glow.intensity = 0.5;
-
-        const camera = new BABYLON.ArcRotateCamera("mainCamera", 0, 0.8, 10, BABYLON.Vector3.Zero(), scene);
-        camera.lowerRadiusLimit = 3;
-        camera.upperRadiusLimit = 30;
-        camera.lowerBetaLimit = 0;
-        camera.upperBetaLimit = Math.PI / 2;
-        camera.inertia = 0;
-        camera.wheelPrecision = 5;
-        
-        const hemiLight = new BABYLON.HemisphericLight("hemiLight", new BABYLON.Vector3(1, 1, 0), scene);
-        hemiLight.diffuse = new BABYLON.Color3(0.95, 0.98, 0.97);
-        hemiLight.intensity = 0.4;
-
-        const directionalLight = new BABYLON.DirectionalLight("directionalLight", new BABYLON.Vector3(-30, -40, 0), scene);
-        directionalLight.diffuse = new BABYLON.Color3(1, 1, 1);
-        directionalLight.intensity = 1;
-        directionalLight.shadowMinZ = 0;
-        directionalLight.shadowMaxZ = 100;
-    }
-
-    private PostEnvironment(scene: BABYLON.Scene) {
-
     }
 }
 
