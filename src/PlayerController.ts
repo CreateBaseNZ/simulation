@@ -1,15 +1,18 @@
 import * as BABYLON from '@babylonjs/core';
+import { ICrowd } from 'babylonjs/Navigation/INavigationEngine';
 import { SceneManager } from "./SceneManager";
 
 export class PlayerController {
 
     private _navigationPlugin: BABYLON.RecastJSPlugin;
 
-    constructor(scene, playerMesh) {
+    constructor(scene) {
         this._navigationPlugin = new BABYLON.RecastJSPlugin();
 
         this.BakeNavMesh(scene);
+    }
 
+    public CreateNavAgent(scene: BABYLON.Scene) {
         let crowd = this._navigationPlugin.createCrowd(1, 0.35, scene);
         let agentParameters = {
             radius: 0.35,
@@ -23,8 +26,13 @@ export class PlayerController {
 
         let transform = new BABYLON.TransformNode("agent");
         crowd.addAgent(BABYLON.Vector3.Zero(), agentParameters, transform);
-        playerMesh.parent = transform;
 
+        this.CreateAgentControls(crowd, scene);
+
+        return transform;
+    }
+
+    private CreateAgentControls(crowd: BABYLON.ICrowd, scene: BABYLON.Scene) {
         let startingPoint;
         let getGroundPosition = () => {
             let pickinfo = scene.pick(scene.pointerX, scene.pointerY);
@@ -53,10 +61,6 @@ export class PlayerController {
                     break;
             }
         });
-
-        let camera = scene.getCameraByName("mainCamera");
-        camera = this.CreateCameraControls(camera);
-        camera.parent = playerMesh;
     }
 
     private BakeNavMesh(scene: BABYLON.Scene) {
@@ -86,7 +90,7 @@ export class PlayerController {
         this._navigationPlugin.createNavMesh(navMeshList, parameters);
     }
 
-    private CreateCameraControls(camera: BABYLON.Camera) {
+    public CreateCameraControls(camera: BABYLON.Camera) {
         camera.inputs.remove(camera.inputs.attached.pointers);
         let pointerInput = new BABYLON.ArcRotateCameraPointersInput();
         pointerInput.panningSensibility = 0;
@@ -98,5 +102,4 @@ export class PlayerController {
 
         return camera;
     }
-
 }

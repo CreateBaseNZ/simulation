@@ -28,14 +28,6 @@ export class Environment {
         const glow = new BABYLON.GlowLayer("glow", scene);
         glow.intensity = 0.5;
 
-        const camera = new BABYLON.ArcRotateCamera("mainCamera", 0, 0.8, 10, BABYLON.Vector3.Zero(), scene);
-        camera.lowerRadiusLimit = 3;
-        camera.upperRadiusLimit = 30;
-        camera.lowerBetaLimit = 0;
-        camera.upperBetaLimit = Math.PI / 2;
-        camera.inertia = 0;
-        camera.wheelPrecision = 5;
-
         const hemiLight = new BABYLON.HemisphericLight("hemiLight", new BABYLON.Vector3(1, 1, 0), scene);
         hemiLight.diffuse = new BABYLON.Color3(0.95, 0.98, 0.97);
         hemiLight.intensity = 0.5;

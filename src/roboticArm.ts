@@ -75,19 +75,6 @@ export class RoboticArm extends Robot {
                 this._arm2.physicsImpostor.setScalingUpdated();
                 this._arm3.physicsImpostor = new BABYLON.PhysicsImpostor(this._arm3, BABYLON.PhysicsImpostor.BoxImpostor, { mass: 0.001 }, this._scene);
                 this._arm3.physicsImpostor.setScalingUpdated();
-                let outline = (obj: BABYLON.AbstractMesh) => {
-                    obj.renderOutline = true;
-                    obj.outlineWidth = 0.5;
-                    obj.outlineColor = BABYLON.Color3.Black();
-                    obj.id = "robot";
-                }
-
-                outline(this._baseBottom);
-                outline(this._baseLid);
-                outline(this._arm1);
-                outline(this._arm2);
-                outline(this._arm3);
-
 
                 this._baseBottom.parent = this;
 
@@ -122,7 +109,7 @@ export class RoboticArm extends Robot {
                     collision: false,
                 });
 
-                
+
 
                 this._arm2.physicsImpostor.addJoint(this._arm3.physicsImpostor, this.joint1);
                 this._arm1.physicsImpostor.addJoint(this._arm2.physicsImpostor, this.joint2);
@@ -145,25 +132,19 @@ export class RoboticArm extends Robot {
     }
 
     public setServoAngle(servo: number, angle: number) {
-        function clamp(val, min, max) {
+        let clamp = (val, min, max) => {
             return val > max ? max : val < min ? min : val;
         }
         angle = clamp(angle, 0, 180);
 
         if (this._baseLid != null && this._arm1 != null && this._arm2 != null && this._arm3 != null) {
             let baseAngle = BABYLON.Tools.ToDegrees(this._baseLid.rotationQuaternion.toEulerAngles().y);
-
             let arm1Angle = BABYLON.Tools.ToDegrees(BABYLON.Vector3.GetAngleBetweenVectors(this._baseLid.up, this._arm1.up, this._baseLid.right));
-
             let arm2Angle = BABYLON.Tools.ToDegrees(BABYLON.Vector3.GetAngleBetweenVectors(this._arm1.up, this._arm2.up, this._arm2.right));
-
             let arm3Angle = BABYLON.Tools.ToDegrees(BABYLON.Vector3.GetAngleBetweenVectors(this._arm2.up, this._arm3.up, this._arm3.right));
 
             this.servoAngle = [baseAngle, arm1Angle, arm2Angle, arm3Angle].map(x => x + 90);
 
-            if (servo == 3) {
-                //console.log(arm1Angle);
-            }
             var error = angle - this.servoAngle[servo]
             if (Math.abs(error) > 1) {
                 let speed = -Math.sign(error) * 1.5;
