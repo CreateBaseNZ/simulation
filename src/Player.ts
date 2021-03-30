@@ -1,10 +1,12 @@
 import * as BABYLON from '@babylonjs/core';
 import { PlayerController } from "./PlayerController";
+import { Ui } from './Ui';
 
 export class Player {
 
     public mesh: BABYLON.AbstractMesh;
-    private camera: BABYLON.Camera;
+    private _camera: BABYLON.Camera;
+    private _ui;
 
     constructor(scene) {
         let capsuleOptions = { subdivisions: 10, tessellation: 10, height: 1.7, radius: 0.35, capSubdivisions: 10 };
@@ -19,12 +21,12 @@ export class Player {
         camera.inertia = 0;
         camera.wheelPrecision = 5;
         camera.parent = mesh;
-
         let controller = new PlayerController(scene);
         mesh.parent = controller.CreateNavAgent(scene);
         controller.CreateCameraControls(camera);
 
-        this.camera = camera;
+        this._ui = new Ui(scene);
+        this._camera = camera;
         this.mesh = mesh;
     }
 
