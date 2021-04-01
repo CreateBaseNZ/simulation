@@ -1,5 +1,5 @@
 {
-  "name": "Simulator",
+  "name": "simulator",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -19,10 +19,10 @@
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.1.0",
     "style-loader": "^2.0.0",
-    "ts-loader": "^8.0.17",
+    "ts-loader": "^8.1.0",
     "typescript": "^4.2.2",
     "webpack": "^5.24.2",
-    "webpack-cli": "^4.5.0",
+    "webpack-cli": "^4.6.0",
     "webpack-dev-server": "^3.11.2"
   },
   "dependencies": {
@@ -33,6 +33,7 @@
     "intel-hex": "^0.1.2",
     "monaco-editor": "^0.22.3",
     "monaco-editor-webpack-plugin": "^3.0.0",
-    "path": "^0.12.7"
+    "path": "^0.12.7",
+    "source-map-loader": "^2.0.1"
   }
 }
