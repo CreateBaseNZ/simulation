@@ -1,7 +1,6 @@
-import * as BABYLON from '@babylonjs/core';
+import * as BABYLON from "@babylonjs/core";
 import "@babylonjs/loaders";
-import { _ThinInstanceDataStorage } from 'babylonjs/Meshes/mesh';
-import { Robot } from './robot';
+import { Robot } from "./robot";
 
 export class RoboticArm extends Robot {
 
@@ -24,6 +23,15 @@ export class RoboticArm extends Robot {
         this._arm2 = new BABYLON.AbstractMesh("arm2", scene);
         this._arm3 = new BABYLON.AbstractMesh("arm3", scene);
         this._createObject();
+
+        scene.executeWhenReady(() => {
+            scene.registerAfterRender(() => {
+                this.setServoAngle(0, this.arduino.angleB[0]);
+                this.setServoAngle(1, this.arduino.angleB[1]);
+                this.setServoAngle(2, this.arduino.angleB[2]);
+                this.setServoAngle(3, this.arduino.angleB[3]);
+            });
+        });
     }
 
     private _createObject() {
@@ -126,40 +134,32 @@ export class RoboticArm extends Robot {
         createNode("RoboticArm");
     }
 
-    public setupHierarchy() {
-
-
-    }
-
     public setServoAngle(servo: number, angle: number) {
         let clamp = (val, min, max) => {
             return val > max ? max : val < min ? min : val;
         }
         angle = clamp(angle, 0, 180);
 
-        if (this._baseLid != null && this._arm1 != null && this._arm2 != null && this._arm3 != null) {
-            let baseAngle = BABYLON.Tools.ToDegrees(this._baseLid.rotationQuaternion.toEulerAngles().y);
-            let arm1Angle = BABYLON.Tools.ToDegrees(BABYLON.Vector3.GetAngleBetweenVectors(this._baseLid.up, this._arm1.up, this._baseLid.right));
-            let arm2Angle = BABYLON.Tools.ToDegrees(BABYLON.Vector3.GetAngleBetweenVectors(this._arm1.up, this._arm2.up, this._arm2.right));
-            let arm3Angle = BABYLON.Tools.ToDegrees(BABYLON.Vector3.GetAngleBetweenVectors(this._arm2.up, this._arm3.up, this._arm3.right));
+        let baseAngle = BABYLON.Tools.ToDegrees(this._baseLid.rotationQuaternion.toEulerAngles().y);
+        let arm1Angle = BABYLON.Tools.ToDegrees(BABYLON.Vector3.GetAngleBetweenVectors(this._baseLid.up, this._arm1.up, this._baseLid.right));
+        let arm2Angle = BABYLON.Tools.ToDegrees(BABYLON.Vector3.GetAngleBetweenVectors(this._arm1.up, this._arm2.up, this._arm2.right));
+        let arm3Angle = BABYLON.Tools.ToDegrees(BABYLON.Vector3.GetAngleBetweenVectors(this._arm2.up, this._arm3.up, this._arm3.right));
 
-            this.servoAngle = [baseAngle, arm1Angle, arm2Angle, arm3Angle].map(x => x + 90);
+        this.servoAngle = [baseAngle, arm1Angle, arm2Angle, arm3Angle].map(x => x + 90);
 
-            var error = angle - this.servoAngle[servo]
-            if (Math.abs(error) > 1) {
-                let speed = -Math.sign(error) * 1.5;
-                if (servo == 0) { this.joint4.setMotor(speed); }
-                else if (servo == 1) { this.joint3.setMotor(speed); }
-                else if (servo == 2) { this.joint2.setMotor(speed); }
-                else if (servo == 3) { this.joint1.setMotor(speed); }
-            }
-            else {
-                if (servo == 0) { this.joint4.setMotor(0); }
-                else if (servo == 1) { this.joint3.setMotor(0); }
-                else if (servo == 2) { this.joint2.setMotor(0); }
-                else if (servo == 3) { this.joint1.setMotor(0); }
-            }
+        var error = angle - this.servoAngle[servo]
+        if (Math.abs(error) > 1) {
+            let speed = -Math.sign(error) * 1.5;
+            if (servo == 0) { this.joint4.setMotor(speed); }
+            else if (servo == 1) { this.joint3.setMotor(speed); }
+            else if (servo == 2) { this.joint2.setMotor(speed); }
+            else if (servo == 3) { this.joint1.setMotor(speed); }
+        }
+        else {
+            if (servo == 0) { this.joint4.setMotor(0); }
+            else if (servo == 1) { this.joint3.setMotor(0); }
+            else if (servo == 2) { this.joint2.setMotor(0); }
+            else if (servo == 3) { this.joint1.setMotor(0); }
         }
     }
-
 }

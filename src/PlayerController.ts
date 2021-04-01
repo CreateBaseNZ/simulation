@@ -47,7 +47,7 @@ export class PlayerController {
             if (startingPoint) {
                 var agents = crowd.getAgents();
                 agents.forEach(agent => {
-                    crowd.agentGoto(agent, this._navigationPlugin.getClosestPoint(startingPoint));
+                    crowd.agentGoto(agent, startingPoint);
                 });
             }
         }
@@ -64,15 +64,15 @@ export class PlayerController {
     }
 
     private BakeNavMesh(scene: BABYLON.Scene) {
-        let parameters = {
+        var parameters = {
             cs: 0.2,
             ch: 0.2,
             walkableSlopeAngle: 35,
             walkableHeight: 1,
             walkableClimb: 1,
             walkableRadius: 1,
-            maxEdgeLen: 1,
-            maxSimplificationError: 1.3,
+            maxEdgeLen: 12.,
+            maxSimplificationError: 0.1,
             minRegionArea: 8,
             mergeRegionArea: 20,
             maxVertsPerPoly: 6,
@@ -88,6 +88,13 @@ export class PlayerController {
         });
 
         this._navigationPlugin.createNavMesh(navMeshList, parameters);
+
+        let navmeshdebug = this._navigationPlugin.createDebugNavMesh(scene);
+        var matdebug = new BABYLON.StandardMaterial('matdebug', scene);
+        matdebug.diffuseColor = new BABYLON.Color3(0.1, 0.2, 1);
+        matdebug.alpha = 0.2;
+        navmeshdebug.position .y += 0.01;
+        navmeshdebug.material = matdebug;
     }
 
     public CreateCameraControls(camera: BABYLON.Camera) {

@@ -188,7 +188,6 @@ export class SideBar {
         robotBtn.onPointerDownObservable.add(() => {
             let robot = new RoboticArm("roboticArm", UIManager.instance.scene);
             setTimeout(() => {
-                robot.setupHierarchy();
                 UIManager.instance.robots.push(robot);
             }, 50);
         });

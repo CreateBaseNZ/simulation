@@ -44,6 +44,8 @@ export class App {
         canvas = document.createElement("canvas");
         canvas.style.height = "100%";
         canvas.style.width = "100%";
+        canvas.style.position = "absolute";
+        canvas.style.right = "0px";
         canvas.style.outlineStyle = "none";
         canvas.id = "gameCanvas";
 
