@@ -1,8 +1,6 @@
 import * as BABYLON from '@babylonjs/core';
 import * as GUI from "@babylonjs/gui";
-import { Camera } from 'babylonjs/Cameras/index';
 import * as monaco from 'monaco-editor';
-import { ObjectiveManager } from './ObjectiveManager';
 import { SceneManager } from './SceneManager';
 
 export class Ui {
@@ -99,7 +97,7 @@ export class Ui {
 
 }
 
-const DEFAULT_TEXT = `Coding tutorial for dummies` 
+const DEFAULT_TEXT = `Project contents goes here` 
 const DEFAULT_CODE = 
 `for(int i = 0; i < 10; i++){
     if(i == 2){

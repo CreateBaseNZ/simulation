@@ -1,6 +1,4 @@
 import * as BABYLON from '@babylonjs/core';
-import { ICrowd } from 'babylonjs/Navigation/INavigationEngine';
-import { SceneManager } from "./SceneManager";
 
 export class PlayerController {
 

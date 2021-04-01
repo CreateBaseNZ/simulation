@@ -1,6 +1,6 @@
 import * as BABYLON from "@babylonjs/core";
 import "@babylonjs/loaders";
-import { Robot } from "./robot";
+import { Robot } from "./Robot";
 
 export class RoboticArm extends Robot {
 

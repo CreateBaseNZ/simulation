@@ -3,7 +3,7 @@ import * as BABYLON from '@babylonjs/core';
 import "@babylonjs/loaders";
 import { Arduino } from './arduino';
 import * as monaco from 'monaco-editor'
-import { Robot } from "./robot";
+import { Robot } from "./Robot";
 
 const DEFAULT_TEXT = `Select a Robot to view its Code`;
 

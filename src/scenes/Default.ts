@@ -1,5 +1,4 @@
 import * as BABYLON from "@babylonjs/core";
-import { FresnelParameters } from "babylonjs/Materials/fresnelParameters";
 import { Player } from "../Player";
 import { RoboticArm } from "../RoboticArm";
 import { Star } from "../Star";

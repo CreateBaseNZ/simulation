@@ -1,6 +1,4 @@
 import * as BABYLON from '@babylonjs/core';
-import { ActionManager } from 'babylonjs/Actions/actionManager';
-import { VertexBuffer } from 'babylonjs/Meshes/buffer';
 import { Objective as Objective } from './Objective';
 import { SceneManager } from "./SceneManager";
 

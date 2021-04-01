@@ -1,5 +1,4 @@
 import * as BABYLON from '@babylonjs/core';
-import { Scene } from 'babylonjs/index';
 import { GameManager } from './GameManager';
 import { ObjectiveManager } from './ObjectiveManager';
 import { SceneManager } from "./SceneManager";
