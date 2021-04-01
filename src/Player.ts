@@ -6,7 +6,7 @@ export class Player {
 
     public mesh: BABYLON.AbstractMesh;
     private _camera: BABYLON.Camera;
-    private _ui;
+    public ui;
 
     constructor(scene) {
         let capsuleOptions = { subdivisions: 10, tessellation: 10, height: 1.7, radius: 0.35, capSubdivisions: 10 };
@@ -25,7 +25,7 @@ export class Player {
         mesh.parent = controller.CreateNavAgent(scene);
         controller.CreateCameraControls(camera);
 
-        this._ui = new Ui(scene);
+        this.ui = new Ui(scene);
         this._camera = camera;
         this.mesh = mesh;
     }

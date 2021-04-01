@@ -1,8 +1,6 @@
 import * as BABYLON from '@babylonjs/core';
-import { defaultScene } from "./scenes/Default";
-import { SceneManager } from "./SceneManager";
 import { Objective } from './Objective';
-import { Player } from './Player';
+import * as GUI from "@babylonjs/gui";
 
 export class ObjectiveManager {
 
@@ -21,8 +19,31 @@ export class ObjectiveManager {
         this._objectives = new Array<Objective>();
     }
 
+    public NextObjective(advancedTexture: GUI.AdvancedDynamicTexture = null) {
+        if (this._objectives[0].GetActive() == false) {
+            this._objectives[0].SetActive(true, advancedTexture);
+        }
+        else {
+            this._objectives[0].SetActive(false, advancedTexture);
+            this._objectives[0].mesh.dispose();
+            this._objectives.splice(0, 1);
+            if (this._objectives.length > 0) {
+                this._objectives[0].SetActive(true, advancedTexture);
+            }
+            else {
+                console.log("You Win!");
+            }
+        }
+    }
+
     public AddObjective(objective: Objective) {
         this._objectives.push(objective);
+    }
+
+    public SetAllObjectivesActive(advancedTexture: GUI.AdvancedDynamicTexture = null) {
+        this._objectives.forEach(objective => {
+            objective.SetActive(true, advancedTexture);
+        });
     }
 
     public GetObjectives() {

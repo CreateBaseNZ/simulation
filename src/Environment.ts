@@ -41,6 +41,7 @@ export class Environment {
 
     private async EvaluateEnvironment(scene: BABYLON.Scene) {
         await scene.whenReadyAsync();
+        ObjectiveManager.instance.NextObjective(this.player.ui.advancedTexture);
         ObjectiveManager.instance.GetObjectives().forEach(objective => {
             this.player.mesh.actionManager.registerAction(
                 new BABYLON.ExecuteCodeAction(
@@ -49,7 +50,9 @@ export class Environment {
                         parameter: objective
                     },
                     () => {
-                        objective.mesh.dispose();
+                        if (objective.GetActive()) {
+                            ObjectiveManager.instance.NextObjective(this.player.ui.advancedTexture);
+                        }
                     },
                 ),
             );

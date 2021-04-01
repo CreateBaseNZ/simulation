@@ -27,6 +27,7 @@ export class Star extends Objective {
             mesh.receiveShadows = true;
             mesh.position = position;
             mesh.scaling = new BABYLON.Vector3(0.006, 0.006, -0.006);
+            mesh.isVisible = false;
             this.mesh = mesh;
         });
 

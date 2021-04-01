@@ -7,18 +7,21 @@ import { Star } from "../Star";
 export let defaultScene = (scene: BABYLON.Scene) => {
 
     // Create ground
-    const ground = BABYLON.MeshBuilder.CreateBox("ground", { width: 30, height: 1, depth: 30 }, scene);
+    const ground = BABYLON.MeshBuilder.CreateBox("ground", { width: 10, height: 1, depth: 10 }, scene);
     ground.position.y -= 1;
     ground.material = null;
     ground.receiveShadows = true; // Shadows are disabled by default
-    
+
     // Create roboticArm
     new RoboticArm('roboticArm', scene);
 
-    new Star(scene, new BABYLON.Vector3(2, 0.3, 1.5));
-    new Star(scene, new BABYLON.Vector3(0, 0.3, 1.5));
-    new Star(scene, new BABYLON.Vector3(-1.6, 0.3, 0));
-    new Star(scene, new BABYLON.Vector3(0, 0.3, -1.8));
+    function RandomNumber(min: number, max: number) {
+        return (Math.random() * (max - min) + min);
+    };
+
+    for (let i = 0; i < 5; i++) {
+        new Star(scene, new BABYLON.Vector3(RandomNumber(-5, 5), 0.3, RandomNumber(-5, 5)));
+    }
 
     let createBox = (color: BABYLON.Color3, position: BABYLON.Vector3) => {
         let box = BABYLON.MeshBuilder.CreateBox("box", { size: 1 }, scene);

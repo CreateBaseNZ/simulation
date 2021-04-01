@@ -2,6 +2,7 @@ import * as BABYLON from '@babylonjs/core';
 import * as GUI from "@babylonjs/gui";
 import { Camera } from 'babylonjs/Cameras/index';
 import * as monaco from 'monaco-editor';
+import { ObjectiveManager } from './ObjectiveManager';
 import { SceneManager } from './SceneManager';
 
 export class Ui {
@@ -39,9 +40,6 @@ export class Ui {
         this.CreateEditor("20%", sidePanel);
         this.CreateEditor("70%", sidePanel);
         this.CreateEditor("170%", sidePanel);
-        
-
-
 
         menuBtn.onPointerDownObservable.add(() => {
             editorOpened = !editorOpened;
@@ -57,10 +55,10 @@ export class Ui {
             }
         });
 
-
+        this.advancedTexture = advancedTexture;
     }
 
-    CreateSidePanel() {
+    private CreateSidePanel() {
         const sidePanel = document.createElement("div");
         sidePanel.style.height = "100%";
         sidePanel.style.width = "40%";
@@ -75,7 +73,7 @@ export class Ui {
         return sidePanel;
     }
 
-    CreateEditor(top: string, sidePanel: HTMLDivElement) {
+    private CreateEditor(top: string, sidePanel: HTMLDivElement) {
         const editor = document.createElement("div");
         editor.style.height = "20%";
         editor.style.width = "95%";
