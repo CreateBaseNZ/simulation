@@ -32,6 +32,15 @@ body {
     left: 0;
 }
 
+.text {
+    margin: 20px;
+}
+
+.editor {
+    height: 20%;
+    margin: 0px 20px;
+}
+
 .compile-button {
     height: 20px;
     width: 60px;

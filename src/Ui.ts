@@ -74,15 +74,14 @@ export class Ui {
 
     private CreateText(sidePanel: HTMLElement, content: string) {
         const text = document.createElement("div");
-        text.style.margin = "20px";
+        text.className = "text"
         text.textContent = content;
         sidePanel.appendChild(text);
     }
 
     private CreateEditor(sidePanel: HTMLElement, content: string, readOnlyFlag: boolean = false) {
         const editor = document.createElement("div");
-        editor.style.height = "20%";
-        editor.style.margin = "0px 20px";
+        editor.className = "editor"
         editor.id = "editor" + this._editors.length;
         sidePanel.appendChild(editor);
 
