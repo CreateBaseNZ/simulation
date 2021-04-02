@@ -1,0 +1,40 @@
+html {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+#gameCanvas {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    outline-style: none;
+    right: 0;
+}
+
+#sidePanel {
+    height: 100%;
+    width: 40%;
+    position: absolute;
+    outline-style: none;
+    overflow: scroll;
+    visibility: hidden;
+    left: 0;
+}
+
+.compile-button {
+    height: 20px;
+    width: 60px;
+    margin: 0px 20px;
+    padding: 0px;
+}

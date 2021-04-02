@@ -19,8 +19,8 @@ export class Ui {
         const advancedTexture = GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
         advancedTexture.layer.layerMask = 2;
 
-        const editorBtn = GUI.Button.CreateSimpleButton("editor", "Editor");
-        editorBtn.width = "100px"
+        const editorBtn = GUI.Button.CreateSimpleButton("editor", "Show Editor");
+        editorBtn.width = "120px"
         editorBtn.height = "40px";
         editorBtn.color = "white";
         editorBtn.verticalAlignment = GUI.Control.VERTICAL_ALIGNMENT_TOP;
@@ -34,81 +34,97 @@ export class Ui {
         //this handles interactions with the start button attached to the scene
         let editorOpened = false;
         let gameCanvas = (document.getElementById("gameCanvas"));
-        let sidePanel = this.CreateSidePanel();
-        sidePanel.innerHTML = DEFAULT_TEXT;
-        this.CreateEditor("20%", sidePanel);
-        this.CreateEditor("70%", sidePanel);
-        this.CreateEditor("170%", sidePanel);
+        let sidePanel = document.getElementById("sidePanel");
 
         editorBtn.onPointerDownObservable.add(() => {
             editorOpened = !editorOpened;
             if (editorOpened) {
                 sidePanel.style.visibility = "visible";
                 gameCanvas.style.width = "60%";
+                editorBtn.textBlock.text = "Hide Guide";
                 SceneManager.instance.engine.resize();
             }
             else {
                 sidePanel.style.visibility = "hidden";
                 gameCanvas.style.width = "100%";
+                editorBtn.textBlock.text = "Show Guide";
                 SceneManager.instance.engine.resize();
             }
         });
 
         this.advancedTexture = advancedTexture;
 
-        const {guide} = data;
-        guide.forEach(cont => {
-            console.log(cont.type);
-            console.log(cont.content);
-            console.log("------");
+        const { guide } = data;
+        guide.forEach(element => {
+            switch (element.type) {
+                case "text":
+                    this.CreateText(sidePanel, element.content)
+                    break;
+                case "editor":
+                    this.CreateEditor(sidePanel, element.content);
+                    break;
+                case "editor-image":
+                    this.CreateEditor(sidePanel, element.content, true);
+                    break;
+                default:
+                    break;
+            }
         });
     }
 
-    private CreateSidePanel() {
-        const sidePanel = document.createElement("div");
-        sidePanel.style.height = "100%";
-        sidePanel.style.width = "40%";
-        sidePanel.style.position = "absolute";
-        sidePanel.style.top = "0px";
-        sidePanel.style.left = "0px";
-        sidePanel.style.visibility = "hidden";
-        sidePanel.style.overflow = "scroll";
-        sidePanel.id = "sidePanel";
-        document.body.appendChild(sidePanel);
-
-        return sidePanel;
+    private CreateText(sidePanel: HTMLElement, content: string) {
+        const text = document.createElement("div");
+        text.style.margin = "20px";
+        text.textContent = content;
+        sidePanel.appendChild(text);
     }
 
-    private CreateEditor(top: string, sidePanel: HTMLDivElement) {
+    private CreateEditor(sidePanel: HTMLElement, content: string, readOnlyFlag: boolean = false) {
         const editor = document.createElement("div");
         editor.style.height = "20%";
-        editor.style.width = "95%";
-        editor.style.position = "absolute";
-        editor.style.top = top;
-        editor.style.left = ((100 - parseFloat(editor.style.width)) / 2) + "%";
-        editor.id = "editor";
-
+        editor.style.margin = "0px 20px";
+        editor.id = "editor" + this._editors.length;
         sidePanel.appendChild(editor);
 
-        this._editors.push(monaco.editor.create(editor, {
-            value: DEFAULT_CODE,
+        let monacoEditor = monaco.editor.create(editor, {
+            value: content,
             language: "cpp",
             roundedSelection: true,
             scrollBeyondLastLine: false,
-            readOnly: false,
+            readOnly: readOnlyFlag,
             minimap: { enabled: false },
             theme: "hc-black",
-        }));
+        });
 
-        return editor;
+        if (!readOnlyFlag) {
+            const button = document.createElement("button");
+            button.className = "compile-button"
+            button.textContent = "Compile";
+            button.id = "compile" + this._editors.length;
+            button.addEventListener("click", () => {
+                let code = STARTER_CODE;
+                let id = parseInt(button.id.replace(/^\D+/g, ''));
+                for (let i = 0; i <= id; i++) {
+                    code = code.concat(this._editors[i].getModel().getValue());
+                }
+                code = code.concat("}");
+                console.log(code);
+            });
+            sidePanel.appendChild(button);
+
+            this._editors.push(monacoEditor);
+        }
     }
-
 }
 
-const DEFAULT_TEXT = `Project contents goes here` 
-const DEFAULT_CODE = 
-`for(int i = 0; i < 10; i++){
-    if(i == 2){
-        Serial.print(i);
-    }
-}`
+const STARTER_CODE = `
+#include <Servo.h>
+void setup() {
+    myservo.attach(2);
+    myservo.attach(3);
+    myservo.attach(4);
+    myservo.attach(5);
+}
+
+void loop() {
+`
