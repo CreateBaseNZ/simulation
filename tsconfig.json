@@ -6,7 +6,14 @@
     "noImplicitAny": false,
     "sourceMap": true,
     "preserveConstEnums": true,
-    "lib": ["webworker", "es6", "dom", "scripthost"],
-    "rootDir": "src"
+    "lib": [
+      "webworker",
+      "es6",
+      "dom",
+      "scripthost"
+    ],
+    "rootDir": "src",
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
   }
 }

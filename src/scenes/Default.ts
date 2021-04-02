@@ -6,8 +6,9 @@ import { Star } from "../Star";
 export let defaultScene = (scene: BABYLON.Scene) => {
 
     // Create ground
-    const ground = BABYLON.MeshBuilder.CreateBox("ground", { width: 10, height: 1, depth: 10 }, scene);
-    ground.position.y -= 1;
+    const ground = BABYLON.MeshBuilder.CreateBox("ground", { size: 1 }, scene);
+    ground.scaling = new BABYLON.Vector3(15, 2, 15);
+    ground.position.y -= ground.scaling.y / 2;
     ground.material = null;
     ground.receiveShadows = true; // Shadows are disabled by default
 
@@ -22,18 +23,18 @@ export let defaultScene = (scene: BABYLON.Scene) => {
         new Star(scene, new BABYLON.Vector3(RandomNumber(-5, 5), 0.3, RandomNumber(-5, 5)));
     }
 
-    let createBox = (color: BABYLON.Color3, position: BABYLON.Vector3) => {
-        let box = BABYLON.MeshBuilder.CreateBox("box", { size: 1 }, scene);
-        box.position = position;
+    let createBox = (x: number, y: number, z: number) => {
+        let box = BABYLON.MeshBuilder.CreateBox("box", { size: 0.7 }, scene);
+        box.position = new BABYLON.Vector3(x, y, z);
 
         var boxMat = new BABYLON.StandardMaterial("boxMat", scene);
-        boxMat.diffuseColor = color;
+        boxMat.diffuseColor = BABYLON.Color3.Green();
         box.material = boxMat;
     }
 
-    createBox(BABYLON.Color3.Green(), new BABYLON.Vector3(3, 0, 0));
-    createBox(BABYLON.Color3.Green(), new BABYLON.Vector3(3, 0, 3));
-    createBox(BABYLON.Color3.Green(), new BABYLON.Vector3(-3, 0, 3));
-    createBox(BABYLON.Color3.Green(), new BABYLON.Vector3(-3, 0, -3));
-    createBox(BABYLON.Color3.Red(), new BABYLON.Vector3(3, 0, -3));
+    createBox(3, 0.35, 0);
+    createBox(3, 0.35, 3);
+    createBox(-3, 0.35, 3);
+    createBox(-3, 0.35, -3);
+    createBox(3, 0.35, -3);
 }

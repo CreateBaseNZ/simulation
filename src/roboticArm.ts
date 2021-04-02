@@ -85,6 +85,7 @@ export class RoboticArm extends Robot {
                 this._arm3.physicsImpostor.setScalingUpdated();
 
                 this._baseBottom.parent = this;
+                this._baseBottom.position.y += 0.5;
 
                 this.joint1 = new BABYLON.MotorEnabledJoint(BABYLON.PhysicsJoint.HingeJoint, {
                     mainPivot: new BABYLON.Vector3(0, 0.565, -0.03),

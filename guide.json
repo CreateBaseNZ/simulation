@@ -1,0 +1,16 @@
+{
+    "guide": [
+        {
+            "type": "text",
+            "content": "Lorem Ipsum"
+        },
+        {
+            "type": "editor-image",
+            "content": "int x = 4; int y = 4;"
+        },
+        {
+            "type": "editor",
+            "content": ""
+        }
+    ]
+}

@@ -2,6 +2,7 @@ import * as BABYLON from '@babylonjs/core';
 import * as GUI from "@babylonjs/gui";
 import * as monaco from 'monaco-editor';
 import { SceneManager } from './SceneManager';
+import * as data from "../guide.json";
 
 export class Ui {
 
@@ -18,17 +19,17 @@ export class Ui {
         const advancedTexture = GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
         advancedTexture.layer.layerMask = 2;
 
-        const menuBtn = GUI.Button.CreateSimpleButton("editor", "Editor");
-        menuBtn.width = "100px"
-        menuBtn.height = "40px";
-        menuBtn.color = "white";
-        menuBtn.verticalAlignment = GUI.Control.VERTICAL_ALIGNMENT_TOP;
-        menuBtn.horizontalAlignment = GUI.Control.HORIZONTAL_ALIGNMENT_LEFT;
-        menuBtn.top = "2%";
-        menuBtn.left = "2%";
-        menuBtn.background = "Blue";
-        menuBtn.zIndex = 1;
-        advancedTexture.addControl(menuBtn);
+        const editorBtn = GUI.Button.CreateSimpleButton("editor", "Editor");
+        editorBtn.width = "100px"
+        editorBtn.height = "40px";
+        editorBtn.color = "white";
+        editorBtn.verticalAlignment = GUI.Control.VERTICAL_ALIGNMENT_TOP;
+        editorBtn.horizontalAlignment = GUI.Control.HORIZONTAL_ALIGNMENT_LEFT;
+        editorBtn.top = "2%";
+        editorBtn.left = "2%";
+        editorBtn.background = "Blue";
+        editorBtn.zIndex = 1;
+        advancedTexture.addControl(editorBtn);
 
         //this handles interactions with the start button attached to the scene
         let editorOpened = false;
@@ -39,7 +40,7 @@ export class Ui {
         this.CreateEditor("70%", sidePanel);
         this.CreateEditor("170%", sidePanel);
 
-        menuBtn.onPointerDownObservable.add(() => {
+        editorBtn.onPointerDownObservable.add(() => {
             editorOpened = !editorOpened;
             if (editorOpened) {
                 sidePanel.style.visibility = "visible";
@@ -54,6 +55,13 @@ export class Ui {
         });
 
         this.advancedTexture = advancedTexture;
+
+        const {guide} = data;
+        guide.forEach(cont => {
+            console.log(cont.type);
+            console.log(cont.content);
+            console.log("------");
+        });
     }
 
     private CreateSidePanel() {
