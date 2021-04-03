@@ -1,13 +1,20 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>Arduino Simulator</title>
-        <link rel="stylesheet" type="text.css" href="index.css">
-        <script src="https://preview.babylonjs.com/recast.js"></script>
-    </head>
-    <body>
-        <canvas id="gameCanvas"></canvas>
-        <div id="sidePanel"></div>
-    </body>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Arduino Simulator</title>
+    <link rel="stylesheet" type="text.css" href="index.css">
+    <script src="https://preview.babylonjs.com/recast.js"></script>
+</head>
+
+<body>
+    <div id="sidePanel" class="open">
+        <div id="guide"></div>
+        <div id="status"></div>
+        <div id="terminal"></div>
+    </div>
+    <canvas id="gameCanvas" class="open"></canvas>
+</body>
+
 </html>

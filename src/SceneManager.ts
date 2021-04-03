@@ -13,6 +13,8 @@ export class SceneManager {
     public engine: BABYLON.Engine;
     public scene: BABYLON.Scene;
 
+    private _resizeFunction;
+
     constructor(engine) {
         if (SceneManager.instance == null) {
             SceneManager.instance = this;
@@ -37,6 +39,14 @@ export class SceneManager {
         new Environment(this.scene, sceneFunction);
         await this.scene.whenReadyAsync();
         this.engine.hideLoadingUI();
+    }
+
+    public EnableResize() {
+        this._resizeFunction = setInterval(() => { this.engine.resize(); }, 20);
+    }
+
+    public DisableResize() {
+        clearInterval(this._resizeFunction);
     }
 }
 

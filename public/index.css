@@ -1,14 +1,6 @@
-html {
-    width: 100%;
+html, body {
     height: 100%;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-}
-
-body {
     width: 100%;
-    height: 100%;
     margin: 0;
     padding: 0;
     overflow: hidden;
@@ -16,20 +8,51 @@ body {
 
 #gameCanvas {
     height: 100%;
-    width: 100%;
     position: absolute;
-    outline-style: none;
     right: 0;
+    transform: translateX(0%);
+    outline-style: none;
+    transition: width 1s;
 }
 
 #sidePanel {
     height: 100%;
     width: 40%;
-    position: absolute;
+    float: left;
     outline-style: none;
-    overflow: scroll;
-    visibility: hidden;
-    left: 0;
+    transition: transform 1s;
+}
+
+.open {
+    transform: translateX(0%);
+    width: 60%;
+}
+
+.close {
+    transform: translateX(-100%);
+    width: 100%;
+}
+
+#guide {
+    height: 77%;
+    width: 100%;
+    overflow-y: scroll;
+    background-color: lightgray;
+}
+
+#status {
+    height: 25px;
+    width: 100%;
+    background-color: lightseagreen;
+}
+
+#terminal {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-flow: column;
+    overflow-y: scroll;
+    background-color: darkslategrey;
 }
 
 .text {

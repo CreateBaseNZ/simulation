@@ -16,6 +16,12 @@ export class Ui {
         this._camera = new BABYLON.Camera("uiCamera", BABYLON.Vector3.Zero(), scene);
         this._camera.layerMask = 2;
 
+        scene.executeWhenReady(() => {
+            scene.registerAfterRender(() => {
+                this.Update();
+            });
+        });
+
         const advancedTexture = GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
         advancedTexture.layer.layerMask = 2;
 
@@ -32,58 +38,59 @@ export class Ui {
         advancedTexture.addControl(editorBtn);
 
         //this handles interactions with the start button attached to the scene
-        let editorOpened = false;
+        let editorOpened = true;
         let gameCanvas = (document.getElementById("gameCanvas"));
         let sidePanel = document.getElementById("sidePanel");
+        let guidePanel = document.getElementById("guide");
 
         editorBtn.onPointerDownObservable.add(() => {
             editorOpened = !editorOpened;
+            SceneManager.instance.EnableResize();
+            setTimeout(() => { SceneManager.instance.DisableResize(); }, 1000);
             if (editorOpened) {
-                sidePanel.style.visibility = "visible";
-                gameCanvas.style.width = "60%";
+                sidePanel.classList.replace("close", "open");
+                gameCanvas.classList.replace("close", "open");
                 editorBtn.textBlock.text = "Hide Guide";
-                SceneManager.instance.engine.resize();
             }
             else {
-                sidePanel.style.visibility = "hidden";
-                gameCanvas.style.width = "100%";
+                sidePanel.classList.replace("open", "close");
+                gameCanvas.classList.replace("open", "close");
                 editorBtn.textBlock.text = "Show Guide";
-                SceneManager.instance.engine.resize();
             }
         });
-
-        this.advancedTexture = advancedTexture;
 
         const { guide } = data;
         guide.forEach(element => {
             switch (element.type) {
                 case "text":
-                    this.CreateText(sidePanel, element.content)
+                    this.CreateText(guidePanel, element.content)
                     break;
                 case "editor":
-                    this.CreateEditor(sidePanel, element.content);
+                    this.CreateEditor(guidePanel, element.content);
                     break;
                 case "editor-image":
-                    this.CreateEditor(sidePanel, element.content, true);
+                    this.CreateEditor(guidePanel, element.content, true);
                     break;
                 default:
                     break;
             }
         });
+
+        this.advancedTexture = advancedTexture;
     }
 
-    private CreateText(sidePanel: HTMLElement, content: string) {
+    private CreateText(parentElement: HTMLElement, content: string) {
         const text = document.createElement("div");
         text.className = "text"
         text.textContent = content;
-        sidePanel.appendChild(text);
+        parentElement.appendChild(text);
     }
 
-    private CreateEditor(sidePanel: HTMLElement, content: string, readOnlyFlag: boolean = false) {
+    private CreateEditor(parentElement: HTMLElement, content: string, readOnlyFlag: boolean = false) {
         const editor = document.createElement("div");
         editor.className = "editor"
         editor.id = "editor" + this._editors.length;
-        sidePanel.appendChild(editor);
+        parentElement.appendChild(editor);
 
         let monacoEditor = monaco.editor.create(editor, {
             value: content,
@@ -109,10 +116,14 @@ export class Ui {
                 code = code.concat("}");
                 console.log(code);
             });
-            sidePanel.appendChild(button);
+            parentElement.appendChild(button);
 
             this._editors.push(monacoEditor);
         }
+    }
+
+    Update() {
+
     }
 }
 
