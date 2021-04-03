@@ -12,7 +12,7 @@ html, body {
     right: 0;
     transform: translateX(0%);
     outline-style: none;
-    transition: width 1s;
+    transition: width 0.5s;
 }
 
 #sidePanel {
@@ -20,7 +20,7 @@ html, body {
     width: 40%;
     float: left;
     outline-style: none;
-    transition: transform 1s;
+    transition: transform 0.5s;
 }
 
 .open {

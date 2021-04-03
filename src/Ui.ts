@@ -25,7 +25,7 @@ export class Ui {
         const advancedTexture = GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
         advancedTexture.layer.layerMask = 2;
 
-        const editorBtn = GUI.Button.CreateSimpleButton("editor", "Show Editor");
+        const editorBtn = GUI.Button.CreateSimpleButton("editor", "Hide Guide");
         editorBtn.width = "120px"
         editorBtn.height = "40px";
         editorBtn.color = "white";
@@ -111,7 +111,7 @@ export class Ui {
                 let code = STARTER_CODE;
                 let id = parseInt(button.id.replace(/^\D+/g, ''));
                 for (let i = 0; i <= id; i++) {
-                    code = code.concat(this._editors[i].getModel().getValue());
+                    code = code.concat(this._editors[i].getModel().getValue() + "\n");
                 }
                 code = code.concat("}");
                 console.log(code);

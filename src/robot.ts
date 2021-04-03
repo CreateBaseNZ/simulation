@@ -1,6 +1,6 @@
 import * as BABYLON from '@babylonjs/core';
 import "@babylonjs/loaders";
-import { Arduino } from './arduino';
+import { Arduino } from './Arduino';
 
 export class Robot extends BABYLON.TransformNode {
 

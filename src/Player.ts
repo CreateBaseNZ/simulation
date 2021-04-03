@@ -9,7 +9,7 @@ export class Player {
     public ui;
 
     constructor(scene) {
-        let capsuleOptions = { subdivisions: 10, tessellation: 10, height: 1.7, radius: 0.35, capSubdivisions: 10 };
+        let capsuleOptions = { subdivisions: 2, tessellation: 16, height: 1.7, radius: 0.35, capSubdivisions: 6 };
         let mesh = BABYLON.MeshBuilder.CreateCapsule("player", capsuleOptions, scene);
         mesh.actionManager = new BABYLON.ActionManager(scene);
         var playerMat = new BABYLON.StandardMaterial("boxMat", scene);

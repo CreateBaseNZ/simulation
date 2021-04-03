@@ -1,7 +1,7 @@
 import { AVRIOPort, PinState } from 'avr8js';
 import { buildHex } from './arduino/compile';
-import { CPUPerformance } from './/arduino/cpu-performance';
-import { AVRRunner } from './arduino//execute';
+import { CPUPerformance } from './arduino/cpu-performance';
+import { AVRRunner } from './arduino/execute';
 import { formatTime } from './arduino/format-time';
 import './arduino/index.css';
 
