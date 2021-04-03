@@ -81,7 +81,7 @@ export class Ui {
 
     private CreateText(parentElement: HTMLElement, content: string) {
         const text = document.createElement("div");
-        text.className = "text"
+        text.className = "text font-monospace lh-base fw-normal fs-6"
         text.textContent = content;
         parentElement.appendChild(text);
     }
@@ -104,7 +104,7 @@ export class Ui {
 
         if (!readOnlyFlag) {
             const button = document.createElement("button");
-            button.className = "compile-button"
+            button.className = "compile-button btn btn-primary btn-lg";
             button.textContent = "Compile";
             button.id = "compile" + this._editors.length;
             button.addEventListener("click", () => {

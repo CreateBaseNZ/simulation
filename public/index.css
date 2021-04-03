@@ -37,7 +37,7 @@ html, body {
     height: 77%;
     width: 100%;
     overflow-y: scroll;
-    background-color: lightgray;
+    background-color: #f4f4f4;
 }
 
 #status {
@@ -56,17 +56,14 @@ html, body {
 }
 
 .text {
-    margin: 20px;
+    margin: 30px 40px;
 }
 
 .editor {
-    height: 20%;
-    margin: 0px 20px;
+    height: 200px;
+    margin: 30px 40px 20px;
 }
 
 .compile-button {
-    height: 20px;
-    width: 60px;
-    margin: 0px 20px;
-    padding: 0px;
+    margin: 20px 40px 30px;
 }
