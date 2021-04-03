@@ -3,6 +3,7 @@ import * as GUI from "@babylonjs/gui";
 import * as monaco from 'monaco-editor';
 import { SceneManager } from './SceneManager';
 import * as data from "../guide.json";
+import { RobotManager } from './RobotManager';
 
 export class Ui {
 
@@ -82,7 +83,7 @@ export class Ui {
     private CreateText(parentElement: HTMLElement, content: string) {
         const text = document.createElement("div");
         text.className = "text font-monospace lh-base fw-normal fs-6"
-        text.textContent = content;
+        text.innerText = content;
         parentElement.appendChild(text);
     }
 
@@ -105,7 +106,7 @@ export class Ui {
         if (!readOnlyFlag) {
             const button = document.createElement("button");
             button.className = "compile-button btn btn-primary btn-lg";
-            button.textContent = "Compile";
+            button.innerText = "Compile";
             button.id = "compile" + this._editors.length;
             button.addEventListener("click", () => {
                 let code = STARTER_CODE;
@@ -114,7 +115,8 @@ export class Ui {
                     code = code.concat(this._editors[i].getModel().getValue() + "\n");
                 }
                 code = code.concat("}");
-                console.log(code);
+                document.getElementById("terminal").innerText = ""
+                RobotManager.instance.UploadCode(code);
             });
             parentElement.appendChild(button);
 
@@ -129,11 +131,17 @@ export class Ui {
 
 const STARTER_CODE = `
 #include <Servo.h>
+
+Servo myServo0;
+Servo myServo1;
+Servo myServo2;
+Servo myServo3;
+
 void setup() {
-    myservo.attach(2);
-    myservo.attach(3);
-    myservo.attach(4);
-    myservo.attach(5);
+    myServo0.attach(8);
+    myServo1.attach(9);
+    myServo2.attach(10);
+    myServo3.attach(11);
 }
 
 void loop() {

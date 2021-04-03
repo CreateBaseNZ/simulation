@@ -44,11 +44,8 @@ void loop() {
 
 export class Arduino {
 
-    public code: string = DEFAULT_CODE;
-    protected _runner: AVRRunner;
-    protected _statusLabel: string;
-    protected _compilerOutputText: string;
-    protected _serialOutputText: string;
+    public code: string;
+    public compilerOutputText: string;
     public angleB = [90, 90, 90, 90, 90, 90];
     public angleC = [90, 90, 90, 90, 90, 90];
     public angleD = [90, 90, 90, 90, 90, 90, 90, 90];
@@ -57,7 +54,8 @@ export class Arduino {
     constructor() {
     }
 
-    private _executeProgram(hex: string) {
+    public ExecuteProgram(hex: string) {
+        this.Stop();
         this._myWorker = new Worker('js/worker.bundle.js');
         if (this._myWorker != null) {
             let message = { hexString: hex };
@@ -70,32 +68,23 @@ export class Arduino {
         }
     }
 
-    public async compile(run: boolean = false) {
+    public async Compile(code: string) {
         //runButton.setAttribute('disabled', '1');
-        this._serialOutputText = '';
         try {
-            this._statusLabel = 'Compiling...';
-            const result = await buildHex(this.code);
-            this._compilerOutputText = result.stderr || result.stdout;
-            console.log(this._compilerOutputText);
+            const result = await buildHex(code);
+            this.compilerOutputText = result.stderr || result.stdout;
             if (result.hex) {
-                this._compilerOutputText += '\nProgram running...';
-                //stopButton.removeAttribute('disabled');
-                if (run) {
-                    this._executeProgram(result.hex);
-                }
+                this.compilerOutputText += '\nProgram running...';
+                return await result.hex;
             } else {
-                //runButton.removeAttribute('disabled');
+                return await null;
             }
         } catch (err) {
-            //runButton.removeAttribute('disabled');
-            alert('Failed: ' + err);
-        } finally {
-            this._statusLabel = '';
+            return await null;
         }
     }
 
-    public stopCode() {
+    public Stop() {
         if (this._myWorker != null) {
             this._myWorker.terminate();
         }
