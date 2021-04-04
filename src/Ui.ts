@@ -7,21 +7,14 @@ import { RobotManager } from './RobotManager';
 
 export class Ui {
 
-    public advancedTexture: GUI.AdvancedDynamicTexture;
-
+    private _advancedTexture: GUI.AdvancedDynamicTexture;
     private _camera: BABYLON.Camera;
-    protected _editors: monaco.editor.IStandaloneCodeEditor[];
+    private _editors: monaco.editor.IStandaloneCodeEditor[];
 
     constructor(scene: BABYLON.Scene) {
         this._editors = new Array<monaco.editor.IStandaloneCodeEditor>();
         this._camera = new BABYLON.Camera("uiCamera", BABYLON.Vector3.Zero(), scene);
         this._camera.layerMask = 2;
-
-        scene.executeWhenReady(() => {
-            scene.registerAfterRender(() => {
-                this.Update();
-            });
-        });
 
         const advancedTexture = GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
         advancedTexture.layer.layerMask = 2;
@@ -77,7 +70,11 @@ export class Ui {
             }
         });
 
-        this.advancedTexture = advancedTexture;
+        this._advancedTexture = advancedTexture;
+    }
+
+    public GetAdvancedTexture() {
+        return this._advancedTexture;
     }
 
     private CreateText(parentElement: HTMLElement, content: string) {
@@ -124,9 +121,19 @@ export class Ui {
         }
     }
 
-    Update() {
+    public WinUI() {
+        const winText = new GUI.TextBlock("win", "PROJECT COMPLETE!");
+        winText.fontSize = 96;
+        winText.width = "100%"
+        winText.height = "100%";
+        winText.color = "black";
+        winText.verticalAlignment = GUI.Control.VERTICAL_ALIGNMENT_CENTER;
+        winText.horizontalAlignment = GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
+        winText.zIndex = 1;
 
+        this._advancedTexture.addControl(winText);
     }
+
 }
 
 const STARTER_CODE = `

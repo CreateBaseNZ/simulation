@@ -7,6 +7,7 @@ import { Player } from './Player';
 export class GameManager {
 
     public static instance: GameManager;
+    private _players: Player[];
 
     constructor() {
         if (GameManager.instance == null) {
@@ -15,5 +16,17 @@ export class GameManager {
         else {
             return GameManager.instance;
         }
+
+        this._players = new Array<Player>();
+    }
+
+    public AddPlayer(player: Player) {
+        this._players.push(player);
+    }
+
+    public WinGame(){
+        this._players.forEach(player => {
+            player.ui.WinUI();
+        });
     }
 }
