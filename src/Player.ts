@@ -22,7 +22,7 @@ export class Player {
         camera.lowerRadiusLimit = 10;
         camera.upperRadiusLimit = 100;
         camera.lowerBetaLimit = 0;
-        camera.upperBetaLimit = Math.PI / 2;
+        camera.upperBetaLimit = Math.PI / 2 - 0.05;
         camera.fov = 0.2;
         camera.inertia = 0;
         camera.wheelPrecision = 1;

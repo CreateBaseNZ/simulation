@@ -24,7 +24,7 @@ export class PlayerController {
 
         let transform = new BABYLON.TransformNode("agent");
         crowd.addAgent(BABYLON.Vector3.Zero(), agentParameters, transform);
-
+        crowd.agentTeleport(0, new BABYLON.Vector3(0, 0, 3));
         this.CreateAgentControls(crowd, scene);
 
         return transform;
@@ -86,13 +86,6 @@ export class PlayerController {
         });
 
         this._navigationPlugin.createNavMesh(navMeshList, parameters);
-
-        let navmeshdebug = this._navigationPlugin.createDebugNavMesh(scene);
-        var matdebug = new BABYLON.StandardMaterial('matdebug', scene);
-        matdebug.diffuseColor = new BABYLON.Color3(0.1, 0.2, 1);
-        matdebug.alpha = 0.2;
-        navmeshdebug.position .y += 0.01;
-        navmeshdebug.material = matdebug;
     }
 
     public CreateCameraControls(camera: BABYLON.Camera) {

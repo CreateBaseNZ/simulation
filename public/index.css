@@ -45,6 +45,7 @@ html, body {
     width: 100%;
     display: flex;
     align-items: center;
+    color: black;
     padding: 0px 5px;
 }
 
@@ -70,6 +71,7 @@ html, body {
 
 .text {
     margin: 30px 40px;
+    color: black;
 }
 
 .editor {

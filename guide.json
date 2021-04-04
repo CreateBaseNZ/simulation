@@ -15,7 +15,7 @@
         },
         {
             "type": "editor-image",
-            "content": "int x = 4; int y = 4;"
+            "content": "int x = 6;\nint y = 9;"
         },
         {
             "type": "text",
