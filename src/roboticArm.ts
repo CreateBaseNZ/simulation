@@ -4,16 +4,16 @@ import { Robot } from "./Robot";
 
 export class RoboticArm extends Robot {
 
-    protected servoAngle: number[] = [1, 1, 1, 1].map(x => x * 90);
-    public _baseBottom: BABYLON.AbstractMesh;
-    public _baseLid: BABYLON.AbstractMesh;
-    public _arm1: BABYLON.AbstractMesh;
-    public _arm2: BABYLON.AbstractMesh;
-    public _arm3: BABYLON.AbstractMesh;
-    public joint1: BABYLON.MotorEnabledJoint;
-    public joint2: BABYLON.MotorEnabledJoint;
-    public joint3: BABYLON.MotorEnabledJoint;
-    public joint4: BABYLON.MotorEnabledJoint;
+    private servoAngle: number[] = [1, 1, 1, 1].map(x => x * 90);
+    private _baseBottom: BABYLON.AbstractMesh;
+    private _baseLid: BABYLON.AbstractMesh;
+    private _arm1: BABYLON.AbstractMesh;
+    private _arm2: BABYLON.AbstractMesh;
+    private _arm3: BABYLON.AbstractMesh;
+    private joint1: BABYLON.MotorEnabledJoint;
+    private joint2: BABYLON.MotorEnabledJoint;
+    private joint3: BABYLON.MotorEnabledJoint;
+    private joint4: BABYLON.MotorEnabledJoint;
 
     constructor(name: string, scene: BABYLON.Scene) {
         super(name, scene);
@@ -22,7 +22,7 @@ export class RoboticArm extends Robot {
         this._arm1 = new BABYLON.AbstractMesh("arm1", scene);
         this._arm2 = new BABYLON.AbstractMesh("arm2", scene);
         this._arm3 = new BABYLON.AbstractMesh("arm3", scene);
-        this._createObject();
+        this._createObject(scene);
 
         scene.executeWhenReady(() => {
             scene.registerAfterRender(() => {
@@ -34,9 +34,9 @@ export class RoboticArm extends Robot {
         });
     }
 
-    private _createObject() {
+    private _createObject(scene) {
         let createNode = (assetName: string) => {
-            BABYLON.SceneLoader.ImportMesh(null, "http://localhost:5000/", assetName + ".glb", this._scene, (meshes, particleSystems, skeletons) => {
+            BABYLON.SceneLoader.ImportMesh(null, "http://localhost:5000/", assetName + ".glb", scene, (meshes, particleSystems, skeletons) => {
                 //this._setMaterials(assetName, meshes);
 
                 var baseBottomMeshes = [];
@@ -71,21 +71,29 @@ export class RoboticArm extends Robot {
                 this._arm1 = BABYLON.Mesh.MergeMeshes(arm1Meshes, true, true, undefined, false, true);
                 this._arm2 = BABYLON.Mesh.MergeMeshes(arm2Meshes, true, true, undefined, false, true);
                 this._arm3 = BABYLON.Mesh.MergeMeshes(arm3Meshes, true, true, undefined, false, true);
+                this._effector = BABYLON.MeshBuilder.CreateSphere("endEffector", { diameter: 0.5 }, scene);
 
-                this._baseBottom.physicsImpostor = new BABYLON.PhysicsImpostor(this._baseBottom, BABYLON.PhysicsImpostor.BoxImpostor, { mass: 0 }, this._scene);
+                this._baseBottom.physicsImpostor = new BABYLON.PhysicsImpostor(this._baseBottom, BABYLON.PhysicsImpostor.BoxImpostor, { mass: 0 }, scene);
                 this._baseBottom.scaling = new BABYLON.Vector3(0.8, 0.8, 0.8);
                 this._baseBottom.physicsImpostor.setScalingUpdated();
-                this._baseLid.physicsImpostor = new BABYLON.PhysicsImpostor(this._baseLid, BABYLON.PhysicsImpostor.BoxImpostor, { mass: 1000 }, this._scene);
+                this._baseLid.physicsImpostor = new BABYLON.PhysicsImpostor(this._baseLid, BABYLON.PhysicsImpostor.BoxImpostor, { mass: 1000 }, scene);
                 this._baseLid.physicsImpostor.setScalingUpdated();
-                this._arm1.physicsImpostor = new BABYLON.PhysicsImpostor(this._arm1, BABYLON.PhysicsImpostor.BoxImpostor, { mass: 10 }, this._scene);
+                this._arm1.physicsImpostor = new BABYLON.PhysicsImpostor(this._arm1, BABYLON.PhysicsImpostor.BoxImpostor, { mass: 10 }, scene);
                 this._arm1.physicsImpostor.setScalingUpdated();
-                this._arm2.physicsImpostor = new BABYLON.PhysicsImpostor(this._arm2, BABYLON.PhysicsImpostor.BoxImpostor, { mass: 0.1 }, this._scene);
+                this._arm2.physicsImpostor = new BABYLON.PhysicsImpostor(this._arm2, BABYLON.PhysicsImpostor.BoxImpostor, { mass: 0.1 }, scene);
                 this._arm2.physicsImpostor.setScalingUpdated();
-                this._arm3.physicsImpostor = new BABYLON.PhysicsImpostor(this._arm3, BABYLON.PhysicsImpostor.BoxImpostor, { mass: 0.001 }, this._scene);
+                this._arm3.physicsImpostor = new BABYLON.PhysicsImpostor(this._arm3, BABYLON.PhysicsImpostor.BoxImpostor, { mass: 0.001 }, scene);
                 this._arm3.physicsImpostor.setScalingUpdated();
 
                 this._baseBottom.parent = this;
+                this._effector.parent = this._arm3;
                 this._baseBottom.position.y += 0.5;
+                this._effector.position.y += 0.5;
+
+                var endMat = new BABYLON.StandardMaterial("endMat", scene);
+                endMat.alpha = 0.4;
+                endMat.emissiveColor = BABYLON.Color3.Blue(); // Glow color
+                this._effector.material = endMat;
 
                 this.joint1 = new BABYLON.MotorEnabledJoint(BABYLON.PhysicsJoint.HingeJoint, {
                     mainPivot: new BABYLON.Vector3(0, 0.565, -0.03),
@@ -163,4 +171,5 @@ export class RoboticArm extends Robot {
             else if (servo == 3) { this.joint1.setMotor(0); }
         }
     }
+    
 }

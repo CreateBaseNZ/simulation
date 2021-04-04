@@ -27,7 +27,7 @@ export class RobotManager {
         this._robots.push(robot);
     }
 
-    public GetObjectives() {
+    public GetRobots() {
         return this._robots;
     }
 
@@ -77,5 +77,9 @@ export class RobotManager {
             terminalOutput += this._robots[i].arduino.compilerOutputText;
         }
         return terminalOutput;
+    }
+
+    public GetEffectors(){
+        return this._robots.map(robot => robot.GetEffector());
     }
 }

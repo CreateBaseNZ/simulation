@@ -1,6 +1,7 @@
 import * as BABYLON from '@babylonjs/core';
 import { ObjectiveManager } from './ObjectiveManager';
 import { Player } from './Player';
+import { RobotManager } from './RobotManager';
 
 export class Environment {
     scene: BABYLON.Scene;
@@ -42,21 +43,25 @@ export class Environment {
     private async EvaluateEnvironment(scene: BABYLON.Scene) {
         await scene.whenReadyAsync();
         ObjectiveManager.instance.NextObjective(this.player.ui.advancedTexture);
-        ObjectiveManager.instance.GetObjectives().forEach(objective => {
-            this.player.mesh.actionManager.registerAction(
-                new BABYLON.ExecuteCodeAction(
-                    {
-                        trigger: BABYLON.ActionManager.OnIntersectionEnterTrigger,
-                        parameter: objective
-                    },
-                    () => {
-                        if (objective.GetActive()) {
-                            ObjectiveManager.instance.NextObjective(this.player.ui.advancedTexture);
-                        }
-                    },
-                ),
-            );
-        });
+        RobotManager.instance.GetEffectors().forEach(effector => {
+            effector.actionManager = new BABYLON.ActionManager(scene);
+            ObjectiveManager.instance.GetObjectives().forEach(objective => {
+                effector.actionManager.registerAction(
+                    new BABYLON.ExecuteCodeAction(
+                        {
+                            trigger: BABYLON.ActionManager.OnIntersectionEnterTrigger,
+                            parameter: objective
+                        },
+                        () => {
+                            if (objective.GetActive()) {
+                                ObjectiveManager.instance.NextObjective(this.player.ui.advancedTexture);
+                            }
+                        },
+                    ),
+                );
+            });
+        })
+
 
     }
 }
