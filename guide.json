@@ -1,37 +1,8 @@
 {
     "guide": [
         {
-            "type": "text",
-            "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean aliquam vel est non tincidunt. Etiam et tortor aliquam, scelerisque est in, ullamcorper est. Duis imperdiet, diam a accumsan sagittis, felis nibh efficitur ante, at elementum felis risus tempus leo. Phasellus in est sit amet sapien convallis sollicitudin nec a quam. Curabitur mauris erat, imperdiet vitae sagittis quis, congue id orci. Aliquam venenatis dolor in massa maximus consequat. Vivamus a lorem vel metus tincidunt elementum in at ex. Fusce elit nunc, ultrices id nisi nec, bibendum laoreet lorem. Praesent volutpat tortor ligula, eget dictum sem sagittis at. Maecenas non venenatis tortor."
-        },
-        
-        {
             "type": "editor",
-            "content": ""
-        },
-        {
-            "type": "text",
-            "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean aliquam vel est non tincidunt. Etiam et tortor aliquam, scelerisque est in, ullamcorper est. Duis imperdiet, diam a accumsan sagittis, felis nibh efficitur ante, at elementum felis risus tempus leo. Phasellus in est sit amet sapien convallis sollicitudin nec a quam. Curabitur mauris erat, imperdiet vitae sagittis quis, congue id orci. Aliquam venenatis dolor in massa maximus consequat. Vivamus a lorem vel metus tincidunt elementum in at ex. Fusce elit nunc, ultrices id nisi nec, bibendum laoreet lorem. Praesent volutpat tortor ligula, eget dictum sem sagittis at. Maecenas non venenatis tortor."
-        },
-        {
-            "type": "editor-image",
-            "content": "int x = 6;\nint y = 9;"
-        },
-        {
-            "type": "text",
-            "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean aliquam vel est non tincidunt. Etiam et tortor aliquam, scelerisque est in, ullamcorper est. Duis imperdiet, diam a accumsan sagittis, felis nibh efficitur ante, at elementum felis risus tempus leo. Phasellus in est sit amet sapien convallis sollicitudin nec a quam. Curabitur mauris erat, imperdiet vitae sagittis quis, congue id orci. Aliquam venenatis dolor in massa maximus consequat. Vivamus a lorem vel metus tincidunt elementum in at ex. Fusce elit nunc, ultrices id nisi nec, bibendum laoreet lorem. Praesent volutpat tortor ligula, eget dictum sem sagittis at. Maecenas non venenatis tortor."
-        },
-        {
-            "type": "text",
-            "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean aliquam vel est non tincidunt. Etiam et tortor aliquam, scelerisque est in, ullamcorper est. Duis imperdiet, diam a accumsan sagittis, felis nibh efficitur ante, at elementum felis risus tempus leo. Phasellus in est sit amet sapien convallis sollicitudin nec a quam. Curabitur mauris erat, imperdiet vitae sagittis quis, congue id orci. Aliquam venenatis dolor in massa maximus consequat. Vivamus a lorem vel metus tincidunt elementum in at ex. Fusce elit nunc, ultrices id nisi nec, bibendum laoreet lorem. Praesent volutpat tortor ligula, eget dictum sem sagittis at. Maecenas non venenatis tortor."
-        },
-        {
-            "type": "editor",
-            "content": ""
-        },
-        {
-            "type": "text",
-            "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean aliquam vel est non tincidunt. Etiam et tortor aliquam, scelerisque est in, ullamcorper est. Duis imperdiet, diam a accumsan sagittis, felis nibh efficitur ante, at elementum felis risus tempus leo. Phasellus in est sit amet sapien convallis sollicitudin nec a quam. Curabitur mauris erat, imperdiet vitae sagittis quis, congue id orci. Aliquam venenatis dolor in massa maximus consequat. Vivamus a lorem vel metus tincidunt elementum in at ex. Fusce elit nunc, ultrices id nisi nec, bibendum laoreet lorem. Praesent volutpat tortor ligula, eget dictum sem sagittis at. Maecenas non venenatis tortor."
+            "content": "#include <Servo.h>\nServo myServo0;\nServo myServo1;\nServo myServo2;\nServo myServo3;\n\nvoid setup() {\n\tmyServo0.attach(8);\n\tmyServo1.attach(9);\n\tmyServo2.attach(10);\n\tmyServo3.attach(11);\n}\n\nvoid loop() {\n\n}\n"
         }
     ]
 }

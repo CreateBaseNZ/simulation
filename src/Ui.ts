@@ -111,7 +111,7 @@ export class Ui {
                 for (let i = 0; i <= id; i++) {
                     code = code.concat(this._editors[i].getModel().getValue() + "\n");
                 }
-                code = code.concat("}");
+                //code = code.concat("}");
                 document.getElementById("terminal").innerText = ""
                 RobotManager.instance.UploadCode(code);
             });
@@ -137,19 +137,5 @@ export class Ui {
 }
 
 const STARTER_CODE = `
-#include <Servo.h>
 
-Servo myServo0;
-Servo myServo1;
-Servo myServo2;
-Servo myServo3;
-
-void setup() {
-    myServo0.attach(8);
-    myServo1.attach(9);
-    myServo2.attach(10);
-    myServo3.attach(11);
-}
-
-void loop() {
 `
