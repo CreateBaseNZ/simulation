@@ -3,6 +3,7 @@ const fs = require("fs");
 const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const appDirectory = fs.realpathSync(process.cwd());
 module.exports = {
     entry: {
@@ -44,6 +45,10 @@ module.exports = {
                 test: /\.js$/,
                 enforce: 'pre',
                 use: ['source-map-loader'],
+            },
+            {
+                test: /\.css$/i,
+                use: [MiniCssExtractPlugin.loader, 'css-loader'],
             }
         ],
     },
@@ -54,6 +59,7 @@ module.exports = {
             template: path.resolve(appDirectory, "public/index.html"),
         }),
         new CleanWebpackPlugin(),
+        new MiniCssExtractPlugin(),
     ],
     context: __dirname,
     mode: "development",

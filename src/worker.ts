@@ -73,7 +73,7 @@ self.onmessage = (e: MessageEvent) => {
         runner.execute((cpu) => {
             const time = cpu.cycles / MHZ;
             const speed = (cpuPerf.update() * 100).toFixed(0);
-            let message = { angleB: angleB, angleC: angleC, angleD: angleD };
+            let message = { angleB: angleB, angleC: angleC, angleD: angleD, serial: serialOutputText };
             postMessage(message);
         });
     }

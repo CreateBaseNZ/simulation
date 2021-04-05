@@ -126,17 +126,10 @@ export class RoboticArm extends Robot {
                     collision: false,
                 });
 
-
-
                 this._arm2.physicsImpostor.addJoint(this._arm3.physicsImpostor, this.joint1);
                 this._arm1.physicsImpostor.addJoint(this._arm2.physicsImpostor, this.joint2);
                 this._baseLid.physicsImpostor.addJoint(this._arm1.physicsImpostor, this.joint3);
                 this._baseBottom.physicsImpostor.addJoint(this._baseLid.physicsImpostor, this.joint4);
-
-                this.joint1.setMotor(0);
-                this.joint2.setMotor(0);
-                this.joint3.setMotor(0);
-                this.joint4.setMotor(0);
             });
         }
 
@@ -156,9 +149,16 @@ export class RoboticArm extends Robot {
 
         this.servoAngle = [baseAngle, arm1Angle, arm2Angle, arm3Angle].map(x => x + 90);
 
-        var error = angle - this.servoAngle[servo]
-        if (Math.abs(error) > 1) {
-            let speed = -Math.sign(error) * 1.5;
+        let error = angle - this.servoAngle[servo]
+        let absError = Math.abs(error);
+        if (absError > 0.25) {
+            let weight = 1;
+            if (absError > 0.25) { weight = 0.05; }
+            if (absError > 0.5) { weight = 0.25; }
+            if (absError > 1) { weight = 1; }
+            if (absError > 5) { weight = 2; }
+
+            let speed = -Math.sign(error) * weight;
             if (servo == 0) { this.joint4.setMotor(speed); }
             else if (servo == 1) { this.joint3.setMotor(speed); }
             else if (servo == 2) { this.joint2.setMotor(speed); }
@@ -171,5 +171,5 @@ export class RoboticArm extends Robot {
             else if (servo == 3) { this.joint1.setMotor(0); }
         }
     }
-    
+
 }

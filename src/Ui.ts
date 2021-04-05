@@ -106,7 +106,7 @@ export class Ui {
             button.innerText = "Compile";
             button.id = "compile" + this._editors.length;
             button.addEventListener("click", () => {
-                let code = STARTER_CODE;
+                let code = "";
                 let id = parseInt(button.id.replace(/^\D+/g, ''));
                 for (let i = 0; i <= id; i++) {
                     code = code.concat(this._editors[i].getModel().getValue() + "\n");
@@ -122,7 +122,7 @@ export class Ui {
     }
 
     public WinUI() {
-        const winText = new GUI.TextBlock("win", "PROJECT COMPLETE!");
+        const winText = new GUI.TextBlock("win", "PROJECT COMPLETE");
         winText.fontSize = 96;
         winText.width = "100%"
         winText.height = "100%";
@@ -136,6 +136,4 @@ export class Ui {
 
 }
 
-const STARTER_CODE = `
-
-`
+const STARTER_CODE = "";

@@ -50,8 +50,10 @@ export class Arduino {
     public angleC = [90, 90, 90, 90, 90, 90];
     public angleD = [90, 90, 90, 90, 90, 90, 90, 90];
     private _myWorker: Worker;
+    private _terminal: HTMLElement;
 
     constructor() {
+        this._terminal = document.getElementById("terminal");
     }
 
     public ExecuteProgram(hex: string) {
@@ -64,6 +66,7 @@ export class Arduino {
                 this.angleB = e.data.angleB;
                 this.angleC = e.data.angleC;
                 this.angleD = e.data.angleD;
+                this._terminal.innerText = this.compilerOutputText + e.data.serial;
             }
         }
     }

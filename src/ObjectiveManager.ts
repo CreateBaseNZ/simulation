@@ -1,6 +1,7 @@
 import * as BABYLON from '@babylonjs/core';
 import { Objective } from './Objective';
 import * as GUI from "@babylonjs/gui";
+import { GameManager } from './GameManager';
 
 export class ObjectiveManager {
 
@@ -31,7 +32,7 @@ export class ObjectiveManager {
                 this._objectives[0].SetActive(true, advancedTexture);
             }
             else {
-                console.log("You Win!");
+                GameManager.instance.WinGame();
             }
         }
     }
