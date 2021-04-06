@@ -213,3 +213,7 @@ ktx2Decoder/dist/
 inspector/src/sharedUiComponents/**/*
 nodeEditor/src/sharedUiComponents/**/*
 guiEditor/src/sharedUiComponents/**/*
+
+# dotenv environment variables file
+.env
+.env.test

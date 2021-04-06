@@ -2,6 +2,7 @@ import * as BABYLON from '@babylonjs/core';
 import { ObjectiveManager } from './ObjectiveManager';
 import { Player } from './Player';
 import { RobotManager } from './RobotManager';
+import { request } from "@octokit/request";
 
 export class Environment {
     scene: BABYLON.Scene;
@@ -15,13 +16,26 @@ export class Environment {
         this.EvaluateEnvironment(scene);
     }
 
-    private CreateEnvironmentDefaults(scene: BABYLON.Scene) {
+    private async CreateEnvironmentDefaults(scene: BABYLON.Scene) {
         // These are the default components that EVERY scene should have.
 
         scene.clearColor = new BABYLON.Color4(0.529, 0.808, 0.922, 1);
         scene.shadowsEnabled = true;
         scene.collisionsEnabled = true;
-        scene.environmentTexture = BABYLON.CubeTexture.CreateFromPrefilteredData("http://localhost:5000/skybox/Country.env", scene);
+        const result = await request('GET /repos/{owner}/{repo}/contents/{path}', {
+            owner: 'CreateBaseNZ',
+            repo: 'cb-simulation-model',
+            path: '/assets/skybox'
+        });
+        const sha = result.data[15].sha;
+        const result2 = await request('GET /repos/{owner}/{repo}/git/blobs/{file_sha}', {
+            owner: 'CreateBaseNZ',
+            repo: 'cb-simulation-model',
+            file_sha: sha
+        });
+        let b64URL = 'data:octet/stream;base64,' + result2.data.content;
+
+        scene.environmentTexture = BABYLON.CubeTexture.CreateFromPrefilteredData(b64URL, scene, '.env');
 
         const gravityVector = new BABYLON.Vector3(0, -9.81, 0);
         scene.enablePhysics(gravityVector, new BABYLON.CannonJSPlugin());

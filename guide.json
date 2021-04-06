@@ -1,7 +1,27 @@
 {
     "guide": [
         {
+            "type": "text",
+            "content": "Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum."
+        },
+        {
             "type": "editor",
+            "content": "#include <Servo.h>\nServo myServo0;\nServo myServo1;\nServo myServo2;\nServo myServo3;\n\nvoid setup() {\n\tmyServo0.attach(8);\n\tmyServo1.attach(9);\n\tmyServo2.attach(10);\n\tmyServo3.attach(11);\n}\n\nvoid loop() {\n\n}\n"
+        },
+        {
+            "type": "text",
+            "content": "Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum."
+        },
+        {
+            "type": "editor",
+            "content": ""
+        },
+        {
+            "type": "text",
+            "content": "Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum."
+        },
+        {
+            "type": "editor-image",
             "content": "#include <Servo.h>\nServo myServo0;\nServo myServo1;\nServo myServo2;\nServo myServo3;\n\nvoid setup() {\n\tmyServo0.attach(8);\n\tmyServo1.attach(9);\n\tmyServo2.attach(10);\n\tmyServo3.attach(11);\n}\n\nvoid loop() {\n\n}\n"
         }
     ]
