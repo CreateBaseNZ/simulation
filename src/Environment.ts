@@ -23,21 +23,7 @@ export class Environment {
         scene.shadowsEnabled = true;
         scene.collisionsEnabled = true;
 
-
-        const result = await request('GET /repos/{owner}/{repo}/contents/{path}', {
-            owner: 'CreateBaseNZ',
-            repo: 'cb-simulation-model',
-            path: '/assets/skybox'
-        });
-        const sha = result.data[15].sha;
-        const result2 = await request('GET /repos/{owner}/{repo}/git/blobs/{file_sha}', {
-            owner: 'CreateBaseNZ',
-            repo: 'cb-simulation-model',
-            file_sha: sha
-        });
-        let b64URL = 'data:octet/stream;base64,' + result2.data.content;
-
-        scene.environmentTexture = BABYLON.CubeTexture.CreateFromPrefilteredData(b64URL, scene, '.env');
+        scene.environmentTexture = BABYLON.CubeTexture.CreateFromPrefilteredData("https://raw.githubusercontent.com/CreateBaseNZ/cb-simulation-model/main/assets/skybox/Country.env", scene, '.env');
 
         const gravityVector = new BABYLON.Vector3(0, -9.81, 0);
         scene.enablePhysics(gravityVector, new BABYLON.CannonJSPlugin());
