@@ -22,6 +22,8 @@ export class Environment {
         scene.clearColor = new BABYLON.Color4(0.529, 0.808, 0.922, 1);
         scene.shadowsEnabled = true;
         scene.collisionsEnabled = true;
+
+
         const result = await request('GET /repos/{owner}/{repo}/contents/{path}', {
             owner: 'CreateBaseNZ',
             repo: 'cb-simulation-model',

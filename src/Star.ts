@@ -1,34 +1,52 @@
 import * as BABYLON from '@babylonjs/core';
 import { Objective as Objective } from './Objective';
 import { SceneManager } from "./SceneManager";
+import { request } from "@octokit/request";
 
 export class Star extends Objective {
 
     constructor(scene: BABYLON.Scene, position: BABYLON.Vector3) {
         super();
-
-        BABYLON.SceneLoader.ImportMesh(null, "http://localhost:5000/", "Star.glb", scene, (meshes, particleSystems, skeletons) => {
-            // Creating a material
-            var starMat = new BABYLON.StandardMaterial("starMat", scene);
-            starMat.diffuseColor = new BABYLON.Color3(1, 0, 0); // Base color
-            starMat.emissiveColor = new BABYLON.Color3(0.9, 0.75, 0.2); // Glow color
-
-            let buffer = new Array();
-            meshes.forEach(mesh => {
-                if (mesh.getVerticesData(BABYLON.VertexBuffer.PositionKind)) {
-                    buffer.push(mesh);
-                }
+        let createStar = async () => {
+            const result = await request('GET /repos/{owner}/{repo}/contents/{path}', {
+                owner: 'CreateBaseNZ',
+                repo: 'cb-simulation-model',
+                path: '/assets'
             });
+            console.log(result);
+            /*const sha = result.data[10].sha;
+            const result2 = await request('GET /repos/{owner}/{repo}/git/blobs/{file_sha}', {
+                owner: 'CreateBaseNZ',
+                repo: 'cb-simulation-model',
+                file_sha: sha
+            });
+            let b64URL = 'data:octet/stream;base64,' + result2.data.content;
+            console.log(b64URL);*/
 
-            let mesh = BABYLON.Mesh.MergeMeshes(buffer, true, true, undefined, false, true);
-            mesh.material = starMat;
-            mesh.receiveShadows = true;
-            mesh.position = position;
-            mesh.scaling = new BABYLON.Vector3(0.006, 0.006, -0.006);
-            mesh.isVisible = false;
-            this.mesh = mesh;
-        });
+            BABYLON.SceneLoader.ImportMesh(null, "https://raw.githubusercontent.com/CreateBaseNZ/cb-simulation-model/main/assets/Star.glb", null, scene, (meshes, particleSystems, skeletons) => {
+                // Creating a material
+                var starMat = new BABYLON.StandardMaterial("starMat", scene);
+                starMat.diffuseColor = new BABYLON.Color3(1, 0, 0); // Base color
+                starMat.emissiveColor = new BABYLON.Color3(0.9, 0.75, 0.2); // Glow color
 
+                let buffer = new Array();
+                meshes.forEach(mesh => {
+                    if (mesh.getVerticesData(BABYLON.VertexBuffer.PositionKind)) {
+                        buffer.push(mesh);
+                    }
+                });
+
+                let mesh = BABYLON.Mesh.MergeMeshes(buffer, true, true, undefined, false, true);
+                mesh.material = starMat;
+                mesh.receiveShadows = true;
+                mesh.position = position;
+                mesh.scaling = new BABYLON.Vector3(0.006, 0.006, -0.006);
+                mesh.isVisible = false;
+                this.mesh = mesh;
+            });
+        }
+
+        createStar();
     }
 
 }

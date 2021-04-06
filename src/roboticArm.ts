@@ -1,6 +1,7 @@
 import * as BABYLON from "@babylonjs/core";
 import "@babylonjs/loaders";
 import { Robot } from "./Robot";
+import { request } from "@octokit/request";
 
 export class RoboticArm extends Robot {
 
@@ -34,9 +35,10 @@ export class RoboticArm extends Robot {
         });
     }
 
-    private _createObject(scene) {
-        let createNode = (assetName: string) => {
-            BABYLON.SceneLoader.ImportMesh(null, "http://localhost:5000/", assetName + ".glb", scene, (meshes, particleSystems, skeletons) => {
+    private async _createObject(scene) {
+        let createNode = async (assetName: string) => {
+
+            BABYLON.SceneLoader.ImportMesh(null, "https://raw.githubusercontent.com/CreateBaseNZ/cb-simulation-model/main/assets/", assetName + ".glb", scene, (meshes, particleSystems, skeletons) => {
                 //this._setMaterials(assetName, meshes);
 
                 var baseBottomMeshes = [];
