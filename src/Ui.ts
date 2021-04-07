@@ -4,6 +4,7 @@ import * as monaco from 'monaco-editor';
 import { SceneManager } from './SceneManager';
 import * as data from "../guide.json";
 import { RobotManager } from './RobotManager';
+import { on } from 'events';
 
 export class Ui {
 
@@ -65,6 +66,9 @@ export class Ui {
                 case "editor-image":
                     this.CreateEditor(guidePanel, element.content, true);
                     break;
+                case "heading-1":
+                    this.CreateHeading1(guidePanel, element.content)
+                    break;
                 default:
                     break;
             }
@@ -84,6 +88,13 @@ export class Ui {
         parentElement.appendChild(text);
     }
 
+    private CreateHeading1(parentElement: HTMLElement, content: string) {
+        const text = document.createElement("div");
+        text.className = "heading-1 h4";
+        text.innerText = content;
+        parentElement.appendChild(text);
+    }
+
     private CreateEditor(parentElement: HTMLElement, content: string, readOnlyFlag: boolean = false) {
         const editor = document.createElement("div");
         editor.className = "editor"
@@ -98,6 +109,12 @@ export class Ui {
             readOnly: readOnlyFlag,
             minimap: { enabled: false },
             theme: "hc-black",
+            automaticLayout: true,
+            wordWrap: "on",
+            scrollbar: {
+                alwaysConsumeMouseWheel: false,
+                verticalScrollbarSize: 0
+            }
         });
 
         if (!readOnlyFlag) {
@@ -119,6 +136,7 @@ export class Ui {
 
             this._editors.push(monacoEditor);
         }
+
     }
 
     public WinUI() {

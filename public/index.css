@@ -75,7 +75,8 @@ html, body {
 }
 
 .editor {
-    height: 500px;
+    display: flex;
+    align-items: flex-start;
     margin: 30px 40px 20px;
 }
 
