@@ -19,12 +19,14 @@ export class Objective {
     public SetActive(active: boolean, advancedTexture: GUI.AdvancedDynamicTexture = null) {
         this._active = active;
         this.mesh.isVisible = active;
-        if(active){
+        if (active) {
             this.CreateLabel(advancedTexture);
         }
-        else{
+        else {
             this._controls.forEach(control => {
+                advancedTexture.removeControl(control);
                 control.dispose();
+                console.log('hello');
             });
         }
     }
@@ -46,7 +48,7 @@ export class Objective {
         rect.linkOffsetY = -100;
 
         const label = new GUI.TextBlock();
-        label.text = "(" + this.mesh.position.x.toFixed(1) + ", " + this.mesh.position.y.toFixed(1) + ", " + this.mesh.position.z.toFixed(1) + ")";
+        label.text = "(" + this.mesh.position.z.toFixed(1) + ", " + this.mesh.position.x.toFixed(1) + ", " + (this.mesh.position.y - 0.6).toFixed(1) + ")";
         rect.addControl(label);
 
         const target = new GUI.Ellipse();

@@ -25,15 +25,22 @@ export class ObjectiveManager {
             this._objectives[0].SetActive(true, advancedTexture);
         }
         else {
-            this._objectives[0].SetActive(false, advancedTexture);
-            this._objectives[0].mesh.dispose();
-            this._objectives.splice(0, 1);
+            this.RemoveObjective();
             if (this._objectives.length > 0) {
                 this._objectives[0].SetActive(true, advancedTexture);
             }
             else {
                 GameManager.instance.WinGame();
             }
+        }
+    }
+
+    public RemoveObjective(objective: Objective = this._objectives[0], advancedTexture: GUI.AdvancedDynamicTexture = null) {
+        this._objectives.splice(this._objectives.indexOf(objective), 1);
+        objective.SetActive(false, advancedTexture);
+        objective.mesh.dispose();
+        if (this._objectives.length == 0) {
+            GameManager.instance.WinGame();
         }
     }
 

@@ -20,9 +20,9 @@ export let defaultScene = (scene: BABYLON.Scene) => {
     };
 
     for (let i = 0; i < 5; i++) {
-        let x = (Math.random() < 0.5 ? -1 : 1) * RandomNumber(0.5, 2.5);
-        let z = (Math.random() < 0.5 ? -1 : 1) * RandomNumber(0.5, 2.5);
-        new Star(scene, new BABYLON.Vector3(x, RandomNumber(0.3, 3), z));
+        let x = (Math.random() < 0.5 ? -1 : 1) * RandomNumber(0.7, 2.2);
+        let z = (Math.random() < 0.5 ? -1 : 1) * RandomNumber(0.7, 2.2);
+        new Star(scene, new BABYLON.Vector3(x, RandomNumber(0.5, 3), z));
     }
 
     let createBox = (x: number, y: number, z: number) => {

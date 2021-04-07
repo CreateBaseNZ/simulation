@@ -44,7 +44,7 @@ export class Environment {
 
     private async EvaluateEnvironment(scene: BABYLON.Scene) {
         await scene.whenReadyAsync();
-        ObjectiveManager.instance.NextObjective(this.player.ui.GetAdvancedTexture());
+        ObjectiveManager.instance.SetAllObjectivesActive(this.player.ui.GetAdvancedTexture());
         RobotManager.instance.GetEffectors().forEach(effector => {
             effector.actionManager = new BABYLON.ActionManager(scene);
             ObjectiveManager.instance.GetObjectives().forEach(objective => {
@@ -56,7 +56,7 @@ export class Environment {
                         },
                         () => {
                             if (objective.GetActive()) {
-                                ObjectiveManager.instance.NextObjective(this.player.ui.GetAdvancedTexture());
+                                ObjectiveManager.instance.RemoveObjective(objective, this.player.ui.GetAdvancedTexture());
                             }
                         },
                     ),

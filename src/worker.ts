@@ -4,7 +4,7 @@ import { AVRRunner } from './arduino/execute';
 
 self.onmessage = (e: MessageEvent) => {
     let runner: AVRRunner;
-    let serialOutputText: string;
+    let serialOutputText: string = "\n";
     let angleB = [90, 90, 90, 90, 90, 90];
     let angleC = [90, 90, 90, 90, 90, 90];
     let angleD = [90, 90, 90, 90, 90, 90, 90, 90];

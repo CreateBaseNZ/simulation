@@ -73,7 +73,7 @@ export class RoboticArm extends Robot {
                 this._arm1 = BABYLON.Mesh.MergeMeshes(arm1Meshes, true, true, undefined, false, true);
                 this._arm2 = BABYLON.Mesh.MergeMeshes(arm2Meshes, true, true, undefined, false, true);
                 this._arm3 = BABYLON.Mesh.MergeMeshes(arm3Meshes, true, true, undefined, false, true);
-                this._effector = BABYLON.MeshBuilder.CreateSphere("endEffector", { diameter: 0.5 }, scene);
+                this._effector = BABYLON.MeshBuilder.CreateSphere("endEffector", { diameter: 0.35 }, scene);
 
                 this._baseBottom.physicsImpostor = new BABYLON.PhysicsImpostor(this._baseBottom, BABYLON.PhysicsImpostor.BoxImpostor, { mass: 0 }, scene);
                 this._baseBottom.scaling = new BABYLON.Vector3(0.8, 0.8, 0.8);
@@ -90,7 +90,7 @@ export class RoboticArm extends Robot {
                 this._baseBottom.parent = this;
                 this._effector.parent = this._arm3;
                 this._baseBottom.position.y += 0.5;
-                this._effector.position.y += 0.5;
+                this._effector.position.y += 0.35;
 
                 var endMat = new BABYLON.StandardMaterial("endMat", scene);
                 endMat.alpha = 0.4;
