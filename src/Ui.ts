@@ -11,7 +11,6 @@ export class Ui {
     private _advancedTexture: GUI.AdvancedDynamicTexture;
     private _camera: BABYLON.Camera;
     private _editorsWrite: monaco.editor.IStandaloneCodeEditor[];
-    private _editorsReadOnly: monaco.editor.IStandaloneCodeEditor[];
 
     constructor(scene: BABYLON.Scene) {
         this._editorsWrite = new Array<monaco.editor.IStandaloneCodeEditor>();
@@ -58,23 +57,25 @@ export class Ui {
         const { guide } = data;
         guide.forEach(element => {
             switch (element.type) {
-                case "text":
-                    this.CreateText(guidePanel, element.content)
+                case "subsystem-heading":
+                    this.CreateSubsystemHeading(guidePanel, element.content);
+                case "task-heading":
+                    this.CreateTaskHeading(guidePanel, element.content);
                     break;
-                case "editor-write":
-                    this.CreateEditor(guidePanel, element.content);
+                case "text":
+                    this.CreateText(guidePanel, element.content);
+                    break;
+                case "editor-read-only":
+                    this.CreateEditorReadOnly(guidePanel, element.content);
                     break;
                 case "code-block":
                     this.CreateCodeBlock(guidePanel, element.content);
                     break;
-                case "editor-read-only":
-                    this.CreateEditorReadOnlyFull(guidePanel, element.content);
-                    break;
-                case "heading-1":
-                    this.CreateHeading1(guidePanel, element.content)
+                case "editor-write":
+                    this.CreateWriteEditor(guidePanel, element.content);
                     break;
                 case "compile":
-                    this.CreateCompileButton(guidePanel, element.content)
+                    this.CreateCompileButton(guidePanel, element.content);
                     break;
                 default:
                     break;
@@ -88,6 +89,20 @@ export class Ui {
         return this._advancedTexture;
     }
 
+    private CreateSubsystemHeading(parentElement: HTMLElement, content: string) {
+        const text = document.createElement("div");
+        text.className = "heading-1 h4";
+        text.innerText = content;
+        parentElement.appendChild(text);
+    }
+
+    private CreateTaskHeading(parentElement: HTMLElement, content: string) {
+        const text = document.createElement("div");
+        text.className = "heading-1 h4";
+        text.innerText = content;
+        parentElement.appendChild(text);
+    }
+
     private CreateText(parentElement: HTMLElement, content: string) {
         const text = document.createElement("div");
         text.className = "text font-monospace lh-base fw-normal fs-6"
@@ -95,14 +110,60 @@ export class Ui {
         parentElement.appendChild(text);
     }
 
-    private CreateHeading1(parentElement: HTMLElement, content: string) {
-        const text = document.createElement("div");
-        text.className = "heading-1 h4";
-        text.innerText = content;
-        parentElement.appendChild(text);
+    private CreateEditorReadOnly(parentElement: HTMLElement, content: string) {
+        const editor = document.createElement("div");
+        editor.className = "editor";
+        parentElement.appendChild(editor);
+
+        let monacoEditor = monaco.editor.create(editor, {
+            value: content,
+            language: "cpp",
+            roundedSelection: true,
+            scrollBeyondLastLine: false,
+            readOnly: true,
+            minimap: { enabled: false },
+            automaticLayout: true,
+            wordWrap: "on",
+            scrollbar: {
+                alwaysConsumeMouseWheel: false,
+                verticalScrollbarSize: 0
+            },
+            overviewRulerBorder: false
+        });
+        editor.style.height = monacoEditor.getContentHeight() + "px";
     }
 
-    private CreateEditor(parentElement: HTMLElement, content: string) {
+    private CreateCodeBlock(parentElement: HTMLElement, content: string) {
+        const editor = document.createElement("div");
+        editor.className = "editor";
+        parentElement.appendChild(editor);
+
+        let monacoEditor = monaco.editor.create(editor, {
+            value: content,
+            language: "cpp",
+            roundedSelection: true,
+            scrollBeyondLastLine: false,
+            readOnly: true,
+            minimap: { enabled: false },
+            automaticLayout: true,
+            wordWrap: "on",
+            scrollbar: {
+                alwaysConsumeMouseWheel: false,
+                verticalScrollbarSize: 0
+            },
+            lineNumbers: 'off',
+            glyphMargin: false,
+            folding: false,
+            lineDecorationsWidth: 0,
+            lineNumbersMinChars: 0,
+            overviewRulerBorder: false
+        });
+        monacoEditor.onDidContentSizeChange(() => {
+            editor.style.height = monacoEditor.getContentHeight() + "px";
+        });
+    }
+
+    private CreateWriteEditor(parentElement: HTMLElement, content: string) {
         const editor = document.createElement("div");
         editor.className = "editor";
         editor.id = "editor" + this._editorsWrite.length;
@@ -150,59 +211,6 @@ export class Ui {
             RobotManager.instance.UploadCode(code);
         });
         parentElement.appendChild(button);
-    }
-
-    private CreateCodeBlock(parentElement: HTMLElement, content: string) {
-        const editor = document.createElement("div");
-        editor.className = "editor";
-        parentElement.appendChild(editor);
-
-        let monacoEditor = monaco.editor.create(editor, {
-            value: content,
-            language: "cpp",
-            roundedSelection: true,
-            scrollBeyondLastLine: false,
-            readOnly: true,
-            minimap: { enabled: false },
-            automaticLayout: true,
-            wordWrap: "on",
-            scrollbar: {
-                alwaysConsumeMouseWheel: false,
-                verticalScrollbarSize: 0
-            },
-            lineNumbers: 'off',
-            glyphMargin: false,
-            folding: false,
-            lineDecorationsWidth: 0,
-            lineNumbersMinChars: 0,
-            overviewRulerBorder: false
-        });
-        monacoEditor.onDidContentSizeChange(() => {
-            editor.style.height = monacoEditor.getContentHeight() + "px";
-        });
-    }
-
-    private CreateEditorReadOnlyFull(parentElement: HTMLElement, content: string) {
-        const editor = document.createElement("div");
-        editor.className = "editor";
-        parentElement.appendChild(editor);
-
-        let monacoEditor = monaco.editor.create(editor, {
-            value: content,
-            language: "cpp",
-            roundedSelection: true,
-            scrollBeyondLastLine: false,
-            readOnly: true,
-            minimap: { enabled: false },
-            automaticLayout: true,
-            wordWrap: "on",
-            scrollbar: {
-                alwaysConsumeMouseWheel: false,
-                verticalScrollbarSize: 0
-            },
-            overviewRulerBorder: false
-        });
-        editor.style.height = monacoEditor.getContentHeight() + "px";
     }
 
     public WinUI() {

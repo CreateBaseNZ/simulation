@@ -1,6 +1,6 @@
 {
     "guide": [{
-            "type": "heading-1",
+            "type": "subsystem-heading",
             "content": "Catch the Stars"
         },
         {
@@ -8,7 +8,7 @@
             "content": "We are programming the Robotic Arm to collect the stars."
         },
         {
-            "type": "heading-1",
+            "type": "task-heading",
             "content": "Task 1: Configure the Robotic Arm"
         },
         {
@@ -60,7 +60,7 @@
             "content": "Before starting with the next step, there is something to consider. Each Arduino code needs to have two major parts:\n\t1. setup: The part of code that should run once at the start. Sensors, actuators and comunication channels should be intialised\n\t2. loop: The part of code that would run continuously. This typically includes the rest of the code\n"
         },
         {
-            "type": "heading-1",
+            "type": "task-heading",
             "content": "Task 2: Setup"
         },
         {
@@ -104,7 +104,7 @@
             "content": "void setup() {\n\n}"
         },
         {
-            "type": "heading-1",
+            "type": "task-heading",
             "content": "Task 3: Get familar with the robotArm object."
         },
         {
@@ -140,7 +140,7 @@
             "content": "Given these descriptions the best sequence of commands would be as follow:\n\t1. Use Move_position_xyz to start moving the arm\n\t2. Wait until all servos are at the right position.\n\t3. Repeat the steps for the next star until all are done."
         },
         {
-            "type": "heading-1",
+            "type": "task-heading",
             "content": "Task 4: Develop a function."
         },
         {
@@ -192,7 +192,7 @@
             "content": ""
         },
         {
-            "type": "heading-1",
+            "type": "task-heading",
             "content": "Task 5: Reach Point Number 1."
         },
         {
@@ -252,7 +252,7 @@
             "content": ""
         },
         {
-            "type": "heading-1",
+            "type": "task-heading",
             "content": "Task 6: Loop"
         },
         {
