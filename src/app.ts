@@ -10,7 +10,6 @@ export class App {
     constructor() {
         // initialize babylon engine
         let canvas = document.getElementById("gameCanvas") as HTMLCanvasElement;
-        
         this._engine = new BABYLON.Engine(canvas, true);
         new SceneManager(this._engine);
 
