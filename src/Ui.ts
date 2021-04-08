@@ -64,8 +64,8 @@ export class Ui {
                 case "editor-write":
                     this.CreateEditor(guidePanel, element.content);
                     break;
-                case "block-code":
-                    this.CreateEditorReadOnly(guidePanel, element.content);
+                case "code-block":
+                    this.CreateCodeBlock(guidePanel, element.content);
                     break;
                 case "editor-read-only":
                     this.CreateEditorReadOnlyFull(guidePanel, element.content);
@@ -152,7 +152,7 @@ export class Ui {
         parentElement.appendChild(button);
     }
 
-    private CreateEditorReadOnly(parentElement: HTMLElement, content: string) {
+    private CreateCodeBlock(parentElement: HTMLElement, content: string) {
         const editor = document.createElement("div");
         editor.className = "editor";
         parentElement.appendChild(editor);

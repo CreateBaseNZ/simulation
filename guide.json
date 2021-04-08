@@ -28,7 +28,7 @@
             "content": "The code below allows us to include all the functions within the RobotArm library. For us, this library includes functions we could use to perform specific tasks."
         },
         {
-            "type": "block-code",
+            "type": "code-block",
             "content": "#include \"RobotArm.h\""
         },
         {
@@ -36,7 +36,7 @@
             "content": "Next, we would need to provide the program with the size of each of the links the robotic arm has. This is one of the pieces of information we need for the program to work. The measurements of each link are 0.5, 1.05, 1.05 and 0.45 m, respectively."
         },
         {
-            "type": "block-code",
+            "type": "code-block",
             "content": "// Define length of each robot arm link\nfloat linkLengths[] = {0.5, 1.05, 1.05, 0.45};"
         },
         {
@@ -44,7 +44,7 @@
             "content": "From the RobotArm.h library, we have this RobotArm object we could create. By  storing the size of each link within the object, the functions in the library will be applied to the robot arm with ours dimensions."
         },
         {
-            "type": "block-code",
+            "type": "code-block",
             "content": "// Create our robot arm object.\nRobotArm robotArm(linkLengths);"
         },
         {
@@ -76,7 +76,7 @@
             "content": "First, we will create an array of the pins we connected the motor to within the arduino board. This would enable us to pass it in with the next step"
         },
         {
-            "type": "block-code",
+            "type": "code-block",
             "content": "int motorPins[4]={8,9,10,11};"
         },
         {
@@ -84,7 +84,7 @@
             "content": "Next, we will pass on the pins to robotArm object through the function ConfigurePins. This function would make the object control the servos directly."
         },
         {
-            "type": "block-code",
+            "type": "code-block",
             "content": "// Setup the pins for our virtual robot\nrobotArm.ConfigurePins(motorPins);"
         },
         {
@@ -92,7 +92,7 @@
             "content": "Finally, we will create a communication link between the robotic arm and the computer. This would enable us to recieve data within the serial in addtion to send data to the ardiuo if needed."
         },
         {
-            "type": "block-code",
+            "type": "code-block",
             "content": "Serial.begin(9600);"
         },
         {
@@ -116,7 +116,7 @@
             "content": "The command below is made to output the current angle position of servo i (0-3)."
         },
         {
-            "type": "block-code",
+            "type": "code-block",
             "content": "robotArm.servoMotors[i].read()"
         },
         {
@@ -124,7 +124,7 @@
             "content": "The command below is made to output the angle position  servo i (0-3) is instructed to go to."
         },
         {
-            "type": "block-code",
+            "type": "code-block",
             "content": "robotArm.targetAngles[i]"
         },
         {
@@ -132,7 +132,7 @@
             "content": "The command below is made to determince the angle the servos should be for the end effector to be at the location specified in the input (x,y,z). The target angles are saved into robotArm.targetAngles[i] and the servo is instructed to reach these angles"
         },
         {
-            "type": "block-code",
+            "type": "code-block",
             "content": "robotArm.Move_position_xyz(x, y, z);"
         },
         {
@@ -156,7 +156,7 @@
             "content": "The code below is the function decleration. It has the type of output, name of function and, between brackets, the inputs with their data type."
         },
         {
-            "type": "block-code",
+            "type": "code-block",
             "content": "bool error(float target, float current)"
         },
         {
@@ -164,7 +164,7 @@
             "content": "The first step within the function would be to find the absolute (i.e. sign is ignored) difference between the two inputs"
         },
         {
-            "type": "block-code",
+            "type": "code-block",
             "content": "float absError = abs(target-current);"
         },
         {
@@ -172,7 +172,7 @@
             "content": "Next, the absolute difference is checked if its more less than 1 degree. This value determines the accuracy of the location. If the error is higher than 1 degree the function will end and return true as output."
         },
         {
-            "type": "block-code",
+            "type": "code-block",
             "content": "if(absError > 1){\n\treturn true;\n}"
         },
         {
@@ -180,7 +180,7 @@
             "content": "If the function reaches this point then the error was less than 1 degrees and the servo hasn't reached the point and false should be returned."
         },
         {
-            "type": "block-code",
+            "type": "code-block",
             "content": "return false;"
         },
         {
@@ -208,7 +208,7 @@
             "content": "The code below is the function decleration. It has the type of output, name of function and, between brackets, the inputs with their data type."
         },
         {
-            "type": "block-code",
+            "type": "code-block",
             "content": "void getToPosition(float x, float y, float z)"
         },
         {
@@ -216,7 +216,7 @@
             "content": "First, we will use the move_position_xyz for the robotic arm to start moving."
         },
         {
-            "type": "block-code",
+            "type": "code-block",
             "content": "robotArm.Move_position_xyz(x, y, z);"
         },
         {
@@ -224,7 +224,7 @@
             "content": "The next step is to store the values that would be compared. These would be both the current and target angles for each of the servos"
         },
         {
-            "type": "block-code",
+            "type": "code-block",
             "content": "int angle0 = robotArm.servoMotors[0].read();\nint angle1 = robotArm.servoMotors[1].read();\nint angle2 = robotArm.servoMotors[2].read();\nint angle3 = robotArm.servoMotors[3].read();\nint target0=robotArm.targetAngles[0]\nint target1=robotArm.targetAngles[1]\nint target2=robotArm.targetAngles[2]\nint target3=robotArm.targetAngles[3]"
         },
         {
@@ -232,7 +232,7 @@
             "content": "Now we will use a while loop. The while loop will continue if the condition within the bracket is true, otherwise it will terminate. As we want to wait until all servos are in the correct position, we will use the function we developed. The function would give true if the servo hasn't reached the required point. If one of the servos still hasn't reached its target the while should continue. Therefore, we will use or (denoted by ||) between each of the functions to get the required performance."
         },
         {
-            "type": "block-code",
+            "type": "code-block",
             "content": "while (error(target0, angle0) || error(target1, angle1) || error(target2, angle2) || error(target3, angle3)){\n\n}"
         },
         {
@@ -240,7 +240,7 @@
             "content": "Lastly, the values of the current angles have to be updated within the while loop so we will register when the servos reach their target."
         },
         {
-            "type": "block-code",
+            "type": "code-block",
             "content": "while (error(target0, angle0) || error(target1, angle1) || error(target2, angle2) || error(target3, angle3)){\n\tangle0 = robotArm.servoMotors[0].read();\n\tangle1 = robotArm.servoMotors[1].read();\n\tangle2 = robotArm.servoMotors[2].read();\n\tangle3 = robotArm.servoMotors[3].read();\n}"
         },
         {

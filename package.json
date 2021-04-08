@@ -41,5 +41,13 @@
     "monaco-editor-webpack-plugin": "^3.0.0",
     "path": "^0.12.7",
     "source-map-loader": "^2.0.1"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CreateBaseNZ/simulation.git"
+  },
+  "bugs": {
+    "url": "https://github.com/CreateBaseNZ/simulation/issues"
+  },
+  "homepage": "https://github.com/CreateBaseNZ/simulation#readme"
 }
