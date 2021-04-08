@@ -1,28 +1,108 @@
 {
     "guide": [
         {
-            "type": "text",
-            "content": "Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum."
-        },
-        {
-            "type": "editor",
-            "content": "#include <Servo.h>\nServo myServo0;\nServo myServo1;\nServo myServo2;\nServo myServo3;\n\nvoid setup() {\n\tmyServo0.attach(8);\n\tmyServo1.attach(9);\n\tmyServo2.attach(10);\n\tmyServo3.attach(11);\n}\n\nvoid loop() {\n\n}\n"
+            "type": "heading-1",
+            "content": "Catch the Stars"
         },
         {
             "type": "text",
-            "content": "Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum."
+            "content": "We are programming the Robotic Arm to collect the stars."
         },
         {
-            "type": "editor",
+            "type": "heading-1",
+            "content": "Task 1: Configure the Robotic Arm"
+        },
+        {
+            "type": "text",
+            "content": "Before we start programming the Robotic Arm, we will first have to configure it by writing this piece of code:"
+        },
+        {
+            "type": "editor-read-only-full",
+            "content": "#include \"RobotArm.h\"\n\n// Define length of each robot arm link\nfloat linkLengths[] = {0.5, 1.05, 1.05, 0.45};\n// Create our robot arm object.\nRobotArm robotArm(linkLengths);"
+        },
+        {
+            "type": "text",
+            "content": "The code below will allow us to include all the <span style='color: blue;'>functions</span> we need to program the Robotic Arm. Functions are group codes required to achieve a specific task."
+        },
+        {
+            "type": "editor-read-only",
+            "content": "#include \"RobotArm.h\""
+        },
+        {
+            "type": "text",
+            "content": "We now need to specify the length of each part of our Robotic Arm. Where the height of the base is 0.5 units, the lengths of the first and second arms are 1.05 units, and the length of the third arm is 0.45 units."
+        },
+        {
+            "type": "editor-read-only",
+            "content": "// Define length of each robot arm link\nfloat linkLengths[] = {0.5, 1.05, 1.05, 0.45};"
+        },
+        {
+            "type": "text",
+            "content": "Let's create the configured Robotic Arm object which will contain all the functions we need to program our Robotic Arm."
+        },
+        {
+            "type": "editor-read-only",
+            "content": "// Create our robot arm object.\nRobotArm robotArm(linkLengths);"
+        },
+        {
+            "type": "text",
+            "content": "Now it is your turn to write the code to setup your Robotic Arm!"
+        },
+        {
+            "type": "editor-write",
             "content": ""
         },
         {
-            "type": "text",
-            "content": "Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum."
+            "type": "heading-1",
+            "content": "Task 2: Setup the Program"
         },
         {
-            "type": "editor-image",
-            "content": "#include <Servo.h>\nServo myServo0;\nServo myServo1;\nServo myServo2;\nServo myServo3;\n\nvoid setup() {\n\tmyServo0.attach(8);\n\tmyServo1.attach(9);\n\tmyServo2.attach(10);\n\tmyServo3.attach(11);\n}\n\nvoid loop() {\n\n}\n"
+            "type": "text",
+            "content": "To setup the program, write this piece of code:"
+        },
+        {
+            "type": "editor-read-only-full",
+            "content": "void setup() {\n\tint motorPins[4]={8,9,10,11};\n\tSerial.begin(9600);\n\t// Setup the pins for our virtual robot\n\trobotArm.ConfigurePins(motorPins);\n}"
+        },
+        {
+            "type": "text",
+            "content": "Specify how the Servo Motors (the components which moves the Robotic Arm) are attached to the Arduino Uno (the computer that controls the Robotic Arm)."
+        },
+        {
+            "type": "editor-read-only",
+            "content": "int motorPins[4]={8,9,10,11};"
+        },
+        {
+            "type": "text",
+            "content": "Let's now create a connection between our Arduino Uno and our computer."
+        },
+        {
+            "type": "editor-read-only",
+            "content": "Serial.begin(9600);"
+        },
+        {
+            "type": "text",
+            "content": "And finally, let's configure the connection of our Robotic Arm."
+        },
+        {
+            "type": "editor-read-only",
+            "content": "// Setup the pins for our virtual robot\nrobotArm.ConfigurePins(motorPins);"
+        },
+        {
+            "type": "text",
+            "content": "Now it is your turn to write the code to setup your program!"
+        },
+        {
+            "type": "editor-write",
+            "content": "void setup() {\n\n}"
+        },
+        {
+            "type": "editor-write",
+            "content": "void loop() {\n\n}"
+        },
+        {
+            "type": "compile",
+            "content": ""
         }
     ]
 }
