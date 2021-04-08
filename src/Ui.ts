@@ -64,10 +64,10 @@ export class Ui {
                 case "editor-write":
                     this.CreateEditor(guidePanel, element.content);
                     break;
-                case "editor-read-only":
+                case "block-code":
                     this.CreateEditorReadOnly(guidePanel, element.content);
                     break;
-                case "editor-read-only-full":
+                case "editor-read-only":
                     this.CreateEditorReadOnlyFull(guidePanel, element.content);
                     break;
                 case "heading-1":
@@ -91,7 +91,7 @@ export class Ui {
     private CreateText(parentElement: HTMLElement, content: string) {
         const text = document.createElement("div");
         text.className = "text font-monospace lh-base fw-normal fs-6"
-        text.innerText = content;
+        text.innerHTML = content;
         parentElement.appendChild(text);
     }
 
