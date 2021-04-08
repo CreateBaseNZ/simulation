@@ -35,12 +35,12 @@ export class SceneManager {
     }
 
     public async LoadScene(sceneFunction: (scene: BABYLON.Scene) => void) {
-        //this.engine.displayLoadingUI();
+        this.engine.displayLoadingUI();
         this.scene.dispose();
         this.scene = new BABYLON.Scene(this.engine);
         new Environment(this.scene, sceneFunction);
         await this.scene.whenReadyAsync();
-        //this.engine.hideLoadingUI();
+        this.engine.hideLoadingUI();
     }
 
     public EnableResize() {

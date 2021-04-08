@@ -219,5 +219,3 @@ export class Ui {
     }
 
 }
-
-const STARTER_CODE = "";

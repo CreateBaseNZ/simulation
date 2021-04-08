@@ -1,6 +1,7 @@
 import * as BABYLON from '@babylonjs/core';
 import { GameManager } from './GameManager';
 import { Hud } from './Hud';
+import { createPs } from './Particles';
 import { PlayerController } from "./PlayerController";
 import { Ui } from './Ui';
 
@@ -12,8 +13,9 @@ export class Player {
     public hud: Hud;
 
     constructor(scene) {
-        let capsuleOptions = { subdivisions: 2, tessellation: 16, height: 1.7, radius: 0.35, capSubdivisions: 6 };
-        let mesh = BABYLON.MeshBuilder.CreateCapsule("player", capsuleOptions, scene);
+        let mesh = BABYLON.MeshBuilder.CreateBox("player", {size: 0.5}, scene);
+        mesh.position.y += 0.5;
+        createPs(mesh, scene);
         var playerMat = new BABYLON.StandardMaterial("boxMat", scene);
         playerMat.diffuseColor = BABYLON.Color3.Red();
         mesh.material = playerMat;
@@ -27,8 +29,7 @@ export class Player {
         camera.inertia = 0;
         camera.wheelPrecision = 1;
         camera.parent = mesh;
-        let controller = new PlayerController(scene);
-        mesh.parent = controller.CreateNavAgent(scene);
+        let controller = new PlayerController(mesh, scene);
         controller.CreateCameraControls(camera);
 
         this.ui = new Ui(scene);

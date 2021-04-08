@@ -90,8 +90,8 @@ export let createPs = (emitter, scene) => {
     // ps.minEmitBox = new BABYLON.Vector3(-15, 0, -15); // Starting all from
     // ps.maxEmitBox = new BABYLON.Vector3(15, 0, 15); // To...
 
-    ps.minEmitBox = new BABYLON.Vector3(-1, 0, -1); // Starting all from
-    ps.maxEmitBox = new BABYLON.Vector3(1, 0, 1); // To...
+    ps.minEmitBox = new BABYLON.Vector3(-0.2, -0.2, -0.2); // Starting all from
+    ps.maxEmitBox = new BABYLON.Vector3(0.2, 0.2, 0.2); // To...
 
     // the localized _update does the coloring.
     ps.color1 = ps.color2 = ps.colorDead = new BABYLON.Color4(0.3, 0.3, 0.3, 1);
@@ -101,17 +101,17 @@ export let createPs = (emitter, scene) => {
     ps.maxSize = 0.1;
 
     // Life time of each particle (random between...
-    ps.minLifeTime = 0.3;
-    ps.maxLifeTime = 1;
+    ps.minLifeTime = 0.2;
+    ps.maxLifeTime = 0.6;
 
     // Emission rate
-    ps.emitRate = 500;
+    ps.emitRate = 200;
 
     // Blend mode : BLENDMODE_ONEONE, or BLENDMODE_STANDARD
     ps.blendMode = BABYLON.ParticleSystem.BLENDMODE_ONEONE;
 
     // Set the gravity of all particles
-    ps.gravity = new BABYLON.Vector3(0, -2, 0);
+    ps.gravity = new BABYLON.Vector3(0, -3, 0);
 
     // Direction of each particle after it has been emitted
     ps.direction1 = new BABYLON.Vector3(-5, -5, 1);
@@ -123,8 +123,8 @@ export let createPs = (emitter, scene) => {
     ps.maxAngularSpeed = 0;
 
     // Speed
-    ps.minEmitPower = 10;
-    ps.maxEmitPower = 10;
+    ps.minEmitPower = 0;
+    ps.maxEmitPower = 0;
     ps.updateSpeed = 0.005;
 
     ps.particleTexture = new BABYLON.Texture('http://i166.photobucket.com/albums/u83/j1m68/star.jpg', scene, true, false, BABYLON.Texture.BILINEAR_SAMPLINGMODE);
