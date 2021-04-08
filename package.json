@@ -39,7 +39,6 @@
     "intel-hex": "^0.1.2",
     "monaco-editor": "^0.22.3",
     "monaco-editor-webpack-plugin": "^3.0.0",
-    "open-cb-editor": "^1.0.6",
     "path": "^0.12.7",
     "source-map-loader": "^2.0.1"
   }

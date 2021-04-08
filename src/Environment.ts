@@ -3,6 +3,7 @@ import { ObjectiveManager } from './ObjectiveManager';
 import { Player } from './Player';
 import { RobotManager } from './RobotManager';
 import { request } from "@octokit/request";
+import { SceneManager } from './SceneManager';
 
 export class Environment {
     scene: BABYLON.Scene;
@@ -18,9 +19,8 @@ export class Environment {
 
     private async CreateEnvironmentDefaults(scene: BABYLON.Scene) {
         // These are the default components that EVERY scene should have.
-
-        scene.clearColor = new BABYLON.Color4(0.529, 0.808, 0.922, 1);
-        scene.shadowsEnabled = true;
+        scene.clearColor = new BABYLON.Color4(0.5, 0.5, 0.5, 1);
+        scene.shadowsEnabled = false;
         scene.collisionsEnabled = true;
 
         scene.environmentTexture = BABYLON.CubeTexture.CreateFromPrefilteredData("https://raw.githubusercontent.com/CreateBaseNZ/cb-simulation-model/main/assets/skybox/Country.env", scene, '.env');

@@ -35,108 +35,104 @@ export class RoboticArm extends Robot {
         });
     }
 
-    private async _createObject(scene) {
-        let createNode = async (assetName: string) => {
+    private _createObject(scene) {
+        let rootURL = "https://raw.githubusercontent.com/CreateBaseNZ/cb-simulation-model/main/assets/";
+        BABYLON.SceneLoader.ImportMeshAsync(null, rootURL, "RoboticArm.glb", scene).then((result) => {
+            let meshes = result.meshes;
+            let baseBottomMeshes = [];
+            let baseLidMeshes = [];
+            let arm1Meshes = [];
+            let arm2Meshes = [];
+            let arm3Meshes = [];
 
-            BABYLON.SceneLoader.ImportMesh(null, "https://raw.githubusercontent.com/CreateBaseNZ/cb-simulation-model/main/assets/", assetName + ".glb", scene, (meshes, particleSystems, skeletons) => {
-                //this._setMaterials(assetName, meshes);
-
-                var baseBottomMeshes = [];
-                var baseLidMeshes = [];
-                var arm1Meshes = [];
-                var arm2Meshes = [];
-                var arm3Meshes = [];
-
-                meshes.forEach(mesh => {
-                    if (mesh.getVerticesData(BABYLON.VertexBuffer.PositionKind)) {
-                        mesh.id = "robot";
-                        if (mesh.name.includes("BaseBottom")) {
-                            baseBottomMeshes.push(mesh);
-                        }
-                        else if (mesh.name.includes("BaseLid")) {
-                            baseLidMeshes.push(mesh);
-                        }
-                        else if (mesh.name.includes("Arm1")) {
-                            arm1Meshes.push(mesh);
-                        }
-                        else if (mesh.name.includes("Arm2")) {
-                            arm2Meshes.push(mesh);
-                        }
-                        else if (mesh.name.includes("Arm3")) {
-                            arm3Meshes.push(mesh);
-                        }
+            meshes.forEach(mesh => {
+                if (mesh.getVerticesData(BABYLON.VertexBuffer.PositionKind)) {
+                    mesh.id = "robot";
+                    if (mesh.name.includes("BaseBottom")) {
+                        baseBottomMeshes.push(mesh);
                     }
-                });
-
-                this._baseBottom = BABYLON.Mesh.MergeMeshes(baseBottomMeshes, true, true, undefined, false, true);
-                this._baseLid = BABYLON.Mesh.MergeMeshes(baseLidMeshes, true, true, undefined, false, true);
-                this._arm1 = BABYLON.Mesh.MergeMeshes(arm1Meshes, true, true, undefined, false, true);
-                this._arm2 = BABYLON.Mesh.MergeMeshes(arm2Meshes, true, true, undefined, false, true);
-                this._arm3 = BABYLON.Mesh.MergeMeshes(arm3Meshes, true, true, undefined, false, true);
-                this._effector = BABYLON.MeshBuilder.CreateSphere("endEffector", { diameter: 0.35 }, scene);
-
-                this._baseBottom.physicsImpostor = new BABYLON.PhysicsImpostor(this._baseBottom, BABYLON.PhysicsImpostor.BoxImpostor, { mass: 0 }, scene);
-                this._baseBottom.scaling = new BABYLON.Vector3(0.8, 0.8, 0.8);
-                this._baseBottom.physicsImpostor.setScalingUpdated();
-                this._baseLid.physicsImpostor = new BABYLON.PhysicsImpostor(this._baseLid, BABYLON.PhysicsImpostor.BoxImpostor, { mass: 1000 }, scene);
-                this._baseLid.physicsImpostor.setScalingUpdated();
-                this._arm1.physicsImpostor = new BABYLON.PhysicsImpostor(this._arm1, BABYLON.PhysicsImpostor.BoxImpostor, { mass: 10 }, scene);
-                this._arm1.physicsImpostor.setScalingUpdated();
-                this._arm2.physicsImpostor = new BABYLON.PhysicsImpostor(this._arm2, BABYLON.PhysicsImpostor.BoxImpostor, { mass: 0.1 }, scene);
-                this._arm2.physicsImpostor.setScalingUpdated();
-                this._arm3.physicsImpostor = new BABYLON.PhysicsImpostor(this._arm3, BABYLON.PhysicsImpostor.BoxImpostor, { mass: 0.001 }, scene);
-                this._arm3.physicsImpostor.setScalingUpdated();
-
-                this._baseBottom.parent = this;
-                this._effector.parent = this._arm3;
-                this._baseBottom.position.y += 0.5;
-                this._effector.position.y += 0.35;
-
-                var endMat = new BABYLON.StandardMaterial("endMat", scene);
-                endMat.alpha = 0.4;
-                endMat.emissiveColor = BABYLON.Color3.Blue(); // Glow color
-                this._effector.material = endMat;
-
-                this.joint1 = new BABYLON.MotorEnabledJoint(BABYLON.PhysicsJoint.HingeJoint, {
-                    mainPivot: new BABYLON.Vector3(0, 0.565, -0.03),
-                    connectedPivot: new BABYLON.Vector3(0, -0.098, 0),
-                    mainAxis: new BABYLON.Vector3(1, 0, 0),
-                    connectedAxis: new BABYLON.Vector3(1, 0, 0),
-                    collision: false,
-                });
-
-                this.joint2 = new BABYLON.MotorEnabledJoint(BABYLON.PhysicsJoint.HingeJoint, {
-                    mainPivot: new BABYLON.Vector3(0, 0.565, -0.03),
-                    connectedPivot: new BABYLON.Vector3(0, -0.565, -0.03),
-                    mainAxis: new BABYLON.Vector3(1, 0, 0),
-                    connectedAxis: new BABYLON.Vector3(1, 0, 0),
-                    collision: false,
-                });
-
-                this.joint3 = new BABYLON.MotorEnabledJoint(BABYLON.PhysicsJoint.HingeJoint, {
-                    mainPivot: new BABYLON.Vector3(0.08, 0.14, -0.02),
-                    connectedPivot: new BABYLON.Vector3(0, -0.565, -0.03),
-                    mainAxis: new BABYLON.Vector3(1, 0, 0),
-                    connectedAxis: new BABYLON.Vector3(1, 0, 0),
-                    collision: false,
-                });
-                this.joint4 = new BABYLON.MotorEnabledJoint(BABYLON.PhysicsJoint.HingeJoint, {
-                    mainPivot: new BABYLON.Vector3(0, 0.61, 0),
-                    connectedPivot: new BABYLON.Vector3(0, 0, 0),
-                    mainAxis: new BABYLON.Vector3(0, 1, 0),
-                    connectedAxis: new BABYLON.Vector3(0, 1, 0),
-                    collision: false,
-                });
-
-                this._arm2.physicsImpostor.addJoint(this._arm3.physicsImpostor, this.joint1);
-                this._arm1.physicsImpostor.addJoint(this._arm2.physicsImpostor, this.joint2);
-                this._baseLid.physicsImpostor.addJoint(this._arm1.physicsImpostor, this.joint3);
-                this._baseBottom.physicsImpostor.addJoint(this._baseLid.physicsImpostor, this.joint4);
+                    else if (mesh.name.includes("BaseLid")) {
+                        baseLidMeshes.push(mesh);
+                    }
+                    else if (mesh.name.includes("Arm1")) {
+                        arm1Meshes.push(mesh);
+                    }
+                    else if (mesh.name.includes("Arm2")) {
+                        arm2Meshes.push(mesh);
+                    }
+                    else if (mesh.name.includes("Arm3")) {
+                        arm3Meshes.push(mesh);
+                    }
+                }
             });
-        }
 
-        createNode("RoboticArm");
+            this._baseBottom = BABYLON.Mesh.MergeMeshes(baseBottomMeshes, true, true, undefined, false, true);
+            this._baseLid = BABYLON.Mesh.MergeMeshes(baseLidMeshes, true, true, undefined, false, true);
+            this._arm1 = BABYLON.Mesh.MergeMeshes(arm1Meshes, true, true, undefined, false, true);
+            this._arm2 = BABYLON.Mesh.MergeMeshes(arm2Meshes, true, true, undefined, false, true);
+            this._arm3 = BABYLON.Mesh.MergeMeshes(arm3Meshes, true, true, undefined, false, true);
+            this._effector = BABYLON.MeshBuilder.CreateSphere("endEffector", { diameter: 0.35 }, scene);
+
+            this._baseBottom.physicsImpostor = new BABYLON.PhysicsImpostor(this._baseBottom, BABYLON.PhysicsImpostor.BoxImpostor, { mass: 0 }, scene);
+            this._baseBottom.scaling = new BABYLON.Vector3(0.8, 0.8, 0.8);
+            this._baseBottom.physicsImpostor.setScalingUpdated();
+            this._baseLid.physicsImpostor = new BABYLON.PhysicsImpostor(this._baseLid, BABYLON.PhysicsImpostor.BoxImpostor, { mass: 1000 }, scene);
+            this._baseLid.physicsImpostor.setScalingUpdated();
+            this._arm1.physicsImpostor = new BABYLON.PhysicsImpostor(this._arm1, BABYLON.PhysicsImpostor.BoxImpostor, { mass: 10 }, scene);
+            this._arm1.physicsImpostor.setScalingUpdated();
+            this._arm2.physicsImpostor = new BABYLON.PhysicsImpostor(this._arm2, BABYLON.PhysicsImpostor.BoxImpostor, { mass: 0.1 }, scene);
+            this._arm2.physicsImpostor.setScalingUpdated();
+            this._arm3.physicsImpostor = new BABYLON.PhysicsImpostor(this._arm3, BABYLON.PhysicsImpostor.BoxImpostor, { mass: 0.001 }, scene);
+            this._arm3.physicsImpostor.setScalingUpdated();
+
+            this._baseBottom.parent = this;
+            this._effector.parent = this._arm3;
+            this._baseBottom.position.y += 0.5;
+            this._effector.position.y += 0.35;
+
+            var endMat = new BABYLON.StandardMaterial("endMat", scene);
+            endMat.alpha = 0.4;
+            endMat.emissiveColor = BABYLON.Color3.Blue(); // Glow color
+            this._effector.material = endMat;
+
+            this.joint1 = new BABYLON.MotorEnabledJoint(BABYLON.PhysicsJoint.HingeJoint, {
+                mainPivot: new BABYLON.Vector3(0, 0.565, -0.03),
+                connectedPivot: new BABYLON.Vector3(0, -0.098, 0),
+                mainAxis: new BABYLON.Vector3(1, 0, 0),
+                connectedAxis: new BABYLON.Vector3(1, 0, 0),
+                collision: false,
+            });
+
+            this.joint2 = new BABYLON.MotorEnabledJoint(BABYLON.PhysicsJoint.HingeJoint, {
+                mainPivot: new BABYLON.Vector3(0, 0.565, -0.03),
+                connectedPivot: new BABYLON.Vector3(0, -0.565, -0.03),
+                mainAxis: new BABYLON.Vector3(1, 0, 0),
+                connectedAxis: new BABYLON.Vector3(1, 0, 0),
+                collision: false,
+            });
+
+            this.joint3 = new BABYLON.MotorEnabledJoint(BABYLON.PhysicsJoint.HingeJoint, {
+                mainPivot: new BABYLON.Vector3(0.08, 0.14, -0.02),
+                connectedPivot: new BABYLON.Vector3(0, -0.565, -0.03),
+                mainAxis: new BABYLON.Vector3(1, 0, 0),
+                connectedAxis: new BABYLON.Vector3(1, 0, 0),
+                collision: false,
+            });
+            this.joint4 = new BABYLON.MotorEnabledJoint(BABYLON.PhysicsJoint.HingeJoint, {
+                mainPivot: new BABYLON.Vector3(0, 0.61, 0),
+                connectedPivot: new BABYLON.Vector3(0, 0, 0),
+                mainAxis: new BABYLON.Vector3(0, 1, 0),
+                connectedAxis: new BABYLON.Vector3(0, 1, 0),
+                collision: false,
+            });
+
+            this._arm2.physicsImpostor.addJoint(this._arm3.physicsImpostor, this.joint1);
+            this._arm1.physicsImpostor.addJoint(this._arm2.physicsImpostor, this.joint2);
+            this._baseLid.physicsImpostor.addJoint(this._arm1.physicsImpostor, this.joint3);
+            this._baseBottom.physicsImpostor.addJoint(this._baseLid.physicsImpostor, this.joint4);
+        });
     }
+
 
     public setServoAngle(servo: number, angle: number) {
         let clamp = (val, min, max) => {

@@ -4,17 +4,46 @@ export class PlayerController {
 
     private _navigationPlugin: BABYLON.RecastJSPlugin;
 
-    constructor(scene) {
+    constructor(mesh: BABYLON.AbstractMesh, scene) {
         this._navigationPlugin = new BABYLON.RecastJSPlugin();
-
-        this.BakeNavMesh(scene);
+        this.BakeNavMesh(mesh, scene);
     }
 
-    public CreateNavAgent(scene: BABYLON.Scene) {
+    private BakeNavMesh(mesh: BABYLON.AbstractMesh, scene: BABYLON.Scene) {
+        var parameters = {
+            cs: 0.2,
+            ch: 0.2,
+            walkableSlopeAngle: 35,
+            walkableHeight: 1,
+            walkableClimb: 1,
+            walkableRadius: 1,
+            maxEdgeLen: 12.,
+            maxSimplificationError: 0.1,
+            minRegionArea: 8,
+            mergeRegionArea: 20,
+            maxVertsPerPoly: 6,
+            detailSampleDist: 6,
+            detailSampleMaxError: 1,
+        };
+
+        scene.executeWhenReady(() => {
+            let navMeshList = []
+            scene.meshes.forEach(mesh => {
+                if (mesh.name != "player") {
+                    navMeshList.push(mesh);
+                }
+            });
+            this._navigationPlugin.createNavMesh(navMeshList, parameters);
+            mesh.parent = this.CreateNavAgent(scene);
+        })
+    }
+
+    private CreateNavAgent(scene: BABYLON.Scene) {
         let crowd = this._navigationPlugin.createCrowd(1, 0.35, scene);
+
         let agentParameters = {
-            radius: 0.35,
-            height: 1.7,
+            radius: 0.25,
+            height: 0.5,
             maxAcceleration: 10,
             maxSpeed: 2,
             collisionQueryRange: 0.5,
@@ -24,7 +53,7 @@ export class PlayerController {
 
         let transform = new BABYLON.TransformNode("agent");
         crowd.addAgent(BABYLON.Vector3.Zero(), agentParameters, transform);
-        crowd.agentTeleport(0, new BABYLON.Vector3(0, 0, 3));
+        crowd.agentTeleport(0, this._navigationPlugin.getClosestPoint(new BABYLON.Vector3(0, 0, 2)));
         this.CreateAgentControls(crowd, scene);
 
         return transform;
@@ -60,34 +89,7 @@ export class PlayerController {
             }
         });
     }
-
-    private BakeNavMesh(scene: BABYLON.Scene) {
-        var parameters = {
-            cs: 0.2,
-            ch: 0.2,
-            walkableSlopeAngle: 35,
-            walkableHeight: 1,
-            walkableClimb: 1,
-            walkableRadius: 1,
-            maxEdgeLen: 12.,
-            maxSimplificationError: 0.1,
-            minRegionArea: 8,
-            mergeRegionArea: 20,
-            maxVertsPerPoly: 6,
-            detailSampleDist: 6,
-            detailSampleMaxError: 1,
-        };
-
-        let navMeshList = []
-        scene.meshes.forEach(mesh => {
-            if (mesh.name != "player") {
-                navMeshList.push(mesh);
-            }
-        });
-
-        this._navigationPlugin.createNavMesh(navMeshList, parameters);
-    }
-
+    
     public CreateCameraControls(camera: BABYLON.Camera) {
         camera.inputs.remove(camera.inputs.attached.pointers);
         let pointerInput = new BABYLON.ArcRotateCameraPointersInput();
