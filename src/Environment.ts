@@ -4,6 +4,8 @@ import { Player } from './Player';
 import { RobotManager } from './RobotManager';
 import { request } from "@octokit/request";
 import { SceneManager } from './SceneManager';
+import * as MATERIALS from '@babylonjs/materials';
+
 
 export class Environment {
     scene: BABYLON.Scene;
@@ -62,8 +64,12 @@ export class Environment {
                     ),
                 );
             });
-        })
+        });
 
+        
+        scene.meshes.forEach(mesh => {
+            (scene.getMeshByName("water.001").material as MATERIALS.WaterMaterial).addToRenderList(mesh);
+        });
 
     }
 }

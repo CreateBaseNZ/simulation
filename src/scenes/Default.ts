@@ -3,6 +3,7 @@ import { resourceLimits } from "node:worker_threads";
 import { Player } from "../Player";
 import { RoboticArm } from "../RoboticArm";
 import { Star } from "../Star";
+import * as MATERIALS from "@babylonjs/materials";
 
 export let defaultScene = (scene: BABYLON.Scene) => {
     // Create roboticArm
@@ -18,6 +19,21 @@ export let defaultScene = (scene: BABYLON.Scene) => {
             mesh.position.y -= 0.6;
             mesh.receiveShadows = true;
             console.log(mesh.name);
+            if (mesh.name == "water.001") {
+                var water = new MATERIALS.WaterMaterial("water", scene);
+                water.bumpTexture = new BABYLON.Texture("https://raw.githubusercontent.com/CreateBaseNZ/cb-simulation-model/main/assets/seashank/waterbump.png", scene);
+
+                // Water properties
+                water.windForce = -15;
+                water.waveHeight = 0.0013;
+                water.windDirection = new BABYLON.Vector2(1, 1);
+                water.waterColor = new BABYLON.Color3(0, 0.467, 0.745);
+                water.colorBlendFactor = 0.3;
+                water.bumpHeight = 0.1;
+                water.waveLength = 0.1;
+                water.alpha = 0.75;
+                mesh.material = water;
+            }
         })
     });
 
