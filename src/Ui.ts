@@ -36,7 +36,7 @@ export class Ui {
         let editorOpened = true;
         let gameCanvas = (document.getElementById("gameCanvas"));
         let sidePanel = document.getElementById("sidePanel");
-        let guidePanel = document.getElementById("guide");
+        let educContent = document.querySelector(".educ-content") as HTMLElement;
 
         editorBtn.onPointerDownObservable.add(() => {
             editorOpened = !editorOpened;
@@ -58,25 +58,25 @@ export class Ui {
         contents.forEach(element => {
             switch (element.type) {
                 case "subsystem-heading":
-                    this.CreateSubsystemHeading(guidePanel, element.content);
+                    this.CreateSubsystemHeading(educContent, element.content);
                     break;
                 case "task-heading":
-                    this.CreateTaskHeading(guidePanel, element.content);
+                    this.CreateTaskHeading(educContent, element.content);
                     break;
                 case "text":
-                    this.CreateText(guidePanel, element.content);
+                    this.CreateText(educContent, element.content);
                     break;
                 case "editor-read-only":
-                    this.CreateEditorReadOnly(guidePanel, element.content);
+                    this.CreateEditorReadOnly(educContent, element.content);
                     break;
                 case "code-block":
-                    this.CreateCodeBlock(guidePanel, element.content);
+                    this.CreateCodeBlock(educContent, element.content);
                     break;
                 case "editor-write":
-                    this.CreateWriteEditor(guidePanel, element.content);
+                    this.CreateWriteEditor(educContent, element.content);
                     break;
                 case "compile":
-                    this.CreateCompileButton(guidePanel, element.content);
+                    this.CreateCompileButton(educContent, element.content);
                     break;
                 default:
                     break;
@@ -92,21 +92,21 @@ export class Ui {
 
     private CreateSubsystemHeading(parentElement: HTMLElement, content: string) {
         const text = document.createElement("div");
-        text.className = "heading-1 h4";
+        text.className = "sim-h1";
         text.innerText = content;
         parentElement.appendChild(text);
     }
 
     private CreateTaskHeading(parentElement: HTMLElement, content: string) {
         const text = document.createElement("div");
-        text.className = "heading-1 h4";
+        text.className = "sim-h2";
         text.innerText = content;
         parentElement.appendChild(text);
     }
 
     private CreateText(parentElement: HTMLElement, content: string) {
         const text = document.createElement("div");
-        text.className = "text font-monospace lh-base fw-normal fs-6"
+        text.className = "sim-p"
         text.innerHTML = content;
         parentElement.appendChild(text);
     }

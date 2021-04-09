@@ -1,0 +1,229 @@
+$poppins: "Poppins", sans-serif;
+$mono: "DM Mono", monospace;
+
+
+$darkest: #050505;
+$darker: #1A1039;
+$dark: #786D97;
+
+$light: #ABABAB;
+$lighter: #F4F4F4;
+$lightest: #FFFFFF;
+
+$logo-light: #8258DC;
+$logo-mid: #6854d9;
+$logo-dark: #4E4ED6;
+$bg-light: #FDFDFD;
+$bg-dark: #1E1E1E;
+
+$blue-light: #36C4E8;
+$blue-mid: #209ce2;
+$blue-dark: #0A73DC;
+
+$magenta-light: #B835CF;
+$magenta-mid: #7F21B3;
+$magenta-dark: #450C97;
+
+$red: #FA6F6F;
+$orange: #FFB649;
+$gold: #FDD135;
+$green: #18DBAC;
+
+* {
+  margin: 0;
+  padding: 0;
+  border: none;
+  outline: none;
+  box-sizing: border-box;
+  text-decoration: none;
+  user-select: none;
+  background: transparent;
+  font-family: $poppins;
+  color: $darker;
+  font-size: 1rem;
+}
+
+span {
+  font-size: inherit;
+  font-family: inherit;
+  color: inherit;
+  font-weight: inherit;
+}
+
+body {
+  height: 100vh;
+  width: 100vw;
+  overflow-x: hidden;
+  position: relative;
+  display: flex;
+}
+
+.main-container {
+  position: absolute;
+  height: 100%;
+  width: 50%;
+  top: 0;
+  left: 0;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-wrapper {
+  height: 75%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  .tab-wrapper {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    flex: 0 0 2.5rem;
+  }
+  .content-wrapper {
+    display: flex;
+    width: 100%;
+    flex: 1 1 0;
+    min-height: 0;
+    border-radius: 0 1rem 1rem 1rem;
+    overflow: hidden;
+  }
+}
+
+.tab {
+  height: 100%;
+  width: 10vw;
+  max-width: 10vw;
+  display: flex;
+  align-items: center;
+  color: $lightest;
+  justify-content: flex-start;
+  font-weight: 500;
+  border-radius: 1.25rem 1.25rem 0 0;
+  background: blue;
+  padding: 0 2rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  i {
+    margin-right: 0.75rem;
+    font-size: inherit;
+    color: inherit;
+  }
+}
+
+.content {
+  height: 100%;
+  width: 100%;
+  background: $bg-light;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  padding: 5vw;
+  .sim-h1 {
+    font-size: 1.75rem;
+    font-weight: 600;
+    line-height: 200%;
+  }
+  .sim-h2 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    line-height: 200%;
+    margin-top: 1.5em;
+  }
+  .sim-p {
+    font-size: 0.85rem;
+    margin: 1em 0;
+  }
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+  &::-webkit-scrollbar-track {
+    background: none;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: rgba(120, 109, 151, 0.5);
+    border-radius: 1rem;
+    border: thin solid $lightest;
+    opacity: 0.5;
+    transition: background-color 0.1s ease-out;
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    background: rgba(120, 109, 151, 1);
+  }
+}
+
+.terminal-wrapper {
+  display: flex;
+  flex-direction: row;
+  height: 25%;
+  width: 100%;
+  margin-top: 1rem;
+  border-radius: 0.5rem;
+  border: thin solid $blue-dark;
+  color: $lightest;
+  font: $mono;
+  overflow: hidden;
+}
+
+.terminal-header {
+  background: $blue-dark;
+  padding: 0.75rem 0;
+  height: 100%;
+  flex: 0 0 2.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  color: $lightest;
+  font-size: 1rem;
+  overflow: hidden;
+  i {
+    color: inherit;
+    font-size: inherit;
+    opacity: 0.75;
+    cursor: pointer;
+    transition: opacity 0.1s ease-out;
+    padding: 0.25rem;
+    &:hover {
+      opacity: 1;
+    }
+  }
+  .header-text {
+    font-size: inherit;
+    font-family: $mono;
+    color: inherit;
+    writing-mode: tb-rl;
+    transform: rotate(-180deg);
+    transform-origin: 40% 50%;
+    width: 1em;
+  }
+}
+
+.terminal {
+  flex: 1 1 0;
+  background: $bg-dark;
+  white-space: pre-wrap;
+  overflow-y: auto;
+  height: 100%;
+}
+
+#gameCanvas {
+  height: 100%;
+  width: 100%;
+}
+
+.compile-button {
+  margin: 20px 40px 30px;
+}
+
+.keyword {
+  color: $logo-mid;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  font-size: inherit;
+  cursor: pointer;
+  text-decoration: underline;
+  text-decoration-color: $logo-mid;
+}
