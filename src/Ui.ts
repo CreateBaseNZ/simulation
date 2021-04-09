@@ -4,8 +4,8 @@ import * as monaco from 'monaco-editor';
 import { SceneManager } from './SceneManager';
 import * as data from "../guide.json";
 import { RobotManager } from './RobotManager';
-import { on } from 'events';
-import { editorClass, createEditor } from 'open-cb-editor';
+//import { on } from 'events';
+//import { editorClass, createEditor } from 'open-cb-editor';
 
 export class Ui {
 
@@ -68,7 +68,7 @@ export class Ui {
                     this.CreateText(educContent, element.content);
                     break;
                 case "editor-read-only":
-                    this.CreateEditor(educContent, element.content, editorClass.SIMPLE);
+                    this.CreateEditorReadOnly(educContent, element.content);
                     break;
                 case "code-block":
                     this.CreateCodeBlock(educContent, element.content);
@@ -113,9 +113,22 @@ export class Ui {
     }
 
     private CreateEditorReadOnly(parentElement: HTMLElement, content: string) {
+        // Create the container editor element
+        const containerEditor = document.createElement("div");
+        containerEditor.className = "editor-container";
+        parentElement.appendChild(containerEditor);
+        // Create the header element
+        const header = document.createElement("div");
+        header.className = "editor-header";
+        containerEditor.appendChild(header);
+        // Create the wrapper element
+        const wrapperEditor = document.createElement("div");
+        wrapperEditor.className = "editor-wrapper";
+        containerEditor.appendChild(wrapperEditor);
+        // Create the editor element
         const editor = document.createElement("div");
         editor.className = "editor";
-        parentElement.appendChild(editor);
+        wrapperEditor.appendChild(editor);
 
         let monacoEditor = monaco.editor.create(editor, {
             value: content,
@@ -165,7 +178,7 @@ export class Ui {
         });
     }
 
-    private CreateEditor(parentElement: HTMLElement, content: string, type: editorClass) {
+    /* private CreateEditor(parentElement: HTMLElement, content: string, type: editorClass) {
         const editor = document.createElement("div");
         editor.className = "editor";
         parentElement.appendChild(editor);
@@ -186,14 +199,28 @@ export class Ui {
         monacoEditor.setCode(content);
         //monacoEditor.editor.updateOptions(options);
         //editor.style.height = monacoEditor.editor.getContentHeight() + "px";
-    }
+    }*/
 
     private CreateWriteEditor(parentElement: HTMLElement, content: string) {
+        // Create the container editor element
+        const containerEditor = document.createElement("div");
+        containerEditor.className = "editor-container";
+        parentElement.appendChild(containerEditor);
+        // Create the header element
+        const header = document.createElement("div");
+        header.className = "editor-header";
+        containerEditor.appendChild(header);
+        // Create the wrapper element
+        const wrapperEditor = document.createElement("div");
+        wrapperEditor.className = "editor-wrapper";
+        containerEditor.appendChild(wrapperEditor);
+        // Create the editor element
         const editor = document.createElement("div");
         editor.className = "editor";
         editor.id = "editor" + this._editorsWrite.length;
-        parentElement.appendChild(editor);
+        wrapperEditor.appendChild(editor);
 
+        // Build the editor
         let monacoEditor = monaco.editor.create(editor, {
             value: content,
             language: "cpp",
@@ -201,15 +228,14 @@ export class Ui {
             scrollBeyondLastLine: false,
             readOnly: false,
             minimap: { enabled: false },
-            theme: "hc-black",
             automaticLayout: true,
             wordWrap: "on",
             scrollbar: {
                 alwaysConsumeMouseWheel: false,
                 verticalScrollbarSize: 0
-            }
+            },
+            theme: "hc-black"
         });
-
         monacoEditor.onDidContentSizeChange(() => {
             if (monacoEditor.getModel().getLineCount() < 5) {
                 editor.style.height = "95px";
@@ -217,7 +243,6 @@ export class Ui {
                 editor.style.height = monacoEditor.getContentHeight() + "px";
             }
         });
-
         this._editorsWrite.push(monacoEditor);
     }
 
