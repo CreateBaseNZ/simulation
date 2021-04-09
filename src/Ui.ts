@@ -5,6 +5,7 @@ import { SceneManager } from './SceneManager';
 import * as data from "../guide.json";
 import { RobotManager } from './RobotManager';
 import { on } from 'events';
+import { editorClass, createEditor } from 'open-cb-editor';
 
 export class Ui {
 
@@ -67,7 +68,7 @@ export class Ui {
                     this.CreateText(educContent, element.content);
                     break;
                 case "editor-read-only":
-                    this.CreateEditorReadOnly(educContent, element.content);
+                    this.CreateEditor(educContent, element.content, editorClass.SIMPLE);
                     break;
                 case "code-block":
                     this.CreateCodeBlock(educContent, element.content);
@@ -162,6 +163,29 @@ export class Ui {
         monacoEditor.onDidContentSizeChange(() => {
             editor.style.height = monacoEditor.getContentHeight() + "px";
         });
+    }
+
+    private CreateEditor(parentElement: HTMLElement, content: string, type: editorClass) {
+        const editor = document.createElement("div");
+        editor.className = "editor";
+        parentElement.appendChild(editor);
+        const options : monaco.editor.IEditorOptions = {
+            roundedSelection: true,
+            scrollBeyondLastLine: false,
+            readOnly: true,
+            minimap: { enabled: false },
+            automaticLayout: true,
+            wordWrap: "on",
+            scrollbar: {
+                alwaysConsumeMouseWheel: false,
+                verticalScrollbarSize: 0
+            },
+            overviewRulerBorder: false
+        }
+        let monacoEditor = new createEditor(editor, options, type);
+        monacoEditor.setCode(content);
+        //monacoEditor.editor.updateOptions(options);
+        //editor.style.height = monacoEditor.editor.getContentHeight() + "px";
     }
 
     private CreateWriteEditor(parentElement: HTMLElement, content: string) {
