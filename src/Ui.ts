@@ -149,9 +149,14 @@ export class Ui {
     }
 
     private CreateCodeBlock(parentElement: HTMLElement, content: string) {
+        // Create the container editor element
+        const containerEditor = document.createElement("div");
+        containerEditor.className = "editor-container";
+        parentElement.appendChild(containerEditor);
+        // Create the editor element
         const editor = document.createElement("div");
         editor.className = "editor";
-        parentElement.appendChild(editor);
+        containerEditor.appendChild(editor);
 
         let monacoEditor = monaco.editor.create(editor, {
             value: content,
