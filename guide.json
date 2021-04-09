@@ -1,7 +1,6 @@
 {
     "subsystem": "Catch the Stars",
-    "contents": [
-        {
+    "contents": [{
             "type": "subsystem-heading",
             "content": "Catch the Stars"
         },
@@ -59,7 +58,7 @@
         },
         {
             "type": "text",
-            "content": "Before starting with the next step, there is something to consider. Each Arduino code needs to have two major parts:\n\t1. setup: The part of code that should run once at the start. Sensors, actuators and comunication channels should be intialised\n\t2. loop: The part of code that would run continuously. This typically includes the rest of the code\n"
+            "content": "Before starting with the next step, there is something to consider. Each Arduino code needs to have two major parts:\n\n\t1. setup: The part of code that should run once at the start. Sensors, actuators and comunication channels should be intialised\n\t2. loop: The part of code that would run continuously. This typically includes the rest of the code\n"
         },
         {
             "type": "task-heading",
@@ -67,11 +66,11 @@
         },
         {
             "type": "text",
-            "content": "For the setup, we intialise the servo motors and save them into our robot arm object. In addition, communicate with the arduino board should be established. The code to perform this code is below:"
+            "content": "For the setup, we should inform the ardiuno where the servo motors were connected and save them into our robot arm object. In addition, communicate with the arduino board should be established. The code to perform this code is below:"
         },
         {
             "type": "editor-read-only",
-            "content": "void setup() {\n\tint motorPins[4]={8,9,10,11};\n\tSerial.begin(9600);\n\t// Setup the pins for our virtual robot\n\trobotArm.ConfigurePins(motorPins);\n}"
+            "content": "void setup() {\n\t// Define length of each robot arm link\n\tint motorPins[4]={8,9,10,11};\n\t// Setup the pins for our virtual robot\n\trobotArm.ConfigurePins(motorPins);\n\t//Start up Serial communication\n\tSerial.begin(9600);\n}"
         },
         {
             "type": "text",
@@ -79,7 +78,7 @@
         },
         {
             "type": "code-block",
-            "content": "int motorPins[4]={8,9,10,11};"
+            "content": "// Define length of each robot arm link\nint motorPins[4]={8,9,10,11};"
         },
         {
             "type": "text",
@@ -95,7 +94,7 @@
         },
         {
             "type": "code-block",
-            "content": "Serial.begin(9600);"
+            "content": "//Start up Serial communication\nSerial.begin(9600);"
         },
         {
             "type": "text",
@@ -119,7 +118,7 @@
         },
         {
             "type": "code-block",
-            "content": "robotArm.servoMotors[i].read()"
+            "content": "//Read the current angle of the servo\nrobotArm.servoMotors[i].read()"
         },
         {
             "type": "text",
@@ -127,7 +126,7 @@
         },
         {
             "type": "code-block",
-            "content": "robotArm.targetAngles[i]"
+            "content": "//Read the target angle of motor i\nrobotArm.targetAngles[i]"
         },
         {
             "type": "text",
@@ -135,7 +134,7 @@
         },
         {
             "type": "code-block",
-            "content": "robotArm.Move_position_xyz(x, y, z);"
+            "content": "//Move the start collector to a new position (x,y,z)\nrobotArm.Move_position_xyz(x, y, z);"
         },
         {
             "type": "text",
@@ -151,7 +150,7 @@
         },
         {
             "type": "editor-read-only",
-            "content": "// Calculate if end effector reaches target\nbool error(float target, float current){\n\t/* Calculate how far away a target number is from \n\treference number*/\n\tfloat absError = abs(target-current);\n\t// Check if the absolute error is less than 1.\n\tif(absError > 1){\n\t\treturn true;\n\t}\n\treturn false;\n}"
+            "content": "//The function will take in two decimal numbers and return true or false\nbool error(float target, float current){\n\t// Calculate how far away a target number is from reference number\n\tfloat absError = abs(target-current);\n\t// Check if the absolute error is less than 1.\n\tif(absError > 1){\n\t\treturn true;\n\t}\n\telse{\n\t\treturn false;\n\t}\n}"
         },
         {
             "type": "text",
@@ -159,7 +158,7 @@
         },
         {
             "type": "code-block",
-            "content": "bool error(float target, float current)"
+            "content": "//The function will take in two decimal numbers and return true or false\nbool error(float target, float current)"
         },
         {
             "type": "text",
@@ -167,7 +166,7 @@
         },
         {
             "type": "code-block",
-            "content": "float absError = abs(target-current);"
+            "content": "//Calculate how far away a target number is from reference number\nfloat absError = abs(target-current);"
         },
         {
             "type": "text",
@@ -175,15 +174,15 @@
         },
         {
             "type": "code-block",
-            "content": "if(absError > 1){\n\treturn true;\n}"
+            "content": "// Check if the absolute error is less than 1.\nif(absError > 1){\n\treturn true;\n}"
         },
         {
             "type": "text",
-            "content": "If the function reaches this point then the error was less than 1 degrees and the servo hasn't reached the point and false should be returned."
+            "content": "If the absError is not more than zero then the function should return false. This would be done by the else, as if the condition in the if is not satisfied the program will enter the else branch."
         },
         {
             "type": "code-block",
-            "content": "return false;"
+            "content": "else{\n\treturn false;\n}"
         },
         {
             "type": "text",
@@ -203,7 +202,7 @@
         },
         {
             "type": "editor-read-only",
-            "content": "void getToPosition(float x, float y, float z){\n\t//Move robot arm to an x y z coordinate\n\trobotArm.Move_position_xyz(x, y, z);\n\t// Variable initialization \n\tint angle0 = robotArm.servoMotors[0].read();\n\tint angle1 = robotArm.servoMotors[1].read();\n\tint angle2 = robotArm.servoMotors[2].read();\n\tint angle3 = robotArm.servoMotors[3].read();\n\tint target0=robotArm.targetAngles[0]\n\tint target1=robotArm.targetAngles[1]\n\tint target2=robotArm.targetAngles[2]\n\tint target3=robotArm.targetAngles[3]\n\t// Keep moving to the position until the error function returns true\n\t// Check the error between the target angles calculated by for each\n\t// motor by our inverse kinematics function\n\t// compared to the current motor angles.\n\twhile (error(target0, angle0) || error(target1, angle1) || error(target2, angle2) || error(target3, angle3)) {\n\t\t// Update all the variables keeping track of our motor angles\n\t\tangle0 = robotArm.servoMotors[0].read();\n\t\tangle1 = robotArm.servoMotors[1].read();\n\t\tangle2 = robotArm.servoMotors[2].read();\n\t\tangle3 = robotArm.servoMotors[3].read();\n\t}\n}"
+            "content": "//This function would take the coordinates as input but doesn't have an output\nvoid getToPosition(float x, float y, float z){\n\t//Move robot arm to an x y z coordinate\n\trobotArm.Move_position_xyz(x, y, z);\n\t// Variable initialization \n\tint angle0 = robotArm.servoMotors[0].read();\n\tint angle1 = robotArm.servoMotors[1].read();\n\tint angle2 = robotArm.servoMotors[2].read();\n\tint angle3 = robotArm.servoMotors[3].read();\n\tint target0=robotArm.targetAngles[0];\n\tint target1=robotArm.targetAngles[1];\n\tint target2=robotArm.targetAngles[2];\n\tint target3=robotArm.targetAngles[3];\n\t//Now wait until there is no error between the target angles calculated by for each motor by our inverse kinematics function compared to the current motor angles.\n\twhile (error(target0, angle0) || error(target1, angle1) || error(target2, angle2) || error(target3, angle3)) {\n\t\t// Update all the variables keeping track of our motor angles\n\t\tangle0 = robotArm.servoMotors[0].read();\n\t\tangle1 = robotArm.servoMotors[1].read();\n\t\tangle2 = robotArm.servoMotors[2].read();\n\t\tangle3 = robotArm.servoMotors[3].read();\n\t}\n}"
         },
         {
             "type": "text",
@@ -211,7 +210,7 @@
         },
         {
             "type": "code-block",
-            "content": "void getToPosition(float x, float y, float z)"
+            "content": "//This function would take the coordinates as input but doesn't have an output\nvoid getToPosition(float x, float y, float z)"
         },
         {
             "type": "text",
@@ -219,7 +218,7 @@
         },
         {
             "type": "code-block",
-            "content": "robotArm.Move_position_xyz(x, y, z);"
+            "content": "//Move robot arm to an x y z coordinate\nrobotArm.Move_position_xyz(x, y, z);"
         },
         {
             "type": "text",
@@ -227,7 +226,7 @@
         },
         {
             "type": "code-block",
-            "content": "int angle0 = robotArm.servoMotors[0].read();\nint angle1 = robotArm.servoMotors[1].read();\nint angle2 = robotArm.servoMotors[2].read();\nint angle3 = robotArm.servoMotors[3].read();\nint target0=robotArm.targetAngles[0]\nint target1=robotArm.targetAngles[1]\nint target2=robotArm.targetAngles[2]\nint target3=robotArm.targetAngles[3]"
+            "content": "//Move robot arm to an x y z coordinate\nint angle0 = robotArm.servoMotors[0].read();\nint angle1 = robotArm.servoMotors[1].read();\nint angle2 = robotArm.servoMotors[2].read();\nint angle3 = robotArm.servoMotors[3].read();\nint target0=robotArm.targetAngles[0]\nint target1=robotArm.targetAngles[1]\nint target2=robotArm.targetAngles[2]\nint target3=robotArm.targetAngles[3]"
         },
         {
             "type": "text",
@@ -278,10 +277,8 @@
             "content": ""
         }
     ],
-    "keywords": [
-        {
-            "class": "function-keyword",
-            "explanation": "Functions are “self-contained” modules of code that accomplish a specific task. Functions usually “take in” data, process it, and “return” a result. Once a function is written, it can be used over and over again."
-        }
-    ]
+    "keywords": [{
+        "class": "function-keyword",
+        "explanation": "Functions are “self-contained” modules of code that accomplish a specific task. Functions usually “take in” data, process it, and “return” a result. Once a function is written, it can be used over and over again."
+    }]
 }
