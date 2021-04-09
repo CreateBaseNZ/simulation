@@ -66,19 +66,19 @@
         },
         {
             "type": "text",
-            "content": "For the setup, we should inform the ardiuno where the servo motors were connected and save them into our robot arm object. In addition, communicate with the arduino board should be established. The code to perform this code is below:"
+            "content": "For the setup, we should inform the arduino where the servo motors were connected and save them into our robot arm object. In addition, communicate with the arduino board should be established. The code to perform this code is below:"
         },
         {
             "type": "editor-read-only",
-            "content": "void setup() {\n\t// Define length of each robot arm link\n\tint motorPins[4]={8,9,10,11};\n\t// Setup the pins for our virtual robot\n\trobotArm.ConfigurePins(motorPins);\n\t//Start up Serial communication\n\tSerial.begin(9600);\n}"
+            "content": "void setup() {\n\t//Define the pins the motors are connected to\n\tint motorPins[4]={8,9,10,11};\n\t// Setup the pins for our virtual robot\n\trobotArm.ConfigurePins(motorPins);\n\t//Start up Serial communication\n\tSerial.begin(9600);\n}"
         },
         {
             "type": "text",
-            "content": "First, we will create an array of the pins we connected the motor to within the arduino board. This would enable us to pass it in with the next step"
+            "content": "First, we will provide the program with the pins of the arduino board the servos are connected to."
         },
         {
             "type": "code-block",
-            "content": "// Define length of each robot arm link\nint motorPins[4]={8,9,10,11};"
+            "content": "//Define the pins the motors are connected to\nint motorPins[4]={8,9,10,11};"
         },
         {
             "type": "text",
@@ -90,7 +90,7 @@
         },
         {
             "type": "text",
-            "content": "Finally, we will create a communication link between the robotic arm and the computer. This would enable us to recieve data within the serial in addtion to send data to the ardiuo if needed."
+            "content": "Finally, we will create a communication link between the robotic arm and the computer. This would enable us to receive data within the serial in addtion to send data to the ardiuo if needed."
         },
         {
             "type": "code-block",
@@ -110,7 +110,7 @@
         },
         {
             "type": "text",
-            "content": "Before going further, we will through some of the functions and values needed for the later stages."
+            "content": "Before going further, we will go through some of the functions and values needed for the later stages."
         },
         {
             "type": "text",
@@ -154,7 +154,7 @@
         },
         {
             "type": "text",
-            "content": "The code below is the function decleration. It has the type of output, name of function and, between brackets, the inputs with their data type."
+            "content": "The code below is the function declearation. It has the type of output, name of function and, between brackets, the inputs with their data type."
         },
         {
             "type": "code-block",
@@ -206,7 +206,7 @@
         },
         {
             "type": "text",
-            "content": "The code below is the function decleration. It has the type of output, name of function and, between brackets, the inputs with their data type."
+            "content": "The code below is the function declaration. It has the type of output, name of function and, between brackets, the inputs with their data type."
         },
         {
             "type": "code-block",
