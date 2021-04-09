@@ -1,5 +1,7 @@
 {
-    "guide": [{
+    "subsystem": "Catch the Stars",
+    "contents": [
+        {
             "type": "subsystem-heading",
             "content": "Catch the Stars"
         },
@@ -25,7 +27,7 @@
         },
         {
             "type": "text",
-            "content": "The code below allows us to include all the functions within the RobotArm library. For us, this library includes functions we could use to perform specific tasks."
+            "content": "The code below allows us to include all the <span class='function-keyword keyword'>functions</span> within the RobotArm library. For us, this library includes <span class='function-keyword keyword'>functions</span> we could use to perform specific tasks."
         },
         {
             "type": "code-block",
@@ -274,6 +276,12 @@
         {
             "type": "compile",
             "content": ""
+        }
+    ],
+    "keywords": [
+        {
+            "class": "function-keyword",
+            "explanation": "Functions are “self-contained” modules of code that accomplish a specific task. Functions usually “take in” data, process it, and “return” a result. Once a function is written, it can be used over and over again."
         }
     ]
 }

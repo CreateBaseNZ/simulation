@@ -88,3 +88,8 @@ html, body {
 .compile-button {
     margin: 20px 40px 30px;
 }
+
+.keyword {
+    color: blue;
+    cursor: pointer;
+}

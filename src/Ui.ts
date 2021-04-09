@@ -54,11 +54,12 @@ export class Ui {
             }
         });
 
-        const { guide } = data;
-        guide.forEach(element => {
+        const { contents } = data;
+        contents.forEach(element => {
             switch (element.type) {
                 case "subsystem-heading":
                     this.CreateSubsystemHeading(guidePanel, element.content);
+                    break;
                 case "task-heading":
                     this.CreateTaskHeading(guidePanel, element.content);
                     break;
