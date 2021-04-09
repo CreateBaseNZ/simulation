@@ -34,10 +34,6 @@ module.exports = {
                 exclude: /node_modules/,
             },
             {
-                test: /\.css$/,
-                use: ['style-loader', 'css-loader']
-            },
-            {
                 test: /\.ttf$/,
                 use: ['file-loader']
             },
@@ -47,7 +43,7 @@ module.exports = {
                 use: ['source-map-loader'],
             },
             {
-                test: /\.css$/i,
+                test: /\.css$/,
                 use: [MiniCssExtractPlugin.loader, 'css-loader'],
             }
         ],

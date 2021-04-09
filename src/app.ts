@@ -8,16 +8,17 @@ export class App {
     private _engine: BABYLON.Engine;
 
     constructor() {
-        // initialize babylon engine
-        let canvas = document.getElementById("gameCanvas") as HTMLCanvasElement;
-        this._engine = new BABYLON.Engine(canvas, true);
-        new SceneManager(this._engine);
-
-        // for resizing
-        this._main();
+        setTimeout(() => {
+            // initialize babylon engine
+            let canvas = document.getElementById("gameCanvas") as HTMLCanvasElement;
+            this._engine = new BABYLON.Engine(canvas, true);
+            new SceneManager(this._engine);
+            // for resizing
+            this._windowResize();
+        }, 50);
     }
 
-    private async _main(): Promise<void> {
+    private async _windowResize(): Promise<void> {
         //resize if the screen is resized/rotated
         window.addEventListener('resize', () => {
             this._engine.resize();
