@@ -15,9 +15,7 @@ export class Ui {
     private _writeCompileButtons: HTMLElement[];
 
     constructor(scene: BABYLON.Scene) {
-        monaco.editor.defineTheme("prototype", {
-            "base": "vs",
-            "inherit": true,
+        monaco.editor.defineTheme("prototype", { "base": "vs", "inherit": true,
             "rules": [
                 { "token": "comment", "foreground": "#6db261" },
                 { "token": "keyword", "foreground": "#209ce2"},
@@ -167,6 +165,12 @@ export class Ui {
         wrapperEditor.appendChild(editor);
 
         let monacoEditor = monaco.editor.create(editor, {
+            wrappingStrategy: "advanced",
+            lineNumbersMinChars: 3,
+            fontFamily: '"DM Mono", monospace',
+            fontSize: 12,
+            folding: true,
+            foldingStrategy: 'indentation',
             value: content,
             language: "cpp",
             roundedSelection: true,
@@ -202,6 +206,10 @@ export class Ui {
         containerEditor.appendChild(editor);
 
         let monacoEditor = monaco.editor.create(editor, {
+            wrappingStrategy: "advanced",
+            fontFamily: '"DM Mono", monospace',
+            fontSize: 12,
+            foldingStrategy: 'indentation',
             value: content,
             language: "cpp",
             roundedSelection: true,
@@ -280,6 +288,12 @@ export class Ui {
 
         // Build the editor
         let monacoEditor = monaco.editor.create(editor, {
+            wrappingStrategy: "advanced",
+            lineNumbersMinChars: 3,
+            fontFamily: '"DM Mono", monospace',
+            fontSize: 12,
+            folding: true,
+            foldingStrategy: 'indentation',
             value: content,
             language: "cpp",
             roundedSelection: true,
