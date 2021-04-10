@@ -18,7 +18,6 @@ export let defaultScene = (scene: BABYLON.Scene) => {
     BABYLON.SceneLoader.ImportMeshAsync(null, rootURL, "seashank/seashank.babylon", scene).then((result) => {
         result.meshes.forEach(mesh => {
             mesh.position.y -= 0.6;
-            mesh.receiveShadows = true;
             if (mesh.name == "water.001") {
                 var water = new MATERIALS.WaterMaterial("water", scene);
                 water.bumpTexture = new BABYLON.Texture("https://raw.githubusercontent.com/CreateBaseNZ/cb-simulation-model/main/assets/seashank/waterbump.png", scene);

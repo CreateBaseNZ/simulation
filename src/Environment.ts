@@ -10,6 +10,8 @@ import * as MATERIALS from '@babylonjs/materials';
 export class Environment {
     scene: BABYLON.Scene;
     player: Player;
+    staticShadowGenerator: BABYLON.ShadowGenerator;
+    dynamicShadowGenerator: BABYLON.ShadowGenerator;
 
     constructor(scene: BABYLON.Scene, sceneFunction: (scene: BABYLON.Scene) => void) {
         this.scene = scene;
@@ -22,7 +24,7 @@ export class Environment {
     private async CreateEnvironmentDefaults(scene: BABYLON.Scene) {
         // These are the default components that EVERY scene should have.
         scene.clearColor = new BABYLON.Color4(0.5, 0.5, 0.5, 1);
-        scene.shadowsEnabled = false;
+        scene.shadowsEnabled = true;
         scene.collisionsEnabled = true;
 
         scene.environmentTexture = BABYLON.CubeTexture.CreateFromPrefilteredData("https://raw.githubusercontent.com/CreateBaseNZ/cb-simulation-model/main/assets/skybox/Country.env", scene, '.env');
@@ -33,15 +35,30 @@ export class Environment {
         const glow = new BABYLON.GlowLayer("glow", scene);
         glow.intensity = 0.5;
 
-        const hemiLight = new BABYLON.HemisphericLight("hemiLight", new BABYLON.Vector3(1, 1, 0), scene);
-        hemiLight.diffuse = new BABYLON.Color3(0.95, 0.98, 0.97);
-        hemiLight.intensity = 0.5;
+        const staticDirectionalLight = new BABYLON.DirectionalLight("staticDirectionalLight", new BABYLON.Vector3(-0.75, -1, 0), scene);
+        staticDirectionalLight.diffuse = new BABYLON.Color3(1, 1, 0.98);
+        staticDirectionalLight.intensity = 5;
+        staticDirectionalLight.shadowMinZ = -1;
+        staticDirectionalLight.shadowMaxZ = 50;
 
-        const directionalLight = new BABYLON.DirectionalLight("directionalLight", new BABYLON.Vector3(-30, -40, 0), scene);
-        directionalLight.diffuse = new BABYLON.Color3(0.95, 0.98, 0.97);
-        directionalLight.intensity = 0.5;
-        directionalLight.shadowMinZ = 0;
-        directionalLight.shadowMaxZ = 100;
+        const dynamicDirectionalLight = new BABYLON.DirectionalLight("dynamicDirectionalLight", new BABYLON.Vector3(-0.75, -1, 0), scene);
+        dynamicDirectionalLight.diffuse = new BABYLON.Color3(1, 1, 0.98);
+        dynamicDirectionalLight.intensity = 5;
+        dynamicDirectionalLight.shadowMinZ = -1;
+        dynamicDirectionalLight.shadowMaxZ = 50;
+
+        // Shadows
+        let createShadowGenerator = (light: BABYLON.IShadowLight) => {
+            let shadowGenerator = new BABYLON.ShadowGenerator(4096, light);
+            shadowGenerator.bias = 0.001;
+            shadowGenerator.normalBias = 0.02;
+            shadowGenerator.useContactHardeningShadow = true;
+            shadowGenerator.contactHardeningLightSizeUVRatio = 0.05;
+            shadowGenerator.setDarkness(0);
+            return shadowGenerator;
+        }
+        this.staticShadowGenerator = createShadowGenerator(staticDirectionalLight);
+        this.dynamicShadowGenerator = createShadowGenerator(dynamicDirectionalLight);
     }
 
     private async EvaluateEnvironment(scene: BABYLON.Scene) {
@@ -65,8 +82,17 @@ export class Environment {
                 );
             });
         });
+
         scene.meshes.forEach(mesh => {
             (scene.getMeshByName("water.001").material as MATERIALS.WaterMaterial).addToRenderList(mesh);
+            mesh.receiveShadows = true;
+            if (mesh.id == "robot" || mesh.id == "objective") {
+                this.dynamicShadowGenerator.addShadowCaster(mesh, true);
+            }
+            else {
+                this.staticShadowGenerator.addShadowCaster(mesh, true);
+            }
+            this.staticShadowGenerator.getShadowMap().refreshRate = BABYLON.RenderTargetTexture.REFRESHRATE_RENDER_ONCE;
         });
     }
 }

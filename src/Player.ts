@@ -16,8 +16,11 @@ export class Player {
         let mesh = BABYLON.MeshBuilder.CreateBox("player", {size: 0.5}, scene);
         mesh.position.y += 0.5;
         createPs(mesh, scene);
-        var playerMat = new BABYLON.StandardMaterial("boxMat", scene);
-        playerMat.diffuseColor = BABYLON.Color3.Red();
+        var playerMat = new BABYLON.PBRMaterial("boxMat", scene);
+        playerMat.albedoColor = BABYLON.Color3.Red();
+        playerMat.reflectivityColor = new BABYLON.Color3(0.5,0.5,0.5);
+        playerMat.roughness = 1;
+        playerMat.metallic = 0;
         mesh.material = playerMat;
 
         let camera = new BABYLON.ArcRotateCamera("mainCamera", 0.8, 0.8, 55, BABYLON.Vector3.Zero(), scene);

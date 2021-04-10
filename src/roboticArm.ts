@@ -49,7 +49,6 @@ export class RoboticArm extends Robot {
             meshes.forEach(mesh => {
                 if (mesh.getVerticesData(BABYLON.VertexBuffer.PositionKind)) {
                     mesh.scaling = mesh.scaling.multiplyByFloats(sF, sF, sF);
-                    mesh.id = "robot";
                     if (mesh.name.includes("BaseBottom")) {
                         baseBottomMeshes.push(mesh);
                     }
@@ -85,6 +84,12 @@ export class RoboticArm extends Robot {
             this._arm2.physicsImpostor.setScalingUpdated();
             this._arm3.physicsImpostor = new BABYLON.PhysicsImpostor(this._arm3, BABYLON.PhysicsImpostor.BoxImpostor, { mass: 0.001 }, scene);
             this._arm3.physicsImpostor.setScalingUpdated();
+
+            this._baseBottom.id = "robot";
+            this._baseLid.id = "robot";
+            this._arm1.id = "robot";
+            this._arm2.id = "robot";
+            this._arm3.id = "robot";
 
             this._baseBottom.parent = this;
             this._effector.parent = this._arm3;

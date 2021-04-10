@@ -22,10 +22,10 @@ export class Star extends Objective {
 
             let mesh = BABYLON.Mesh.MergeMeshes(buffer, true, true, undefined, false, true);
             mesh.material = starMat;
-            mesh.receiveShadows = true;
             mesh.position = position;
             mesh.scaling = new BABYLON.Vector3(0.006, 0.006, -0.006);
             mesh.isVisible = false;
+            mesh.id = "objective";
             this.mesh = mesh;
         });
 
