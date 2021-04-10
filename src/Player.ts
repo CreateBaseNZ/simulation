@@ -27,6 +27,7 @@ export class Player {
         camera.upperBetaLimit = Math.PI / 2;
         camera.fov = 0.2;
         camera.inertia = 0;
+        camera.panningInertia = 0;
         camera.wheelPrecision = 1;
         camera.parent = mesh;
         let controller = new PlayerController(mesh, scene);
