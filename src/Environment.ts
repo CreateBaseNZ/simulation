@@ -25,7 +25,7 @@ export class Environment {
     private async CreateEnvironmentDefaults(scene: BABYLON.Scene) {
         // These are the default components that EVERY scene should have.
         scene.clearColor = new BABYLON.Color4(0.5, 0.5, 0.5, 1);
-        scene.shadowsEnabled = true;
+        scene.shadowsEnabled = false;
         scene.collisionsEnabled = true;
 
         scene.environmentTexture = BABYLON.CubeTexture.CreateFromPrefilteredData("https://raw.githubusercontent.com/CreateBaseNZ/cb-simulation-model/main/assets/skybox/Country.env", scene, '.env');
