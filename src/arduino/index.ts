@@ -3,7 +3,7 @@ import { buildHex } from './compile';
 import { CPUPerformance } from './cpu-performance';
 import { AVRRunner } from './execute';
 import { formatTime } from './format-time';
-import './index.css';
+import './index.min.css';
 import { EditorHistoryUtil } from './utils/editor-history.util';
 import * as monaco from 'monaco-editor'
 

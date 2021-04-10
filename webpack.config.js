@@ -9,10 +9,16 @@ module.exports = {
     entry: {
         main: path.resolve(appDirectory, "src/app.ts"), //path to the main .ts file
         worker: path.resolve(appDirectory, "src/worker.ts"),
+        'editor.worker': path.resolve(appDirectory, 'node_modules/monaco-editor/esm/vs/editor/editor.worker.js'),
+        'json.worker': path.resolve(appDirectory, 'node_modules/monaco-editor/esm/vs/language/json/json.worker'),
+        'css.worker': path.resolve(appDirectory, 'node_modules/monaco-editor/esm/vs/language/css/css.worker'),
+        'html.worker': path.resolve(appDirectory, 'node_modules/monaco-editor/esm/vs/language/html/html.worker'),
+        'ts.worker': path.resolve(appDirectory, 'node_modules/monaco-editor/esm/vs/language/typescript/ts.worker')
     },
     output: {
         filename: "js/[name].bundle.js", //name for the js file that is created/compiled in memory
         path: path.join(appDirectory, '/dist'),
+        globalObject: 'self'
     },
     resolve: {
         fallback: {

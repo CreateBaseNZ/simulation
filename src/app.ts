@@ -1,6 +1,6 @@
 import * as BABYLON from '@babylonjs/core';
 import { SceneManager } from "./SceneManager";
-import "../public/index.css";
+import "../public/index.min.css";
 
 export class App {
 

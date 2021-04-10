@@ -53,7 +53,7 @@ export class Arduino {
     private _terminal: HTMLElement;
 
     constructor() {
-        this._terminal = document.getElementById("terminal");
+        this._terminal = document.querySelector(".terminal");
     }
 
     public ExecuteProgram(hex: string) {

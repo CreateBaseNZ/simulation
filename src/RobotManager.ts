@@ -19,7 +19,7 @@ export class RobotManager {
         }
 
         this._robots = new Array<Robot>();
-        this._terminal = document.getElementById("terminal");
+        this._terminal = document.querySelector(".terminal");
         this._status = document.getElementById("status");
     }
 
@@ -32,22 +32,22 @@ export class RobotManager {
     }
 
     public async UploadCode(code: string) {
-        this._status.innerText = "Compiling sketch...";
-        this._status.classList.remove("error");
-        this._status.classList.add("success");
+        // this._status.innerText = "Compiling sketch...";
+        // this._status.classList.remove("error");
+        // this._status.classList.add("success");
         const hexs = await (this.CompileCode(code));
         if (hexs != null) {
             for (let i = 0; i < hexs.length; i++) {
                 this._robots[i].arduino.ExecuteProgram(hexs[i]);
             }
-            this._status.innerText = "Done uploading.";
+            // this._status.innerText = "Done uploading.";
         }
         else {
-            this._status.innerText = "An error occured while uploading the sketch.";
-            this._status.classList.add("error");
-            this._status.classList.remove("success");
+            // this._status.innerText = "An error occured while uploading the sketch.";
+            // this._status.classList.add("error");
+            // this._status.classList.remove("success");
         }
-        this._terminal.innerText = this.BuildCompilerOutput()
+        this._terminal.innerText = this.BuildCompilerOutput();
     }
 
     private async CompileCode(code: string) {
@@ -75,6 +75,9 @@ export class RobotManager {
         for (let i = 0; i < this._robots.length; i++) {
             terminalOutput += "---------- Robot " + i + " ----------\n";
             terminalOutput += this._robots[i].arduino.compilerOutputText;
+        }
+        if(terminalOutput.length > 1000){
+            terminalOutput = terminalOutput.slice(500);
         }
         return terminalOutput;
     }
