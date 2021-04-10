@@ -13,14 +13,14 @@ export class Player {
     public hud: Hud;
 
     constructor(scene) {
-        let mesh = BABYLON.MeshBuilder.CreateBox("player", {size: 0.5}, scene);
+        let mesh = BABYLON.MeshBuilder.CreateBox("player", { size: 0.5 }, scene);
         mesh.position.y += 0.5;
         createPs(mesh, scene);
-        var playerMat = new BABYLON.PBRMaterial("boxMat", scene);
+        let playerMat = new BABYLON.PBRMaterial("playerMat", scene);
         playerMat.albedoColor = BABYLON.Color3.Red();
-        playerMat.reflectivityColor = new BABYLON.Color3(0.5,0.5,0.5);
         playerMat.roughness = 1;
         playerMat.metallic = 0;
+        playerMat.environmentIntensity = 0.2;
         mesh.material = playerMat;
 
         let camera = new BABYLON.ArcRotateCamera("mainCamera", 0.8, 0.8, 55, BABYLON.Vector3.Zero(), scene);
@@ -33,11 +33,12 @@ export class Player {
         camera.panningInertia = 0;
         camera.wheelPrecision = 1;
         camera.parent = mesh;
+
         let controller = new PlayerController(mesh, scene);
         controller.CreateCameraControls(camera);
 
         this.ui = new Ui(scene);
-        this.hud = new Hud(scene);
+        this.hud = new Hud(camera, scene);
         this._camera = camera;
         this.mesh = mesh;
 
