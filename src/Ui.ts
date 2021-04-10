@@ -93,6 +93,7 @@ export class Ui {
             const element = this._writeCompileButtons[i];
             this.CompileWrite(element, 0);
         }
+        this.CompileWrite(document.querySelector(".compile-btn"), 0);
     }
 
     public GetAdvancedTexture() {
