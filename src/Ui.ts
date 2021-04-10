@@ -115,12 +115,40 @@ export class Ui {
     private CreateEditorReadOnly(parentElement: HTMLElement, content: string) {
         // Create the container editor element
         const containerEditor = document.createElement("div");
-        containerEditor.className = "editor-container";
+        containerEditor.className = "editor-container read-only";
         parentElement.appendChild(containerEditor);
         // Create the header element
         const header = document.createElement("div");
         header.className = "editor-header";
         containerEditor.appendChild(header);
+        // Left side buttons
+        const headerLeft = document.createElement("div");
+        header.appendChild(headerLeft).className = "editor-header-left";
+        const runAll = document.createElement("img");
+        runAll.src = "https://raw.githubusercontent.com/CreateBaseNZ/cb-simulation-model/main/images/run-all.svg";
+        headerLeft.appendChild(runAll).className = "run-all";
+        const runAbove = document.createElement("img");
+        runAbove.src = "https://raw.githubusercontent.com/CreateBaseNZ/cb-simulation-model/main/images/run-above.svg";
+        headerLeft.appendChild(runAbove).className = "run-above";
+        // Right side buttons
+        const headerRight = document.createElement("div");
+        header.appendChild(headerRight).className = "editor-header-right";
+        const editorType = document.createElement("div");
+        editorType.innerHTML = "Read-only";
+        headerRight.appendChild(editorType).className = "editor-header-text";
+        let headerSep = document.createElement("div");
+        headerRight.appendChild(headerSep).className = "editor-header-sep";
+        const editorID = document.createElement("div");
+        editorID.innerHTML = "[]";
+        headerRight.appendChild(editorID).className = "editor-header-text";
+        headerSep = document.createElement("div");
+        headerRight.appendChild(headerSep).className = "editor-header-sep";
+        const expand = document.createElement("img");
+        expand.src = "https://raw.githubusercontent.com/CreateBaseNZ/cb-simulation-model/main/images/expand.svg";
+        headerRight.appendChild(expand).className = "editor-expand";
+        const collapse = document.createElement("img");
+        collapse.src = "https://raw.githubusercontent.com/CreateBaseNZ/cb-simulation-model/main/images/collapse.svg";
+        headerRight.appendChild(collapse).className = "editor-collapse";
         // Create the wrapper element
         const wrapperEditor = document.createElement("div");
         wrapperEditor.className = "editor-wrapper";
@@ -151,7 +179,7 @@ export class Ui {
     private CreateCodeBlock(parentElement: HTMLElement, content: string) {
         // Create the container editor element
         const containerEditor = document.createElement("div");
-        containerEditor.className = "editor-container";
+        containerEditor.className = "editor-container block";
         parentElement.appendChild(containerEditor);
         // Create the editor element
         const editor = document.createElement("div");
@@ -209,7 +237,7 @@ export class Ui {
     private CreateWriteEditor(parentElement: HTMLElement, content: string) {
         // Create the container editor element
         const containerEditor = document.createElement("div");
-        containerEditor.className = "editor-container";
+        containerEditor.className = "editor-container writable";
         parentElement.appendChild(containerEditor);
         // Create the header element
         const header = document.createElement("div");
