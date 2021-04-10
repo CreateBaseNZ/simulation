@@ -47,7 +47,7 @@ export class RobotManager {
             // this._status.classList.add("error");
             // this._status.classList.remove("success");
         }
-        this._terminal.innerText = this.BuildCompilerOutput()
+        this._terminal.innerText = this.BuildCompilerOutput();
     }
 
     private async CompileCode(code: string) {
@@ -75,6 +75,9 @@ export class RobotManager {
         for (let i = 0; i < this._robots.length; i++) {
             terminalOutput += "---------- Robot " + i + " ----------\n";
             terminalOutput += this._robots[i].arduino.compilerOutputText;
+        }
+        if(terminalOutput.length > 1000){
+            terminalOutput = terminalOutput.slice(500);
         }
         return terminalOutput;
     }

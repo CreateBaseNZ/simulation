@@ -1,10 +1,8 @@
 import * as BABYLON from '@babylonjs/core';
 import * as GUI from "@babylonjs/gui";
 import * as monaco from 'monaco-editor';
-import { SceneManager } from './SceneManager';
 import * as data from "../guide.json";
 import { RobotManager } from './RobotManager';
-//import { on } from 'events';
 //import { editorClass, createEditor } from 'open-cb-editor';
 
 export class Ui {
@@ -15,12 +13,14 @@ export class Ui {
     private _editorsWrite: monaco.editor.IStandaloneCodeEditor[];
     private _numberOfEditors: number;
     private _readOnlyCompileButtons: HTMLElement[];
+    private _writeCompileButtons: HTMLElement[];
 
     constructor(scene: BABYLON.Scene) {
         this._editorsReadOnly = new Array<monaco.editor.IStandaloneCodeEditor>();
         this._editorsWrite = new Array<monaco.editor.IStandaloneCodeEditor>();
         this._numberOfEditors = 0;
         this._readOnlyCompileButtons = new Array<HTMLElement>();
+        this._writeCompileButtons = new Array<HTMLElement>();
 
         this._camera = new BABYLON.Camera("uiCamera", BABYLON.Vector3.Zero(), scene);
         this._camera.layerMask = 2;
@@ -28,39 +28,11 @@ export class Ui {
         const advancedTexture = GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
         advancedTexture.layer.layerMask = 2;
 
-        /*const editorBtn = GUI.Button.CreateSimpleButton("editor", "Hide Guide");
-        editorBtn.width = "120px"
-        editorBtn.height = "40px";
-        editorBtn.color = "white";
-        editorBtn.verticalAlignment = GUI.Control.VERTICAL_ALIGNMENT_TOP;
-        editorBtn.horizontalAlignment = GUI.Control.HORIZONTAL_ALIGNMENT_LEFT;
-        editorBtn.top = "2%";
-        editorBtn.left = "2%";
-        editorBtn.background = "Blue";
-        editorBtn.zIndex = 1;
-        advancedTexture.addControl(editorBtn);*/
-
         //this handles interactions with the start button attached to the scene
         let editorOpened = true;
         let gameCanvas = (document.getElementById("gameCanvas"));
         let sidePanel = document.getElementById("sidePanel");
         let educContent = document.querySelector(".educ-content") as HTMLElement;
-
-        /*editorBtn.onPointerDownObservable.add(() => {
-            editorOpened = !editorOpened;
-            SceneManager.instance.EnableResize();
-            setTimeout(() => { SceneManager.instance.DisableResize(); }, 1000);
-            if (editorOpened) {
-                sidePanel.classList.replace("close", "open");
-                gameCanvas.classList.replace("close", "open");
-                editorBtn.textBlock.text = "Hide Guide";
-            }
-            else {
-                sidePanel.classList.replace("open", "close");
-                gameCanvas.classList.replace("open", "close");
-                editorBtn.textBlock.text = "Show Guide";
-            }
-        });*/
 
         const { contents } = data;
         contents.forEach(element => {
@@ -96,6 +68,11 @@ export class Ui {
         for (let i = 0; i < this._readOnlyCompileButtons.length; i++) {
             const element = this._readOnlyCompileButtons[i];
             this.CompileReadOnly(element, 0);
+        }
+        // Add the write compile system
+        for (let i = 0; i < this._writeCompileButtons.length; i++) {
+            const element = this._writeCompileButtons[i];
+            this.CompileWrite(element, 0);
         }
     }
 
@@ -228,29 +205,6 @@ export class Ui {
         });
     }
 
-    /* private CreateEditor(parentElement: HTMLElement, content: string, type: editorClass) {
-        const editor = document.createElement("div");
-        editor.className = "editor";
-        parentElement.appendChild(editor);
-        const options : monaco.editor.IEditorOptions = {
-            roundedSelection: true,
-            scrollBeyondLastLine: false,
-            readOnly: true,
-            minimap: { enabled: false },
-            automaticLayout: true,
-            wordWrap: "on",
-            scrollbar: {
-                alwaysConsumeMouseWheel: false,
-                verticalScrollbarSize: 0
-            },
-            overviewRulerBorder: false
-        }
-        let monacoEditor = new createEditor(editor, options, type);
-        monacoEditor.setCode(content);
-        //monacoEditor.editor.updateOptions(options);
-        //editor.style.height = monacoEditor.editor.getContentHeight() + "px";
-    }*/
-
     private CreateWriteEditor(parentElement: HTMLElement, content: string) {
         // Create the container editor element
         const containerEditor = document.createElement("div");
@@ -329,30 +283,16 @@ export class Ui {
         this._editorsWrite.push(monacoEditor);
         this._numberOfEditors++;
         editorID.innerHTML = "[" + this._numberOfEditors + "]";
+        // Add button in the read-only array buttons
+        this._writeCompileButtons.push(runAll);
     }
-
-    // private CreateCompileButton(parentElement: HTMLElement, content: string) {
-    //     const button = document.createElement("button");
-    //     button.className = "compile-button btn btn-primary btn-lg";
-    //     button.innerText = "Compile";
-    //     button.id = "compile" + (this._editorsWrite.length - 1);
-    //     button.addEventListener("click", () => {
-    //         let code = "";
-    //         let id = parseInt(button.id.replace(/^\D+/g, ''));
-    //         for (let i = 0; i <= id; i++) {
-    //             code = code.concat(this._editorsWrite[i].getModel().getValue() + "\n");
-    //         }
-    //         document.getElementById("terminal").innerText = "";
-    //         RobotManager.instance.UploadCode(code);
-    //     });
-    //     parentElement.appendChild(button);
-    // }
 
     private CompileWrite(button : HTMLElement, readOnlyEditorNumber : number) {
         button.addEventListener("click", () => {
             if (readOnlyEditorNumber) {
 
             } else {
+                console.log("Compiling the entire write code");
                 let code = "";
                 for (let i = 0; i < this._editorsWrite.length; i++) {
                     code = code.concat(this._editorsWrite[i].getModel().getValue() + "\n");
@@ -367,6 +307,7 @@ export class Ui {
             if (readOnlyEditorNumber) {
 
             } else {
+                console.log("Compiling the entire read-only code");
                 let code = "";
                 for (let i = 0; i < this._editorsReadOnly.length; i++) {
                     code = code.concat(this._editorsReadOnly[i].getModel().getValue() + "\n");
