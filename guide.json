@@ -277,11 +277,5 @@
             "type": "compile",
             "content": ""
         }
-    ],
-    "keywords": [
-        {
-            "class": "function-keyword",
-            "explanation": "Functions are “self-contained” modules of code that accomplish a specific task. Functions usually “take in” data, process it, and “return” a result. Once a function is written, it can be used over and over again."
-        }
     ]
 }

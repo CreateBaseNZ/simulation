@@ -1,0 +1,35 @@
+{
+  "keywords":
+  [
+    {
+      "class": "function-keyword",
+      "contents":
+      [
+        {
+          "type": "text",
+          "content": "Functions are “self-contained” modules of code that accomplish a specific task. Functions usually “take in” data, process it, and “return” a result. Once a function is written, it can be used over and over again."
+        }
+      ]
+    },
+    {
+      "class": "library-keyword",
+      "contents":
+      [
+        {
+          "type": "text",
+          "content": ""
+        }
+      ]
+    },
+    {
+      "class": "actuator-keyword",
+      "contents":
+      [
+        {
+          "type": "text",
+          "content": ""
+        }
+      ]
+    }
+  ]
+}
