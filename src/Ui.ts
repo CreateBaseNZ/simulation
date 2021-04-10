@@ -3,6 +3,7 @@ import * as GUI from "@babylonjs/gui";
 import * as monaco from 'monaco-editor';
 import * as data from "../guide.json";
 import { RobotManager } from './RobotManager';
+import interact from 'interactjs';
 
 export class Ui {
 
@@ -92,6 +93,31 @@ export class Ui {
             this.CompileWrite(element, 0);
         }
         this.CompileWrite(document.querySelector(".compile-btn"), 0);
+
+        interact('.main-wrapper')
+          .resizable({
+            edges: { top: false, left: false, bottom: true, right: false },
+            listeners: {
+              move: function (e) {
+                e.target.style.height = (e.clientY - e.target.offsetTop - 8) + 'px';
+                const terminalWrapper = document.querySelector('.terminal-wrapper') as HTMLElement;
+                console.log(terminalWrapper)
+                terminalWrapper.style.height = (terminalWrapper.offsetTop - e.clientY + terminalWrapper.offsetHeight) + 'px';
+              }
+            }
+          })
+
+        interact('.terminal-wrapper')
+          .resizable({
+            edges: { top: true, left: false, bottom: false, right: false },
+            listeners: {
+              move: function (e) {
+                e.target.style.height = (e.target.offsetTop - e.clientY + e.target.offsetHeight) + 'px';
+                const mainWrapper = document.querySelector('.main-wrapper') as HTMLElement;
+                mainWrapper.style.height = (e.clientY - mainWrapper.offsetTop - 8) + 'px';
+              }
+            }
+          })
     }
 
     public GetAdvancedTexture() {
