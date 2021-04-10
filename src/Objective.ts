@@ -26,7 +26,6 @@ export class Objective {
             this._controls.forEach(control => {
                 advancedTexture.removeControl(control);
                 control.dispose();
-                console.log('hello');
             });
         }
     }

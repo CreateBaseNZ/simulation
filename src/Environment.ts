@@ -65,11 +65,8 @@ export class Environment {
                 );
             });
         });
-
-        
         scene.meshes.forEach(mesh => {
             (scene.getMeshByName("water.001").material as MATERIALS.WaterMaterial).addToRenderList(mesh);
         });
-
     }
 }

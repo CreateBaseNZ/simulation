@@ -38,7 +38,7 @@ export class RoboticArm extends Robot {
     private _createObject(scene) {
         let rootURL = "https://raw.githubusercontent.com/CreateBaseNZ/cb-simulation-model/main/assets/";
         BABYLON.SceneLoader.ImportMeshAsync(null, rootURL + "/robots/arm/", "arm.glb", scene).then((result) => {
-            let sF = 30;
+            let sF = 12;
             let meshes = result.meshes;
             let baseBottomMeshes = [];
             let baseLidMeshes = [];

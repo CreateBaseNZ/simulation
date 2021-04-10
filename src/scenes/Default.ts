@@ -4,6 +4,7 @@ import { Player } from "../Player";
 import { RoboticArm } from "../RoboticArm";
 import { Star } from "../Star";
 import * as MATERIALS from "@babylonjs/materials";
+import { Buckets } from "../Buckets";
 
 export let defaultScene = (scene: BABYLON.Scene) => {
     // Create roboticArm
@@ -21,7 +22,7 @@ export let defaultScene = (scene: BABYLON.Scene) => {
             if (mesh.name == "water.001") {
                 var water = new MATERIALS.WaterMaterial("water", scene);
                 water.bumpTexture = new BABYLON.Texture("https://raw.githubusercontent.com/CreateBaseNZ/cb-simulation-model/main/assets/seashank/waterbump.png", scene);
-                
+
                 // Water properties
                 water.windForce = 6;
                 water.waveHeight = 0.0013;
@@ -33,7 +34,7 @@ export let defaultScene = (scene: BABYLON.Scene) => {
                 water.alpha = 0.75;
                 mesh.material = water;
             }
-        })
+        });
     });
 
     for (let i = 0; i < 5; i++) {
@@ -41,4 +42,6 @@ export let defaultScene = (scene: BABYLON.Scene) => {
         let z = (Math.random() < 0.5 ? -1 : 1) * RandomNumber(0.7, 2.2);
         new Star(scene, new BABYLON.Vector3(x, RandomNumber(0.5, 3), z));
     }
+
+    new Buckets(scene, new BABYLON.Vector3(-1, 0.2, -2));
 }

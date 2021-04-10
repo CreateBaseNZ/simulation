@@ -1,7 +1,5 @@
 import * as BABYLON from '@babylonjs/core';
 import { Objective as Objective } from './Objective';
-import { SceneManager } from "./SceneManager";
-import { request } from "@octokit/request";
 
 export class Star extends Objective {
 
@@ -29,6 +27,12 @@ export class Star extends Objective {
             mesh.scaling = new BABYLON.Vector3(0.006, 0.006, -0.006);
             mesh.isVisible = false;
             this.mesh = mesh;
+        });
+
+        scene.executeWhenReady(() => {
+            scene.registerAfterRender(() => {
+                this.mesh.rotation.y += (1.5 * (scene.deltaTime/1000));
+            });
         });
     }
 }
