@@ -17,7 +17,6 @@ export let defaultScene = (scene: BABYLON.Scene) => {
         result.meshes.forEach(mesh => {
             mesh.position.y -= 0.6;
             mesh.receiveShadows = true;
-            console.log(mesh.name);
         })
     });
 

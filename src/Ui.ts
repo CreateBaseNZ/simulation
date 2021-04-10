@@ -14,11 +14,13 @@ export class Ui {
     private _editorsReadOnly: monaco.editor.IStandaloneCodeEditor[];
     private _editorsWrite: monaco.editor.IStandaloneCodeEditor[];
     private _numberOfEditors: number;
+    private _readOnlyCompileButtons: HTMLElement[];
 
     constructor(scene: BABYLON.Scene) {
         this._editorsReadOnly = new Array<monaco.editor.IStandaloneCodeEditor>();
         this._editorsWrite = new Array<monaco.editor.IStandaloneCodeEditor>();
         this._numberOfEditors = 0;
+        this._readOnlyCompileButtons = new Array<HTMLElement>();
 
         this._camera = new BABYLON.Camera("uiCamera", BABYLON.Vector3.Zero(), scene);
         this._camera.layerMask = 2;
@@ -26,7 +28,7 @@ export class Ui {
         const advancedTexture = GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
         advancedTexture.layer.layerMask = 2;
 
-        const editorBtn = GUI.Button.CreateSimpleButton("editor", "Hide Guide");
+        /*const editorBtn = GUI.Button.CreateSimpleButton("editor", "Hide Guide");
         editorBtn.width = "120px"
         editorBtn.height = "40px";
         editorBtn.color = "white";
@@ -36,7 +38,7 @@ export class Ui {
         editorBtn.left = "2%";
         editorBtn.background = "Blue";
         editorBtn.zIndex = 1;
-        advancedTexture.addControl(editorBtn);
+        advancedTexture.addControl(editorBtn);*/
 
         //this handles interactions with the start button attached to the scene
         let editorOpened = true;
@@ -44,7 +46,7 @@ export class Ui {
         let sidePanel = document.getElementById("sidePanel");
         let educContent = document.querySelector(".educ-content") as HTMLElement;
 
-        editorBtn.onPointerDownObservable.add(() => {
+        /*editorBtn.onPointerDownObservable.add(() => {
             editorOpened = !editorOpened;
             SceneManager.instance.EnableResize();
             setTimeout(() => { SceneManager.instance.DisableResize(); }, 1000);
@@ -58,7 +60,7 @@ export class Ui {
                 gameCanvas.classList.replace("open", "close");
                 editorBtn.textBlock.text = "Show Guide";
             }
-        });
+        });*/
 
         const { contents } = data;
         contents.forEach(element => {
@@ -90,6 +92,11 @@ export class Ui {
         });
 
         this._advancedTexture = advancedTexture;
+        // Add the read-only compile system
+        for (let i = 0; i < this._readOnlyCompileButtons.length; i++) {
+            const element = this._readOnlyCompileButtons[i];
+            this.CompileReadOnly(element, 0);
+        }
     }
 
     public GetAdvancedTexture() {
@@ -182,6 +189,8 @@ export class Ui {
         this._editorsReadOnly.push(monacoEditor);
         this._numberOfEditors++;
         editorID.innerHTML = "[" + this._numberOfEditors + "]";
+        // Add button in the read-only array buttons
+        this._readOnlyCompileButtons.push(runAll);
     }
 
     private CreateCodeBlock(parentElement: HTMLElement, content: string) {
@@ -303,6 +312,34 @@ export class Ui {
             RobotManager.instance.UploadCode(code);
         });
         parentElement.appendChild(button);
+    }
+
+    private CompileWrite(button : HTMLElement, readOnlyEditorNumber : number) {
+        button.addEventListener("click", () => {
+            if (readOnlyEditorNumber) {
+
+            } else {
+                let code = "";
+                for (let i = 0; i < this._editorsWrite.length; i++) {
+                    code = code.concat(this._editorsWrite[i].getModel().getValue() + "\n");
+                }
+                RobotManager.instance.UploadCode(code);
+            }
+        });
+    }
+
+    private CompileReadOnly(button : HTMLElement, readOnlyEditorNumber : number) {
+        button.addEventListener("click", () => {
+            if (readOnlyEditorNumber) {
+
+            } else {
+                let code = "";
+                for (let i = 0; i < this._editorsReadOnly.length; i++) {
+                    code = code.concat(this._editorsReadOnly[i].getModel().getValue() + "\n");
+                }
+                RobotManager.instance.UploadCode(code);
+            }
+        });
     }
 
     public WinUI() {
