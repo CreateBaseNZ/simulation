@@ -11,9 +11,11 @@ export class Ui {
 
     private _advancedTexture: GUI.AdvancedDynamicTexture;
     private _camera: BABYLON.Camera;
+    private _editorsReadOnly: monaco.editor.IStandaloneCodeEditor[];
     private _editorsWrite: monaco.editor.IStandaloneCodeEditor[];
 
     constructor(scene: BABYLON.Scene) {
+        this._editorsReadOnly = new Array<monaco.editor.IStandaloneCodeEditor>();
         this._editorsWrite = new Array<monaco.editor.IStandaloneCodeEditor>();
         this._camera = new BABYLON.Camera("uiCamera", BABYLON.Vector3.Zero(), scene);
         this._camera.layerMask = 2;
@@ -139,7 +141,6 @@ export class Ui {
         let headerSep = document.createElement("div");
         headerRight.appendChild(headerSep).className = "editor-header-sep";
         const editorID = document.createElement("div");
-        editorID.innerHTML = "[]";
         headerRight.appendChild(editorID).className = "editor-header-text";
         headerSep = document.createElement("div");
         headerRight.appendChild(headerSep).className = "editor-header-sep";
@@ -174,6 +175,9 @@ export class Ui {
             overviewRulerBorder: false
         });
         editor.style.height = monacoEditor.getContentHeight() + "px";
+        // Adding Monaco into an array of editors
+        this._editorsReadOnly.push(monacoEditor);
+        editorID.innerHTML = "[" + this._editorsReadOnly.length + "]";
     }
 
     private CreateCodeBlock(parentElement: HTMLElement, content: string) {
@@ -250,7 +254,7 @@ export class Ui {
         // Create the editor element
         const editor = document.createElement("div");
         editor.className = "editor";
-        editor.id = "editor" + this._editorsWrite.length;
+        editor.id = "editor" + (this._editorsWrite.length + 1);
         wrapperEditor.appendChild(editor);
 
         // Build the editor
