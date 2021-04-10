@@ -13,10 +13,13 @@ export class Ui {
     private _camera: BABYLON.Camera;
     private _editorsReadOnly: monaco.editor.IStandaloneCodeEditor[];
     private _editorsWrite: monaco.editor.IStandaloneCodeEditor[];
+    private _numberOfEditors: number;
 
     constructor(scene: BABYLON.Scene) {
         this._editorsReadOnly = new Array<monaco.editor.IStandaloneCodeEditor>();
         this._editorsWrite = new Array<monaco.editor.IStandaloneCodeEditor>();
+        this._numberOfEditors = 0;
+
         this._camera = new BABYLON.Camera("uiCamera", BABYLON.Vector3.Zero(), scene);
         this._camera.layerMask = 2;
 
@@ -177,7 +180,8 @@ export class Ui {
         editor.style.height = monacoEditor.getContentHeight() + "px";
         // Adding Monaco into an array of editors
         this._editorsReadOnly.push(monacoEditor);
-        editorID.innerHTML = "[" + this._editorsReadOnly.length + "]";
+        this._numberOfEditors++;
+        editorID.innerHTML = "[" + this._numberOfEditors + "]";
     }
 
     private CreateCodeBlock(parentElement: HTMLElement, content: string) {
@@ -281,6 +285,7 @@ export class Ui {
             }
         });
         this._editorsWrite.push(monacoEditor);
+        this._numberOfEditors++;
     }
 
     private CreateCompileButton(parentElement: HTMLElement, content: string) {
