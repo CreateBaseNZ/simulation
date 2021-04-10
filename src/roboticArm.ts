@@ -37,7 +37,8 @@ export class RoboticArm extends Robot {
 
     private _createObject(scene) {
         let rootURL = "https://raw.githubusercontent.com/CreateBaseNZ/cb-simulation-model/main/assets/";
-        BABYLON.SceneLoader.ImportMeshAsync(null, rootURL, "RoboticArm.glb", scene).then((result) => {
+        BABYLON.SceneLoader.ImportMeshAsync(null, rootURL + "/robots/arm/", "arm.glb", scene).then((result) => {
+            let sF = 30;
             let meshes = result.meshes;
             let baseBottomMeshes = [];
             let baseLidMeshes = [];
@@ -47,6 +48,7 @@ export class RoboticArm extends Robot {
 
             meshes.forEach(mesh => {
                 if (mesh.getVerticesData(BABYLON.VertexBuffer.PositionKind)) {
+                    mesh.scaling = mesh.scaling.multiplyByFloats(sF, sF, sF);
                     mesh.id = "robot";
                     if (mesh.name.includes("BaseBottom")) {
                         baseBottomMeshes.push(mesh);
@@ -71,10 +73,9 @@ export class RoboticArm extends Robot {
             this._arm1 = BABYLON.Mesh.MergeMeshes(arm1Meshes, true, true, undefined, false, true);
             this._arm2 = BABYLON.Mesh.MergeMeshes(arm2Meshes, true, true, undefined, false, true);
             this._arm3 = BABYLON.Mesh.MergeMeshes(arm3Meshes, true, true, undefined, false, true);
-            this._effector = BABYLON.MeshBuilder.CreateSphere("endEffector", { diameter: 0.35 }, scene);
+            this._effector = BABYLON.MeshBuilder.CreateSphere("endEffector", { diameter: 0.035 * sF }, scene);
 
             this._baseBottom.physicsImpostor = new BABYLON.PhysicsImpostor(this._baseBottom, BABYLON.PhysicsImpostor.BoxImpostor, { mass: 0 }, scene);
-            this._baseBottom.scaling = new BABYLON.Vector3(0.8, 0.8, 0.8);
             this._baseBottom.physicsImpostor.setScalingUpdated();
             this._baseLid.physicsImpostor = new BABYLON.PhysicsImpostor(this._baseLid, BABYLON.PhysicsImpostor.BoxImpostor, { mass: 1000 }, scene);
             this._baseLid.physicsImpostor.setScalingUpdated();
@@ -87,8 +88,8 @@ export class RoboticArm extends Robot {
 
             this._baseBottom.parent = this;
             this._effector.parent = this._arm3;
-            this._baseBottom.position.y += 0.5;
-            this._effector.position.y += 0.35;
+            this._baseBottom.position.y += 0.033 * sF;
+            this._effector.position.y += 0.035 * sF;
 
             var endMat = new BABYLON.StandardMaterial("endMat", scene);
             endMat.alpha = 0.4;
@@ -96,30 +97,30 @@ export class RoboticArm extends Robot {
             this._effector.material = endMat;
 
             this.joint1 = new BABYLON.MotorEnabledJoint(BABYLON.PhysicsJoint.HingeJoint, {
-                mainPivot: new BABYLON.Vector3(0, 0.565, -0.03),
-                connectedPivot: new BABYLON.Vector3(0, -0.098, 0),
+                mainPivot: new BABYLON.Vector3(0, 0.0565, -0.003).multiplyByFloats(sF, sF, sF),
+                connectedPivot: new BABYLON.Vector3(0, -0.0098, 0).multiplyByFloats(sF, sF, sF),
                 mainAxis: new BABYLON.Vector3(1, 0, 0),
                 connectedAxis: new BABYLON.Vector3(1, 0, 0),
                 collision: false,
             });
 
             this.joint2 = new BABYLON.MotorEnabledJoint(BABYLON.PhysicsJoint.HingeJoint, {
-                mainPivot: new BABYLON.Vector3(0, 0.565, -0.03),
-                connectedPivot: new BABYLON.Vector3(0, -0.565, -0.03),
+                mainPivot: new BABYLON.Vector3(0, 0.0565, -0.003).multiplyByFloats(sF, sF, sF),
+                connectedPivot: new BABYLON.Vector3(0, -0.0565, -0.003).multiplyByFloats(sF, sF, sF),
                 mainAxis: new BABYLON.Vector3(1, 0, 0),
                 connectedAxis: new BABYLON.Vector3(1, 0, 0),
                 collision: false,
             });
 
             this.joint3 = new BABYLON.MotorEnabledJoint(BABYLON.PhysicsJoint.HingeJoint, {
-                mainPivot: new BABYLON.Vector3(0.08, 0.14, -0.02),
-                connectedPivot: new BABYLON.Vector3(0, -0.565, -0.03),
+                mainPivot: new BABYLON.Vector3(0.008, 0.014, -0.002).multiplyByFloats(sF, sF, sF),
+                connectedPivot: new BABYLON.Vector3(0, -0.0565, -0.003).multiplyByFloats(sF, sF, sF),
                 mainAxis: new BABYLON.Vector3(1, 0, 0),
                 connectedAxis: new BABYLON.Vector3(1, 0, 0),
                 collision: false,
             });
             this.joint4 = new BABYLON.MotorEnabledJoint(BABYLON.PhysicsJoint.HingeJoint, {
-                mainPivot: new BABYLON.Vector3(0, 0.61, 0),
+                mainPivot: new BABYLON.Vector3(0, 0.048, 0).multiplyByFloats(sF, sF, sF),
                 connectedPivot: new BABYLON.Vector3(0, 0, 0),
                 mainAxis: new BABYLON.Vector3(0, 1, 0),
                 connectedAxis: new BABYLON.Vector3(0, 1, 0),
