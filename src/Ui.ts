@@ -2,6 +2,7 @@ import * as BABYLON from '@babylonjs/core';
 import * as GUI from "@babylonjs/gui";
 import * as monaco from 'monaco-editor';
 import * as data from "../guide.json";
+import * as data2 from "../keyword.json";
 import { RobotManager } from './RobotManager';
 
 export class Ui {
