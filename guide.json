@@ -14,6 +14,11 @@
             "content": "Task 1: Configure the Robotic Arm"
         },
         {
+            "type": "image",
+            "src": "https://raw.githubusercontent.com/CreateBaseNZ/cb-simulation-model/main/images/",
+            "alt": "Image Name"
+        },
+        {
             "type": "text",
             "content": "Before we start programming the Robotic Arm, we will first have to configure it. This would include inserting information about the arm into our program. We will do his by having the following code:"
         },
