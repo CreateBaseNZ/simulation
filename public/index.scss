@@ -29,7 +29,7 @@ $orange: #FFB649;
 $gold: #FDD135;
 $green: #18DBAC;
 
-*:not(.monaco-editor *) {
+* {
   margin: 0;
   padding: 0;
   border: none;
@@ -75,6 +75,7 @@ body {
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
+  position: relative;
   .tab-wrapper {
     display: flex;
     flex-direction: row;
@@ -95,8 +96,7 @@ body {
 
 .tab {
   height: 100%;
-  width: 10vw;
-  max-width: 10vw;
+  width: 15vw;
   display: flex;
   align-items: center;
   color: $lightest;
@@ -105,13 +105,17 @@ body {
   border-radius: 1.25rem 1.25rem 0 0;
   background: blue;
   padding: 0 2rem;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
   i {
     margin-right: 0.75rem;
     font-size: inherit;
     color: inherit;
+    flex: 0 0 auto;
+  }
+  span {
+    flex: 1 1 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 }
 
@@ -124,12 +128,10 @@ body {
   .sim-h1 {
     font-size: 1.75rem;
     font-weight: 600;
-    line-height: 200%;
   }
   .sim-h2 {
     font-size: 1.25rem;
     font-weight: 600;
-    line-height: 200%;
     margin-top: 1.5em;
   }
   .sim-p {
@@ -240,6 +242,14 @@ body {
   }
 }
 
+.resizer {
+  position: absolute;
+  width: 100%;
+  height: 2rem;
+  bottom: -1.5rem;
+  left: 0;
+  background: green;
+}
 
 .terminal-wrapper {
   display: flex;
@@ -334,4 +344,9 @@ body {
   cursor: pointer;
   text-decoration: underline;
   text-decoration-color: $logo-mid;
+}
+
+.monaco-editor * {
+  font-family: inherit;
+  font-size: inherit;
 }
