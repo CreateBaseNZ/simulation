@@ -309,7 +309,7 @@ export class Ui {
         });
         monacoEditor.onDidContentSizeChange(() => {
             if (monacoEditor.getModel().getLineCount() < 5) {
-                editor.style.height = "95px";
+                editor.style.height = "80px";
             } else {
                 editor.style.height = monacoEditor.getContentHeight() + "px";
             }
