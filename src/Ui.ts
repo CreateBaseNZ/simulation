@@ -3,7 +3,6 @@ import * as GUI from "@babylonjs/gui";
 import * as monaco from 'monaco-editor';
 import * as data from "../guide.json";
 import { RobotManager } from './RobotManager';
-//import { editorClass, createEditor } from 'open-cb-editor';
 
 export class Ui {
 
@@ -16,6 +15,29 @@ export class Ui {
     private _writeCompileButtons: HTMLElement[];
 
     constructor(scene: BABYLON.Scene) {
+        monaco.editor.defineTheme("prototype", {
+            "base": "vs",
+            "inherit": true,
+            "rules": [
+                { "token": "comment", "foreground": "#6db261" },
+                { "token": "keyword", "foreground": "#209ce2"},
+                { "token": "typeKeyword", "foreground": "#81A1C1" },
+                { "token": "identifier", "foreground": "#050505"},
+                { "token": "delimiter", "foreground": "#2C03CF" },
+                { "token": "number", "foreground": "#3667AF" },
+                { "token": "string", "foreground": "#ffb649" },
+                { "token": "string.escape", "foreground": "#FF7B1C" }
+            ],
+            "colors": {
+                "editor.background": "#f4f4f4",
+                "editor.foreground": "#f4f4f4",
+                "editorLineNumber.foreground": "#ababab",
+                "editorLineNumber.activeForeground": "#5f5f5f",
+                "editor.lineHighlightBorder": "#e3e3e3",
+                "editor.inactiveSelectionBackground": "#434c5ecc",
+                "editorCursor.foreground": "#d8dee9"
+            }
+        });
         this._editorsReadOnly = new Array<monaco.editor.IStandaloneCodeEditor>();
         this._editorsWrite = new Array<monaco.editor.IStandaloneCodeEditor>();
         this._numberOfEditors = 0;
@@ -29,9 +51,6 @@ export class Ui {
         advancedTexture.layer.layerMask = 2;
 
         //this handles interactions with the start button attached to the scene
-        let editorOpened = true;
-        let gameCanvas = (document.getElementById("gameCanvas"));
-        let sidePanel = document.getElementById("sidePanel");
         let educContent = document.querySelector(".educ-content") as HTMLElement;
 
         const { contents } = data;
@@ -159,7 +178,8 @@ export class Ui {
                 alwaysConsumeMouseWheel: false,
                 verticalScrollbarSize: 0
             },
-            overviewRulerBorder: false
+            overviewRulerBorder: false,
+            theme: "prototype"
         });
         editor.style.height = monacoEditor.getContentHeight() + "px";
         // Adding Monaco into an array of editors
@@ -270,8 +290,7 @@ export class Ui {
             scrollbar: {
                 alwaysConsumeMouseWheel: false,
                 verticalScrollbarSize: 0
-            },
-            theme: "hc-black"
+            }
         });
         monacoEditor.onDidContentSizeChange(() => {
             if (monacoEditor.getModel().getLineCount() < 5) {
