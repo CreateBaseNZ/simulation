@@ -557,9 +557,9 @@ export class Ui {
     }
 
     public WinUI() {
-        this.StopCode();
         let terminal = document.querySelector(".terminal");
-        terminal.innerHTML = "<br>Success Message!";
+        terminal.innerHTML = "<span class='terminal-text-success'>The challenge has been completed!</span><br>";
         terminal.scrollTo(0, terminal.scrollHeight);
+        this.StopCode();
     }
 }

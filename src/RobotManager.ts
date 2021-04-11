@@ -50,7 +50,6 @@ export class RobotManager {
         }
         this._terminal.innerHTML = this._terminal.innerHTML + this.BuildCompilerOutput();
         this._terminal.scrollTo(0, this._terminal.scrollHeight);
-        console.log(this._terminal.scrollHeight);
         return isSuccess;
     }
 
