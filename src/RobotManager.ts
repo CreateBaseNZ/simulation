@@ -57,6 +57,9 @@ export class RobotManager {
             // this._status.classList.add("error");
             // this._status.classList.remove("success");
             isSuccess = false;
+            document.querySelector(".compile-btn").classList.add("compile-idle");
+            document.querySelector(".compile-btn").classList.remove("compile-loading");
+            document.querySelector(".compile-btn").classList.remove("compile-running");
         }
         this._terminal.innerHTML = this.BuildCompilerOutput();
     }
