@@ -47,6 +47,7 @@ export class RobotManager {
             isSuccess = false;
         }
         this._terminal.innerHTML = this._terminal.innerHTML + this.BuildCompilerOutput();
+        return isSuccess;
     }
 
     private async CompileCode(code: string) {

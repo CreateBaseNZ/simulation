@@ -426,17 +426,16 @@ export class Ui {
         document.querySelector(".compile-btn").classList.add("compile-loading");
         document.querySelector(".compile-btn").classList.remove("compile-running");
 
-        let success = RobotManager.instance.UploadCode(code).then(() => {
+        RobotManager.instance.UploadCode(code).then((isSuccess) => {
             this.TerminalLoading("complete");
-            if (success) {
+            console.log(isSuccess);
+            if (isSuccess) {
                 document.querySelector(".compile-btn").classList.remove("compile-idle");
                 document.querySelector(".compile-btn").classList.remove("compile-loading");
                 document.querySelector(".compile-btn").classList.add("compile-running");
             }
             else {
-                document.querySelector(".compile-btn").classList.add("compile-idle");
-                document.querySelector(".compile-btn").classList.remove("compile-loading");
-                document.querySelector(".compile-btn").classList.remove("compile-running");
+                this.StopCode();
             };
         });
     }
