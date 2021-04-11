@@ -299,6 +299,9 @@ export class Ui {
         const reset = document.createElement("img");
         reset.src = "https://raw.githubusercontent.com/CreateBaseNZ/cb-simulation-model/main/images/reset.svg";
         headerLeft.appendChild(reset).className = "editor-reset";
+        const stop = document.createElement("img");
+        stop.src = "https://raw.githubusercontent.com/CreateBaseNZ/cb-simulation-model/main/images/stop.svg";
+        headerLeft.appendChild(stop).className = "stop-all";
         // Right side buttons
         const headerRight = document.createElement("div");
         header.appendChild(headerRight).className = "editor-header-right";
