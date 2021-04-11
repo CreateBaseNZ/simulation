@@ -224,15 +224,15 @@ export class Ui {
         // Add button in the read-only array buttons
         this._readOnlyCompileButtons.push(runAll);
         // Add collapse event listener
-        containerEditor.classList.add("expand");
-        containerEditor.classList.remove("collapse");
+        containerEditor.classList.add("editor-expand");
+        containerEditor.classList.remove("editor-collapse");
         expand.addEventListener("click", () => {
-            containerEditor.classList.add("expand");
-            containerEditor.classList.remove("collapse");
+            containerEditor.classList.add("editor-expand");
+            containerEditor.classList.remove("editor-collapse");
         });
         collapse.addEventListener("click", () => {
-            containerEditor.classList.remove("expand");
-            containerEditor.classList.add("collapse");
+            containerEditor.classList.remove("editor-expand");
+            containerEditor.classList.add("editor-collapse");
         });
     }
 
@@ -361,32 +361,38 @@ export class Ui {
         // Add button in the read-only array buttons
         this._writeCompileButtons.push(runAll);
         // Add event listener on collapse and expand
-        containerEditor.classList.add("expand");
-        containerEditor.classList.remove("collapse");
+        containerEditor.classList.add("editor-expand");
+        containerEditor.classList.remove("editor-collapse");
         expand.addEventListener("click", () => {
-            containerEditor.classList.add("expand");
-            containerEditor.classList.remove("collapse");
+            containerEditor.classList.add("editor-expand");
+            containerEditor.classList.remove("editor-collapse");
         });
         collapse.addEventListener("click", () => {
-            containerEditor.classList.remove("expand");
-            containerEditor.classList.add("collapse");
+            containerEditor.classList.remove("editor-expand");
+            containerEditor.classList.add("editor-collapse");
         });
     }
 
     private CompileWrite(button: HTMLElement, readOnlyEditorNumber: number) {
         button.addEventListener("click", () => {
-            if (readOnlyEditorNumber) {
+            const loading = document.querySelector(".compile-btn").classList.contains("compile-loading");
+            const running = document.querySelector(".compile-btn").classList.contains("compile-running");
+            if (!loading || !running) {
+                if (readOnlyEditorNumber) {
 
-            } else {
-                console.log("Compiling the entire write code");
-                let code = "";
-                for (let i = 0; i < this._editorsWrite.length; i++) {
-                    code = code.concat(this._editorsWrite[i].getModel().getValue() + "\n");
+                } else {
+                    console.log("Compiling the entire write code");
+                    let code = "";
+                    for (let i = 0; i < this._editorsWrite.length; i++) {
+                        code = code.concat(this._editorsWrite[i].getModel().getValue() + "\n");
+                    }
+                    this.TerminalLoading("running");
+                    RobotManager.instance.UploadCode(code).then(() => {
+                        this.TerminalLoading("complete");
+                    });
                 }
-                this.TerminalLoading("running");
-                RobotManager.instance.UploadCode(code).then(() => {
-                    this.TerminalLoading("complete");
-                });
+            } else if (running) {
+                RobotManager.instance.Stop();
             }
         });
     }
@@ -430,14 +436,14 @@ export class Ui {
     }
 
     private TerminalLoading(status: string) {
-      const terminalWrapper = document.querySelector('.terminal-wrapper');
-      const loadingBar = document.querySelector('.terminal-loading-bar');
+        const terminalWrapper = document.querySelector('.terminal-wrapper');
+        const loadingBar = document.querySelector('.terminal-loading-bar');
         if (status === 'running') {
             terminalWrapper.classList.add('terminal-running');
             loadingBar.classList.add('loading-10');
             setTimeout(() => {
-              loadingBar.classList.remove('loading-10');
-              loadingBar.classList.add('loading-80');
+                loadingBar.classList.remove('loading-10');
+                loadingBar.classList.add('loading-80');
             }, 600)
         } else if (status === 'complete') {
             loadingBar.classList.add('loading-100');

@@ -36,6 +36,9 @@ export class RobotManager {
         // this._status.classList.remove("success");
         // this._status.innerText = "Compiling sketch...";
         let isSuccess = false;
+        document.querySelector(".compile-btn").classList.remove("compile-idle");
+        document.querySelector(".compile-btn").classList.add("compile-loading");
+        document.querySelector(".compile-btn").classList.remove("compile-running");
         const hexs = await (this.CompileCode(code));
         if (hexs != null) {
             for (let i = 0; i < hexs.length; i++) {
@@ -45,6 +48,9 @@ export class RobotManager {
             // this._status.innerText = success;
             // this._status.classList.remove("error");
             // this._status.classList.add("success");
+            document.querySelector(".compile-btn").classList.remove("compile-idle");
+            document.querySelector(".compile-btn").classList.remove("compile-loading");
+            document.querySelector(".compile-btn").classList.add("compile-running");
         }
         else {
             // this._status.innerText = "An error occured while uploading the sketch.";
@@ -72,6 +78,9 @@ export class RobotManager {
     public Stop() {
         this._robots.forEach(robot => {
             robot.arduino.Stop();
+            document.querySelector(".compile-btn").classList.add("compile-idle");
+            document.querySelector(".compile-btn").classList.remove("compile-loading");
+            document.querySelector(".compile-btn").classList.remove("compile-running");
         })
     }
 
