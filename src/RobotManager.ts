@@ -31,16 +31,18 @@ export class RobotManager {
         return this._robots;
     }
 
-    public async UploadCode(code: string) {
-        // this._status.innerText = "Compiling sketch...";
+    public async UploadCode(code: string, success: string = "Compiled successfully!") {
         // this._status.classList.remove("error");
-        // this._status.classList.add("success");
+        // this._status.classList.remove("success");
+        // this._status.innerText = "Compiling sketch...";
         const hexs = await (this.CompileCode(code));
         if (hexs != null) {
             for (let i = 0; i < hexs.length; i++) {
                 this._robots[i].arduino.ExecuteProgram(hexs[i]);
             }
-            // this._status.innerText = "Done uploading.";
+            // this._status.innerText = success;
+            // this._status.classList.remove("error");
+            // this._status.classList.add("success");
         }
         else {
             // this._status.innerText = "An error occured while uploading the sketch.";
@@ -76,13 +78,13 @@ export class RobotManager {
             terminalOutput += "---------- Robot " + i + " ----------\n";
             terminalOutput += this._robots[i].arduino.compilerOutputText;
         }
-        if(terminalOutput.length > 1000){
+        if (terminalOutput.length > 1000) {
             terminalOutput = terminalOutput.slice(500);
         }
         return terminalOutput;
     }
 
-    public GetEffectors(){
+    public GetEffectors() {
         return this._robots.map(robot => robot.GetEffector());
     }
 }

@@ -83,7 +83,7 @@ export class PlayerController {
             switch (pointerInfo.type) {
                 case BABYLON.PointerEventTypes.POINTERDOWN:
                     if (pointerInfo.pickInfo.hit && pointerInfo.event.button == 0) {
-                        pointerDown();
+                        //pointerDown();
                     }
                     break;
             }
@@ -93,8 +93,8 @@ export class PlayerController {
     public CreateCameraControls(camera: BABYLON.Camera) {
         camera.inputs.remove(camera.inputs.attached.pointers);
         let pointerInput = new BABYLON.ArcRotateCameraPointersInput();
-        pointerInput.panningSensibility = 0;
-        pointerInput.buttons = [1, 2];
+        pointerInput.panningSensibility = 100;
+        pointerInput.buttons = [0, 1, 2];
         pointerInput.angularSensibilityX = 300;
         pointerInput.angularSensibilityY = 300;
         camera.inputs.add(pointerInput);

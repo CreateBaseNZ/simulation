@@ -26,7 +26,6 @@ export class Objective {
             this._controls.forEach(control => {
                 advancedTexture.removeControl(control);
                 control.dispose();
-                console.log('hello');
             });
         }
     }
@@ -37,34 +36,36 @@ export class Objective {
 
     public CreateLabel(advancedTexture: GUI.AdvancedDynamicTexture) {
         const rect = new GUI.Rectangle();
-        rect.width = "150px";
-        rect.height = "40px";
-        rect.cornerRadius = 20;
-        rect.color = "Orange";
-        rect.thickness = 4;
-        rect.background = "green";
+        rect.width = "450px";
+        rect.height = "120px";
+        rect.cornerRadius = 60;
+        rect.color = "#fdfdfd";
+        rect.thickness = 8;
+        rect.background = "#0000ff";
         advancedTexture.addControl(rect);
         rect.linkWithMesh(this.mesh);
-        rect.linkOffsetY = -100;
+        rect.linkOffsetY = -300;
 
         const label = new GUI.TextBlock();
         label.text = "(" + this.mesh.position.z.toFixed(1) + ", " + this.mesh.position.x.toFixed(1) + ", " + (this.mesh.position.y - 0.6).toFixed(1) + ")";
+        label.fontSize = "54px";
+        label.text.fontcolor("#fdfdfd");
         rect.addControl(label);
 
         const target = new GUI.Ellipse();
-        target.width = "20px";
-        target.height = "20px";
-        target.color = "Orange";
-        target.thickness = 4;
-        target.background = "green";
+        target.width = "60px";
+        target.height = "60px";
+        target.color = "#fdfdfd";
+        target.thickness = 8;
+        target.background = "#0000ff";
         advancedTexture.addControl(target);
         target.linkWithMesh(this.mesh);
 
         const line = new GUI.Line();
-        line.lineWidth = 4;
-        line.color = "Orange";
-        line.y2 = 20;
-        line.linkOffsetY = -10;
+        line.lineWidth = 8;
+        line.color = "#fdfdfd";
+        line.y2 = 60;
+        line.linkOffsetY = -30;
         advancedTexture.addControl(line);
         line.linkWithMesh(this.mesh);
         line.connectedControl = rect;

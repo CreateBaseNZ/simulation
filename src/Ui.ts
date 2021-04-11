@@ -8,8 +8,6 @@ import interact from 'interactjs';
 
 export class Ui {
 
-    private _advancedTexture: GUI.AdvancedDynamicTexture;
-    private _camera: BABYLON.Camera;
     private _editorsReadOnly: monaco.editor.IStandaloneCodeEditor[];
     private _editorsWrite: monaco.editor.IStandaloneCodeEditor[];
     private _numberOfEditors: number;
@@ -17,12 +15,13 @@ export class Ui {
     private _writeCompileButtons: HTMLElement[];
 
     constructor(scene: BABYLON.Scene) {
-        monaco.editor.defineTheme("prototype", { "base": "vs", "inherit": true,
+        monaco.editor.defineTheme("prototype", {
+            "base": "vs", "inherit": true,
             "rules": [
                 { "token": "comment", "foreground": "#6db261" },
-                { "token": "keyword", "foreground": "#209ce2"},
+                { "token": "keyword", "foreground": "#209ce2" },
                 { "token": "typeKeyword", "foreground": "#81A1C1" },
-                { "token": "identifier", "foreground": "#050505"},
+                { "token": "identifier", "foreground": "#050505" },
                 { "token": "delimiter", "foreground": "#2C03CF" },
                 { "token": "number", "foreground": "#3667AF" },
                 { "token": "string", "foreground": "#ffb649" },
@@ -43,12 +42,6 @@ export class Ui {
         this._numberOfEditors = 0;
         this._readOnlyCompileButtons = new Array<HTMLElement>();
         this._writeCompileButtons = new Array<HTMLElement>();
-
-        this._camera = new BABYLON.Camera("uiCamera", BABYLON.Vector3.Zero(), scene);
-        this._camera.layerMask = 2;
-
-        const advancedTexture = GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
-        advancedTexture.layer.layerMask = 2;
 
         //this handles interactions with the start button attached to the scene
         let educContent = document.querySelector(".educ-content") as HTMLElement;
@@ -75,14 +68,13 @@ export class Ui {
                     this.CreateWriteEditor(educContent, element.content);
                     break;
                 // case "compile":
-                    // this.CreateCompileButton(educContent, element.content);
-                    // break;
+                // this.CreateCompileButton(educContent, element.content);
+                // break;
                 default:
                     break;
             }
         });
 
-        this._advancedTexture = advancedTexture;
         // Add the read-only compile system
         for (let i = 0; i < this._readOnlyCompileButtons.length; i++) {
             const element = this._readOnlyCompileButtons[i];
@@ -132,9 +124,7 @@ export class Ui {
         })
     }
 
-    public GetAdvancedTexture() {
-        return this._advancedTexture;
-    }
+    
 
     private CreateSubsystemHeading(parentElement: HTMLElement, content: string) {
         document.querySelector('.sim-h1').innerHTML = content;
@@ -356,7 +346,7 @@ export class Ui {
         this._writeCompileButtons.push(runAll);
     }
 
-    private CompileWrite(button : HTMLElement, readOnlyEditorNumber : number) {
+    private CompileWrite(button: HTMLElement, readOnlyEditorNumber: number) {
         button.addEventListener("click", () => {
             if (readOnlyEditorNumber) {
 
@@ -371,7 +361,7 @@ export class Ui {
         });
     }
 
-    private CompileReadOnly(button : HTMLElement, readOnlyEditorNumber : number) {
+    private CompileReadOnly(button: HTMLElement, readOnlyEditorNumber: number) {
         button.addEventListener("click", () => {
             if (readOnlyEditorNumber) {
 
@@ -384,19 +374,6 @@ export class Ui {
                 RobotManager.instance.UploadCode(code);
             }
         });
-    }
-
-    public WinUI() {
-        const winText = new GUI.TextBlock("win", "PROJECT COMPLETE");
-        winText.fontSize = 96;
-        winText.width = "100%"
-        winText.height = "100%";
-        winText.color = "black";
-        winText.verticalAlignment = GUI.Control.VERTICAL_ALIGNMENT_CENTER;
-        winText.horizontalAlignment = GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
-        winText.zIndex = 1;
-
-        this._advancedTexture.addControl(winText);
     }
 
 }
