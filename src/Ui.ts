@@ -91,7 +91,6 @@ export class Ui {
             const element = this._readOnlyStopButtons[i];
             element.addEventListener("click", () => {
                 this.StopCode();
-                RobotManager.instance.Stop();
             });
         }
         // Add the write compile system
@@ -104,7 +103,6 @@ export class Ui {
             const element = this._writeStopButtons[i];
             element.addEventListener("click", () => {
                 this.StopCode();
-                RobotManager.instance.Stop();
             });
         }
         this.CompileWrite(document.querySelector(".compile-btn"), 0);
@@ -427,7 +425,6 @@ export class Ui {
                 }
             } else if (running) {
                 this.StopCode();
-                RobotManager.instance.Stop();
             }
         });
     }
