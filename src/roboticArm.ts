@@ -5,16 +5,13 @@ import { request } from "@octokit/request";
 
 export class RoboticArm extends Robot {
 
-    private servoAngle: number[] = [1, 1, 1, 1].map(x => x * 90);
+    private servoAngles: number[] = [1, 1, 1, 1].map(x => x * 90);
     private _baseBottom: BABYLON.AbstractMesh;
     private _baseLid: BABYLON.AbstractMesh;
     private _arm1: BABYLON.AbstractMesh;
     private _arm2: BABYLON.AbstractMesh;
     private _arm3: BABYLON.AbstractMesh;
-    private joint1: BABYLON.MotorEnabledJoint;
-    private joint2: BABYLON.MotorEnabledJoint;
-    private joint3: BABYLON.MotorEnabledJoint;
-    private joint4: BABYLON.MotorEnabledJoint;
+    private _joints: BABYLON.MotorEnabledJoint[];
 
     constructor(name: string, scene: BABYLON.Scene) {
         super(name, scene);
@@ -23,22 +20,20 @@ export class RoboticArm extends Robot {
         this._arm1 = new BABYLON.AbstractMesh("arm1", scene);
         this._arm2 = new BABYLON.AbstractMesh("arm2", scene);
         this._arm3 = new BABYLON.AbstractMesh("arm3", scene);
+        this._joints = new Array<BABYLON.MotorEnabledJoint>();
         this._createObject(scene);
 
         scene.executeWhenReady(() => {
-            scene.registerAfterRender(() => {
-                this.setServoAngle(0, this.arduino.angleB[0]);
-                this.setServoAngle(1, this.arduino.angleB[1]);
-                this.setServoAngle(2, this.arduino.angleB[2]);
-                this.setServoAngle(3, this.arduino.angleB[3]);
-            });
+            setInterval(() => {
+                this.setServoAngle([this.arduino.angleB[0], this.arduino.angleB[1], this.arduino.angleB[2], this.arduino.angleB[3]]);
+            }, 20);
         });
     }
 
     private _createObject(scene) {
         let rootURL = "https://raw.githubusercontent.com/CreateBaseNZ/cb-simulation-model/main/assets/";
         BABYLON.SceneLoader.ImportMeshAsync(null, rootURL + "/robots/arm/", "arm.glb", scene).then((result) => {
-            let sF = 12;
+            let sF = 10;
             let meshes = result.meshes;
             let baseBottomMeshes = [];
             let baseLidMeshes = [];
@@ -101,78 +96,80 @@ export class RoboticArm extends Robot {
             endMat.emissiveColor = BABYLON.Color3.Blue(); // Glow color
             this._effector.material = endMat;
 
-            this.joint1 = new BABYLON.MotorEnabledJoint(BABYLON.PhysicsJoint.HingeJoint, {
-                mainPivot: new BABYLON.Vector3(0, 0.0565, -0.003).multiplyByFloats(sF, sF, sF),
-                connectedPivot: new BABYLON.Vector3(0, -0.0098, 0).multiplyByFloats(sF, sF, sF),
-                mainAxis: new BABYLON.Vector3(1, 0, 0),
-                connectedAxis: new BABYLON.Vector3(1, 0, 0),
+            //base joints
+            this._joints.push(new BABYLON.MotorEnabledJoint(BABYLON.PhysicsJoint.HingeJoint, {
+                mainPivot: new BABYLON.Vector3(0, 0.05, 0).multiplyByFloats(sF, sF, sF),
+                connectedPivot: new BABYLON.Vector3(0, 0, 0),
+                mainAxis: new BABYLON.Vector3(0, 1, 0),
+                connectedAxis: new BABYLON.Vector3(0, 1, 0),
                 collision: false,
-            });
+            }));
 
-            this.joint2 = new BABYLON.MotorEnabledJoint(BABYLON.PhysicsJoint.HingeJoint, {
-                mainPivot: new BABYLON.Vector3(0, 0.0565, -0.003).multiplyByFloats(sF, sF, sF),
-                connectedPivot: new BABYLON.Vector3(0, -0.0565, -0.003).multiplyByFloats(sF, sF, sF),
-                mainAxis: new BABYLON.Vector3(1, 0, 0),
-                connectedAxis: new BABYLON.Vector3(1, 0, 0),
-                collision: false,
-            });
-
-            this.joint3 = new BABYLON.MotorEnabledJoint(BABYLON.PhysicsJoint.HingeJoint, {
+            this._joints.push(new BABYLON.MotorEnabledJoint(BABYLON.PhysicsJoint.HingeJoint, {
                 mainPivot: new BABYLON.Vector3(0.008, 0.014, -0.002).multiplyByFloats(sF, sF, sF),
                 connectedPivot: new BABYLON.Vector3(0, -0.0565, -0.003).multiplyByFloats(sF, sF, sF),
                 mainAxis: new BABYLON.Vector3(1, 0, 0),
                 connectedAxis: new BABYLON.Vector3(1, 0, 0),
                 collision: false,
-            });
-            this.joint4 = new BABYLON.MotorEnabledJoint(BABYLON.PhysicsJoint.HingeJoint, {
-                mainPivot: new BABYLON.Vector3(0, 0.048, 0).multiplyByFloats(sF, sF, sF),
-                connectedPivot: new BABYLON.Vector3(0, 0, 0),
-                mainAxis: new BABYLON.Vector3(0, 1, 0),
-                connectedAxis: new BABYLON.Vector3(0, 1, 0),
-                collision: false,
-            });
+            }));
 
-            this._arm2.physicsImpostor.addJoint(this._arm3.physicsImpostor, this.joint1);
-            this._arm1.physicsImpostor.addJoint(this._arm2.physicsImpostor, this.joint2);
-            this._baseLid.physicsImpostor.addJoint(this._arm1.physicsImpostor, this.joint3);
-            this._baseBottom.physicsImpostor.addJoint(this._baseLid.physicsImpostor, this.joint4);
+            this._joints.push(new BABYLON.MotorEnabledJoint(BABYLON.PhysicsJoint.HingeJoint, {
+                mainPivot: new BABYLON.Vector3(0, 0.0565, -0.003).multiplyByFloats(sF, sF, sF),
+                connectedPivot: new BABYLON.Vector3(0, -0.0565, -0.003).multiplyByFloats(sF, sF, sF),
+                mainAxis: new BABYLON.Vector3(1, 0, 0),
+                connectedAxis: new BABYLON.Vector3(1, 0, 0),
+                collision: false,
+            }));
+
+            //end joint
+            this._joints.push(new BABYLON.MotorEnabledJoint(BABYLON.PhysicsJoint.HingeJoint, {
+                mainPivot: new BABYLON.Vector3(0, 0.0565, -0.003).multiplyByFloats(sF, sF, sF),
+                connectedPivot: new BABYLON.Vector3(0, -0.0098, 0).multiplyByFloats(sF, sF, sF),
+                mainAxis: new BABYLON.Vector3(1, 0, 0),
+                connectedAxis: new BABYLON.Vector3(1, 0, 0),
+                collision: false,
+            }));
+
+            this._arm2.physicsImpostor.addJoint(this._arm3.physicsImpostor, this._joints[3]);
+            this._arm1.physicsImpostor.addJoint(this._arm2.physicsImpostor, this._joints[2]);
+            this._baseLid.physicsImpostor.addJoint(this._arm1.physicsImpostor, this._joints[1]);
+            this._baseBottom.physicsImpostor.addJoint(this._baseLid.physicsImpostor, this._joints[0]);
         });
     }
 
 
-    public setServoAngle(servo: number, angle: number) {
+    public setServoAngle(angles: number[]) {
         let clamp = (val, min, max) => {
             return val > max ? max : val < min ? min : val;
         }
-        angle = clamp(angle, 0, 180);
+        angles.map(angle => clamp(angle, 0, 180));
 
         let baseAngle = BABYLON.Tools.ToDegrees(this._baseLid.rotationQuaternion.toEulerAngles().y);
         let arm1Angle = BABYLON.Tools.ToDegrees(BABYLON.Vector3.GetAngleBetweenVectors(this._baseLid.up, this._arm1.up, this._baseLid.right));
         let arm2Angle = BABYLON.Tools.ToDegrees(BABYLON.Vector3.GetAngleBetweenVectors(this._arm1.up, this._arm2.up, this._arm2.right));
         let arm3Angle = BABYLON.Tools.ToDegrees(BABYLON.Vector3.GetAngleBetweenVectors(this._arm2.up, this._arm3.up, this._arm3.right));
 
-        this.servoAngle = [baseAngle, arm1Angle, arm2Angle, arm3Angle].map(x => x + 90);
+        this.servoAngles = [baseAngle, arm1Angle, arm2Angle, arm3Angle].map(x => x + 90);
 
-        let error = angle - this.servoAngle[servo]
-        let absError = Math.abs(error);
-        if (absError > 0.25) {
-            let weight = 1;
-            if (absError > 0.25) { weight = 0.05; }
-            if (absError > 0.5) { weight = 0.25; }
-            if (absError > 1) { weight = 1; }
-            if (absError > 5) { weight = 2; }
+        let errors = [0, 0, 0, 0];
+        for (let i = 0; i < 4; i++) {
+            errors[i] = angles[i] - this.servoAngles[i];
 
-            let speed = -Math.sign(error) * weight;
-            if (servo == 0) { this.joint4.setMotor(speed); }
-            else if (servo == 1) { this.joint3.setMotor(speed); }
-            else if (servo == 2) { this.joint2.setMotor(speed); }
-            else if (servo == 3) { this.joint1.setMotor(speed); }
-        }
-        else {
-            if (servo == 0) { this.joint4.setMotor(0); }
-            else if (servo == 1) { this.joint3.setMotor(0); }
-            else if (servo == 2) { this.joint2.setMotor(0); }
-            else if (servo == 3) { this.joint1.setMotor(0); }
+            let absErrors = errors.map(error => Math.abs(error));
+
+            if (absErrors[i] > 0.25) {
+                let weight = 1;
+                if (absErrors[i] > 0.25) { weight = 0.05; }
+                if (absErrors[i] > 0.5) { weight = 0.25; }
+                if (absErrors[i] > 1) { weight = 1; }
+                if (absErrors[i] > 5) { weight = 2; }
+
+                let speed = -Math.sign(errors[i]) * weight;
+                this._joints[i].setMotor(speed);
+            }
+            else {
+                this._joints[i].setMotor(0);
+            }
         }
     }
 
