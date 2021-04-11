@@ -430,8 +430,10 @@ export class Ui {
     }
 
     private TerminalLoading(status: string) {
-        const loadingBar = document.querySelector('.terminal-loading-bar');
+      const terminalWrapper = document.querySelector('.terminal-wrapper');
+      const loadingBar = document.querySelector('.terminal-loading-bar');
         if (status === 'running') {
+            terminalWrapper.classList.add('terminal-running');
             loadingBar.classList.add('loading-10');
             setTimeout(() => {
               loadingBar.classList.remove('loading-10');
@@ -442,6 +444,7 @@ export class Ui {
             loadingBar.classList.remove('loading-80');
             setTimeout(() => {
                 loadingBar.classList.remove('loading-100');
+                terminalWrapper.classList.remove('terminal-running');
             }, 1000)
         }
     }
