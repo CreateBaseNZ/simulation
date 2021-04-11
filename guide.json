@@ -195,7 +195,7 @@
         },
         {
             "type": "code-block",
-            "content": "//Store the target angles\nint target0=robotArm.targetAngles[0]\nint target1=robotArm.targetAngles[1]\nint target2=robotArm.targetAngles[2]\nint target3=robotArm.targetAngles[3]"
+            "content": "//Store the target angles\nint target0=robotArm.targetAngles[0];\nint target1=robotArm.targetAngles[1];\nint target2=robotArm.targetAngles[2];\nint target3=robotArm.targetAngles[3];"
         },
         {
             "type": "text",
@@ -223,7 +223,7 @@
         },
         {
             "type": "editor-read-only",
-            "content": "//Write function declaration\nvoid getToPosition(float x, float y, float z){\n\t//Store the current locations of the servos\n\tint angle0 = robotArm.servoMotors[0].read();\n\tint angle1 = robotArm.servoMotors[1].read();\n\tint angle2 = robotArm.servoMotors[2].read();\n\tint angle3 = robotArm.servoMotors[3].read();\n\t//Move the robotic arm to the star\n\trobotArm.Move_position_xyz(x, y, z);\n\t//Store the target angles\n\tint target0=robotArm.targetAngles[0]\n\tint target1=robotArm.targetAngles[1]\n\tint target2=robotArm.targetAngles[2]\n\tint target3=robotArm.targetAngles[3]\n\twhile (isError(target0, angle0) || isError(target1, angle1) || isError(target2, angle2) || isError(target3, angle3)){\n\t\t//Update the current angles\n\t\tangle0 = robotArm.servoMotors[0].read();\n\t\tangle1 = robotArm.servoMotors[1].read();\n\t\tangle2 = robotArm.servoMotors[2].read();\n\t\tangle3 = robotArm.servoMotors[3].read();\n\t}\n}"
+            "content": "//Write function declaration\nvoid getToPosition(float x, float y, float z){\n\t//Store the current locations of the servos\n\tint angle0 = robotArm.servoMotors[0].read();\n\tint angle1 = robotArm.servoMotors[1].read();\n\tint angle2 = robotArm.servoMotors[2].read();\n\tint angle3 = robotArm.servoMotors[3].read();\n\t//Move the robotic arm to the star\n\trobotArm.Move_position_xyz(x, y, z);\n\t//Store the target angles\n\tint target0=robotArm.targetAngles[0];\n\tint target1=robotArm.targetAngles[1];\n\tint target2=robotArm.targetAngles[2];\n\tint target3=robotArm.targetAngles[3];\n\twhile (isError(target0, angle0) || isError(target1, angle1) || isError(target2, angle2) || isError(target3, angle3)){\n\t\t//Update the current angles\n\t\tangle0 = robotArm.servoMotors[0].read();\n\t\tangle1 = robotArm.servoMotors[1].read();\n\t\tangle2 = robotArm.servoMotors[2].read();\n\t\tangle3 = robotArm.servoMotors[3].read();\n\t}\n}"
         },
         {
             "type": "task-heading",
