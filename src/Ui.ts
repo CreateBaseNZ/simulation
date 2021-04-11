@@ -432,7 +432,11 @@ export class Ui {
     private TerminalLoading(status: string) {
         const loadingBar = document.querySelector('.terminal-loading-bar');
         if (status === 'running') {
-            loadingBar.classList.add('loading-80');
+            loadingBar.classList.add('loading-10');
+            setTimeout(() => {
+              loadingBar.classList.remove('loading-10');
+              loadingBar.classList.add('loading-80');
+            }, 600)
         } else if (status === 'complete') {
             loadingBar.classList.add('loading-100');
             loadingBar.classList.remove('loading-80');
