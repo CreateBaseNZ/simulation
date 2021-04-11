@@ -382,11 +382,7 @@ export class Ui {
     private CompileWrite(button: HTMLElement, readOnlyEditorNumber: number) {
         button.addEventListener("click", () => {
             const idle = document.querySelector(".compile-btn").classList.contains("compile-idle");
-            const loading = document.querySelector(".compile-btn").classList.contains("compile-loading");
             const running = document.querySelector(".compile-btn").classList.contains("compile-running");
-            console.log(idle);
-            console.log(loading);
-            console.log(running);
             if (idle) {
                 if (readOnlyEditorNumber) {
 
@@ -425,14 +421,21 @@ export class Ui {
         document.querySelector(".compile-btn").classList.remove("compile-idle");
         document.querySelector(".compile-btn").classList.add("compile-loading");
         document.querySelector(".compile-btn").classList.remove("compile-running");
+        document.querySelectorAll(".editor-container").forEach(element => {
+            element.classList.add("editor-loading");
+            element.classList.remove("editor-running");
+        });
 
         RobotManager.instance.UploadCode(code).then((isSuccess) => {
             this.TerminalLoading("complete");
-            console.log(isSuccess);
             if (isSuccess) {
                 document.querySelector(".compile-btn").classList.remove("compile-idle");
                 document.querySelector(".compile-btn").classList.remove("compile-loading");
                 document.querySelector(".compile-btn").classList.add("compile-running");
+                document.querySelectorAll(".editor-container").forEach(element => {
+                    element.classList.remove("editor-loading");
+                    element.classList.add("editor-running");
+                });
             }
             else {
                 this.StopCode();
@@ -444,6 +447,10 @@ export class Ui {
         document.querySelector(".compile-btn").classList.add("compile-idle");
         document.querySelector(".compile-btn").classList.remove("compile-loading");
         document.querySelector(".compile-btn").classList.remove("compile-running");
+        document.querySelectorAll(".editor-container").forEach(element => {
+            element.classList.remove("editor-loading");
+            element.classList.remove("editor-running");
+        });
     }
 
     private GenerateHover(keywords: Array<Object>) {
