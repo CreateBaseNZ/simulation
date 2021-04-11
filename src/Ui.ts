@@ -224,15 +224,15 @@ export class Ui {
         // Add button in the read-only array buttons
         this._readOnlyCompileButtons.push(runAll);
         // Add collapse event listener
-        containerEditor.classList.add("editor-expand");
-        containerEditor.classList.remove("editor-collapse");
+        containerEditor.classList.add("editor-wrapper-expand");
+        containerEditor.classList.remove("editor-wrapper-collapse");
         expand.addEventListener("click", () => {
-            containerEditor.classList.add("editor-expand");
-            containerEditor.classList.remove("editor-collapse");
+            containerEditor.classList.add("editor-wrapper-expand");
+            containerEditor.classList.remove("editor-wrapper-collapse");
         });
         collapse.addEventListener("click", () => {
-            containerEditor.classList.remove("editor-expand");
-            containerEditor.classList.add("editor-collapse");
+            containerEditor.classList.remove("editor-wrapper-expand");
+            containerEditor.classList.add("editor-wrapper-collapse");
         });
     }
 
@@ -361,23 +361,27 @@ export class Ui {
         // Add button in the read-only array buttons
         this._writeCompileButtons.push(runAll);
         // Add event listener on collapse and expand
-        containerEditor.classList.add("editor-expand");
-        containerEditor.classList.remove("editor-collapse");
+        containerEditor.classList.add("editor-wrapper-expand");
+        containerEditor.classList.remove("editor-wrapper-collapse");
         expand.addEventListener("click", () => {
-            containerEditor.classList.add("editor-expand");
-            containerEditor.classList.remove("editor-collapse");
+            containerEditor.classList.add("editor-wrapper-expand");
+            containerEditor.classList.remove("editor-wrapper-collapse");
         });
         collapse.addEventListener("click", () => {
-            containerEditor.classList.remove("editor-expand");
-            containerEditor.classList.add("editor-collapse");
+            containerEditor.classList.remove("editor-wrapper-expand");
+            containerEditor.classList.add("editor-wrapper-collapse");
         });
     }
 
     private CompileWrite(button: HTMLElement, readOnlyEditorNumber: number) {
         button.addEventListener("click", () => {
+            const idle = document.querySelector(".compile-btn").classList.contains("compile-idle");
             const loading = document.querySelector(".compile-btn").classList.contains("compile-loading");
             const running = document.querySelector(".compile-btn").classList.contains("compile-running");
-            if (!loading || !running) {
+            console.log(idle);
+            console.log(loading);
+            console.log(running);
+            if (idle) {
                 if (readOnlyEditorNumber) {
 
                 } else {
