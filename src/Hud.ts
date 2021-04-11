@@ -6,7 +6,7 @@ export class Hud {
     private _advancedTexture: GUI.AdvancedDynamicTexture;
     private _camera: BABYLON.Camera;
 
-    constructor(parentCamera: BABYLON.Camera, scene: BABYLON.Scene) {
+    constructor(parentCamera: BABYLON.ArcRotateCamera, scene: BABYLON.Scene) {
         let uiCamera = new BABYLON.FreeCamera("uiCamera", BABYLON.Vector3.Zero(), scene);
         uiCamera.layerMask = 0x10000000;
         uiCamera.parent = parentCamera;
@@ -16,6 +16,9 @@ export class Hud {
         const advancedTexture = GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
         advancedTexture.layer.layerMask = 0x10000000;
         this._advancedTexture = advancedTexture;
+        scene.registerBeforeRender(() =>{
+            this._advancedTexture.renderScale = parentCamera.radius/10;
+        })
     }
 
     public GetAdvancedTexture() {

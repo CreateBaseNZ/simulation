@@ -25,7 +25,7 @@ export class Player {
 
         let camera = new BABYLON.ArcRotateCamera("mainCamera", 0.8, 0.8, 55, BABYLON.Vector3.Zero(), scene);
         camera.lowerRadiusLimit = 10;
-        camera.upperRadiusLimit = 100;
+        camera.upperRadiusLimit = 80;
         camera.lowerBetaLimit = 0;
         camera.upperBetaLimit = Math.PI / 2;
         camera.fov = 0.2;
