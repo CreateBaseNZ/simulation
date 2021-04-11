@@ -71,9 +71,9 @@ export class Ui {
                 case "editor-write":
                     this.CreateWriteEditor(educContent, element.content);
                     break;
-                // case "compile":
-                // this.CreateCompileButton(educContent, element.content);
-                // break;
+                case "image":
+                    this.CreateImage(educContent, element.src, element.alt);
+                    break;
                 default:
                     break;
             }
@@ -167,6 +167,14 @@ export class Ui {
         text.className = "sim-p"
         text.innerHTML = content;
         parentElement.appendChild(text);
+    }
+
+    private CreateImage(parentElement: HTMLElement, source: string, alternative: string) {
+        const img = document.createElement("img");
+        img.className = "sim-img";
+        img.src = source;
+        img.alt = alternative;
+        parentElement.appendChild(img);
     }
 
     private CreateEditorReadOnly(parentElement: HTMLElement, content: string) {
