@@ -520,6 +520,7 @@ export class Ui {
     }
 
     private CreateToolTip(element, title: string, keyword: Array<Object>) {
+      console.log(keyword)
       setTimeout(() => {
         if (sessionStorage.getItem('hoveringKeyword') === 'true') {
         // Tooltip container
@@ -539,9 +540,13 @@ export class Ui {
         toolTipContainer.appendChild(toolTipWrapper).className = "tooltip-wrapper";
 
         keyword.forEach((content: any) => {
-          let contentEl = document.createElement("div");
-          contentEl.innerHTML = content.content;
-          toolTipWrapper.appendChild(contentEl);
+          if (content.type === 'code-block') {
+            this.CreateCodeBlock(toolTipWrapper, content.content);
+          } else {
+            let contentEl = document.createElement("div");
+            contentEl.innerHTML = content.content;
+            toolTipWrapper.appendChild(contentEl);
+          }
         })
         
         let rect = element.getBoundingClientRect();
