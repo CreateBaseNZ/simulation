@@ -23,6 +23,8 @@ export class RobotManager {
         this._status = document.getElementById("status");
         document.querySelector(".terminal-clear").addEventListener("click", () => {
             this._terminal.innerHTML = "";
+            this._terminal.scrollTo(0, this._terminal.scrollHeight);
+
         });
     }
 
@@ -47,6 +49,8 @@ export class RobotManager {
             isSuccess = false;
         }
         this._terminal.innerHTML = this._terminal.innerHTML + this.BuildCompilerOutput();
+        this._terminal.scrollTo(0, this._terminal.scrollHeight);
+        console.log(this._terminal.scrollHeight);
         return isSuccess;
     }
 
@@ -68,6 +72,7 @@ export class RobotManager {
         this._robots.forEach(robot => {
             robot.arduino.Stop();
             this._terminal.innerHTML = this._terminal.innerHTML + "Program stopped<br>";
+            this._terminal.scrollTo(0, this._terminal.scrollHeight);
         });
     }
 

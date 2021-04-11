@@ -56,6 +56,7 @@ export class Arduino {
         this._terminal = document.querySelector(".terminal");
         document.querySelector(".terminal-clear").addEventListener("click", () => {
             this._terminal.innerHTML = "";
+            this._terminal.scrollTo(0, this._terminal.scrollHeight);
         });
     }
 
@@ -70,6 +71,7 @@ export class Arduino {
                 this.angleC = e.data.angleC;
                 this.angleD = e.data.angleD;
                 this._terminal.innerHTML = this.compilerOutputText + e.data.serial;
+                this._terminal.scrollTo(0, this._terminal.scrollHeight);
             }
         }
     }
