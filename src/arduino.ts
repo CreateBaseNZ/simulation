@@ -54,6 +54,9 @@ export class Arduino {
 
     constructor() {
         this._terminal = document.querySelector(".terminal");
+        document.querySelector(".terminal-clear").addEventListener("click", () => {
+            this._terminal.innerHTML = "";
+        });
     }
 
     public ExecuteProgram(hex: string) {
