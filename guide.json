@@ -6,7 +6,7 @@
         },
         {
             "type": "text",
-            "content": "Five stars have fallen out of the sky! Using the special star catching device attached to your robotic arm, collect all five stars. The star catching device collects stars when by touching them so you need to program your robotic arm to move to the correct coordinates. We’ll help guide you but it’s up to you to collect them all.<br/><br/>We have broken this down into 7 tasks:<br/>0. Introduction<br/>1. Configure<br/>2.Setup<br/>3. robotArm Object Commands<br/>4. Develop isError<br/>5. Develop getToPosition<br/>6. Get the job done<br/><br/>Good Luck!"
+            "content": "Five stars have fallen out of the sky! Using the special star catching device attached to your robotic arm, collect all five stars. The star catching device collects stars when by touching them so you need to program your robotic arm to move to the correct coordinates. We’ll help guide you but it’s up to you to collect them all.<br/><br/>We have broken this down into 7 tasks:<br/>0. Introduction<br/>1. Configure the robotic arm<br/>2.Setup<br/>3. robotArm Object Commands<br/>4. Develop isError<br/>5. Develop getToPosition<br/>6. Get the job done<br/><br/>Good Luck!"
         },
         {
             "type": "task-heading",
@@ -14,7 +14,7 @@
         },
         {
             "type": "text",
-            "content": "Your robotic arm has 3 key features:<br/><br/>1. Links: Links in robotic arms are the parts that connect the different joints of the robotic arm together.<br/><br/> 2. Servo motors. Servos are actuators. Your arm has four servos. Each servo is placed in the joint and will move the link after it. The servo motors receive instructions from the arduino board on what the angle of the link should be.<br/><br/>2. Arduino board, the brains of your arm. The arduino could be programmed to react to its environment through the use of sensors and actuators.<br/><br/>a. Pins: To connect the sensors and actuators to the arduino, the arduino has pins that you wires to. These pins are numbered and the numbers are used to inform the arduino which device is connected to which pin."
+            "content": "Your robotic arm has 3 key features:<br/><br/>1. Links: Links in robotic arms are the parts that connect the different joints of the robotic arm together.<br/><br/> 2. Servo motors. The servo motors receive instructions from the arduino board on what its angle should be.<br/><br/>2. Arduino board: The arduino could be programmed to interact with the environment.<br/><br/>a. Pins: Connectors on the arduino to connect the servos on."
         },
         {
             "type": "image",
@@ -23,7 +23,7 @@
         },
         {
             "type": "text",
-            "content": "Some programming principles are discussed below:<br/><br/>1. Functions: functions are pieces of code that perform a certain task. They will take in inputs and will output a result. Once a function is developed it can be used multiple times, saving us time.<br/><br/>2. Library: a library is a collection of premade functions and objects that a program could use."
+            "content": "Some programming principles are discussed below:<br/><br/>1. Functions: ffunctions are pieces of code that perform a certain task.<br/><br/>2. Library:  a library is a collection of functions we could add to our program."
         },
         {
             "type": "task-heading",
@@ -31,27 +31,27 @@
         },
         {
             "type": "text",
-            "content": "Before we start programming, we will first have to configure the robotic arm. This is where we create the robotic arm object and start to define  it with physical characteristics, e.g. link size."
+            "content": "Before we start programming, we will first have to configure the robotic arm."
         },
         {
             "type": "text",
-            "content": "The code below gives us access to the RobotArm library within the RobotArm library. This library, called RobotArm.h, includes all the <span class='function-keyword keyword'>functions</span> we need"
+            "content": "The code below gives us access to the RobotArm library within the RobotArm library. This library, called RobotArm.h, includes all the functions we need <span class='function-keyword keyword'>functions</span> we need"
         },
         {
             "type": "code-block",
-            "content": "//Include required libraries\n#include \"library.name\""
+            "content": "//Include required libraries\n#include \"RobotArm.h\""
         },
         {
             "type": "text",
-            "content": "Next, create a list of the physical size of each link. The lengths of each link from position 0-3 are 0.5m, 1.05m, 1.05m and 0.45m respectively."
+            "content": "Next, create a list of the physical size of each link. The lengths of the links are 0.5m, 1.05m, 1.05m and 0.45m respectively."
         },
         {
             "type": "code-block",
-            "content": "// Define length of each robot arm link\nfloat linkLengths[] = {0.5, __, __, __};"
+            "content": "// Define length of each robot arm link\nfloat linkLengths[] = {0.5,1.05,1.05,0.45};"
         },
         {
             "type": "text",
-            "content": "For the Robotic Arm to operate we need to define it as an object with code. Using the code below we are defining an object robotArm and adding the characteristics from the list linkLengths."
+            "content": "For the Robotic Arm to operate we need to define it as an object with code."
         },
         {
             "type": "code-block",
@@ -66,8 +66,8 @@
             "content": ""
         },
         {
-            "type": "text",
-            "content": "Before beginning the next step we need to understand the structure of Arduino code:<br/><br/>Arduino code has two major parts:<br/><br/>1. setup: The code that runs once at the start. Which initialises sensors, actuators and communication channels.<br/><br/>2. loop: This code runs continuously and includes all remaining code"
+            "type": "editor-read-only",
+            "content": "//Include required libraries\n#include \"RobotArm.h\"\n// Define length of each robot arm link\nfloat linkLengths[] = {0.5,1.05,1.05,0.45};\n// Create our robot arm object.\nRobotArm robotArm(linkLengths);"
         },
         {
             "type": "task-heading",
@@ -75,11 +75,11 @@
         },
         {
             "type": "text",
-            "content": "We need to add the positions of our four motors to the object we created. The motors will be attached to pins 8, 9, 10 and 11 respectively. Finally, communication between the simulated arduino board and your computer needs to be established.<br/><br/>We use 2 functions to complete this, they are:<br/><br/>1. robotArm.ConfigurePins(motorPins): This function adds the motorPins to the robotArm object.<br/><br/>2. Serial.begin(speed): starts the communication link between the simulated arduino and the computer through terminal at the specified speed."
+            "content": "We need to add the positions of our four motors to the object we created. robotArm.ConfigurePins(motorPins): This function adds the motorPins to the robotArm object.<br/><br/>"
         },
         {
             "type": "text",
-            "content": "First, we create an array of the pins we want to connect the motor to on the arduino board."
+            "content": "First, we create an array of the pins we want to connect the motor to on the arduino board. The motors will be attached to pins 8, 9, 10 and 11 respectively."
         },
         {
             "type": "code-block",
@@ -159,7 +159,7 @@
         },
         {
             "type": "code-block",
-            "content": "bool isError(int target, int current)"
+            "content": "bool isError(int target, int current){"
         },
         {
             "type": "text",
@@ -183,7 +183,7 @@
         },
         {
             "type": "code-block",
-            "content": "//If error is less than allowable error return false\nelse{\n\treturn false;\n}"
+            "content": "//If error is less than allowable error return false\nelse{\n\treturn false;\n}\n}"
         },
         {
             "type": "text",
@@ -207,7 +207,7 @@
         },
         {
             "type": "code-block",
-            "content": "//Write function declaration\nvoid getToPosition(float x, float y, float z)"
+            "content": "//Write function declaration\nvoid getToPosition(float x, float y, float z){"
         },
         {
             "type": "text",
@@ -247,7 +247,7 @@
         },
         {
             "type": "code-block",
-            "content": "while (isError(target0, angle0) || isError(target1, angle1) || isError(target2, angle2) || isError(target3, angle3)){\n\t//Update the current angles\n\tangle0 = robotArm.servoMotors[0].read();\n\tangle1 = robotArm.servoMotors[1].read();\n\tangle2 = robotArm.servoMotors[2].read();\n\tangle3 = robotArm.servoMotors[3].read();\n}"
+            "content": "while (isError(target0, angle0) || isError(target1, angle1) || isError(target2, angle2) || isError(target3, angle3)){\n\t//Update the current angles\n\tangle0 = robotArm.servoMotors[0].read();\n\tangle1 = robotArm.servoMotors[1].read();\n\tangle2 = robotArm.servoMotors[2].read();\n\tangle3 = robotArm.servoMotors[3].read();\n}\n}"
         },
         {
             "type": "text",
