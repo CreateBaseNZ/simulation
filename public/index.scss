@@ -208,6 +208,42 @@ body {
   justify-content: flex-start;
   width: 100%;
   margin: 1.5rem 0;
+  &.editor-wrapper-collapse {
+    .editor-collapse {
+      display: none;
+    }
+    .editor-expand {
+      display: block;
+    }
+    .editor-wrapper {
+      max-height: 2.5rem;
+      overflow-x: hidden;
+      overflow-y: scroll;
+      &::-webkit-scrollbar {
+        width: 8px;
+      }
+      &::-webkit-scrollbar-track {
+        background: none;
+      }
+      &::-webkit-scrollbar-thumb {
+        background: rgba(171, 171, 171, 0.5);
+      }
+      &::-webkit-scrollbar-thumb:hover {
+        background: rgba(171, 171, 171, 1);
+      }
+    }
+  }
+  &.editor-wrapper-expand {
+    .editor-collapse {
+      display: block;
+    }
+    .editor-expand {
+      display: none;
+    }
+    .editor-wrapper {
+      max-height: none;
+    }
+  }
   .editor-header {
     width: 100%;
     height: 1.75rem;
