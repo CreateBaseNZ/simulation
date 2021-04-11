@@ -135,11 +135,9 @@ export class Ui {
             const scrollPos = educContent.scrollTop;
             const contentHeader = document.querySelector(".content-header");
             if (scrollPos === 0) {
-                contentHeader.classList.add("large");
-                contentHeader.classList.remove("small");
+                contentHeader.classList.remove("header-collapse");
             } else {
-                contentHeader.classList.remove("large");
-                contentHeader.classList.add("small");
+                contentHeader.classList.add("header-collapse");
             }
         });
 

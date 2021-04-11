@@ -140,12 +140,23 @@ body {
   justify-content: flex-start;
   // background: linear-gradient(to top right, #48A4D6, #6CC8BF);
   background: #48A4D6;
+  transition: flex 0.4s ease-out;
+  &.header-collapse {
+    flex: 0 0 2rem;
+    .sim-h1 {
+      font-size: 0.75rem;
+      font-weight: 400;
+      letter-spacing: 0;
+      margin-left: 2rem;
+    }
+  }
   .sim-h1 {
     font-size: 1.5rem;
     font-weight: 600;
     letter-spacing: 0.05em;
     margin-left: 5vw;
     color: $lightest;
+    transition: font-size 0.4s ease-out, font-weight 0.4s ease-out, letter-spacing 0.4s ease-out, margin-left 0.4s ease-out;
   }
 }
 
@@ -184,6 +195,7 @@ body {
   .sim-img {
     display: block;
     width: 75%;
+    max-height: 50%;
     object-fit: contain;
     margin: 2em 0;
     margin-left: auto;
