@@ -167,6 +167,9 @@ export class Ui {
         const runAbove = document.createElement("img");
         runAbove.src = "https://raw.githubusercontent.com/CreateBaseNZ/cb-simulation-model/main/images/run-above.svg";
         headerLeft.appendChild(runAbove).className = "run-above";
+        const stop = document.createElement("img");
+        stop.src = "https://raw.githubusercontent.com/CreateBaseNZ/cb-simulation-model/main/images/stop.svg";
+        headerLeft.appendChild(stop).className = "stop-all";
         // Right side buttons
         const headerRight = document.createElement("div");
         header.appendChild(headerRight).className = "editor-header-right";
@@ -468,7 +471,7 @@ export class Ui {
         const terminalWrapper = document.querySelector('.terminal-wrapper');
         const loadingBar = document.querySelector('.terminal-loading-bar');
         if (status === 'running') {
-            terminalWrapper.classList.add('terminal-running');
+            terminalWrapper.classList.add('terminal-loading');
             loadingBar.classList.add('loading-10');
             setTimeout(() => {
                 loadingBar.classList.remove('loading-10');
@@ -479,7 +482,8 @@ export class Ui {
             loadingBar.classList.remove('loading-80');
             setTimeout(() => {
                 loadingBar.classList.remove('loading-100');
-                terminalWrapper.classList.remove('terminal-running');
+                terminalWrapper.classList.remove('terminal-loading');
+                terminalWrapper.classList.add('terminal-running');
             }, 1000)
         }
     }

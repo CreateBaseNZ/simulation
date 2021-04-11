@@ -80,23 +80,7 @@ body {
   justify-content: flex-start;
 }
 
-.terminal-wrapper {
-  position: absolute;
-  bottom: 2rem;
-  left: 2rem;
-  width: 45vw;
-  height: calc(25vh - 2rem);
-  display: flex;
-  flex-direction: row;
-  border-radius: 0.5rem;
-  border: thin solid $blue-dark;
-  color: $lightest;
-  font: $mono;
-  overflow: hidden;
-  &.terminal-running {
-    border: thin solid $green;
-  }
-}
+
 
 .tab-wrapper {
   display: flex;
@@ -245,6 +229,28 @@ body {
       max-height: none;
     }
   }
+  &.editor-running {
+    border: thin solid $green;
+    .editor-header {
+      background: $green;
+    }
+    .run-all, .run-above, .editor-undo, .editor-reset {
+      display: none;
+    }
+    .stop-all {
+      display: block;
+    }
+  }
+  &.editor-loading {
+    opacity: 0.5;
+    pointer-events: none;
+    .run-all, .run-above, .editor-undo, .editor-reset {
+      display: none;
+    }
+    .loading-all {
+      display: block;
+    }
+  }
   .editor-header {
     width: 100%;
     height: 1.75rem;
@@ -323,33 +329,35 @@ body {
     &:focus-within {
       border: thin solid rgba(10, 115, 220, 0.5);
     }
-    &.editor-running {
-      border: thin solid $green;
-      .editor-header {
-        background: $green;
-      }
-      .run-all, .run-above, .editor-undo, .editor-reset {
-        display: none;
-      }
-      .stop-all {
-        display: block;
-      }
-    }
-    &.editor-loading {
-      opacity: 0.5;
-      pointer-events: none;
-      .run-all, .run-above, .editor-undo, .editor-reset {
-        display: none;
-      }
-      .loading-all {
-        display: block;
-      }
-    }
   }
   &.block {
     padding: 1rem;
     .editor {
       width: calc(100% - 1px);
+    }
+  }
+}
+
+.terminal-wrapper {
+  position: absolute;
+  bottom: 2rem;
+  left: 2rem;
+  width: 45vw;
+  height: calc(25vh - 2rem);
+  display: flex;
+  flex-direction: row;
+  border-radius: 0.5rem;
+  border: thin solid $blue-dark;
+  color: $lightest;
+  font: $mono;
+  overflow: hidden;
+  &.terminal-loading {
+    border: thin solid $green;
+  }
+  &.terminal-running {
+    border: thin solid $logo-mid;
+    .terminal-header {
+      background: $logo-mid;
     }
   }
 }
