@@ -118,9 +118,6 @@ body {
   display: flex;
   width: 100%;
   flex: 1 1 0;
-  background: $bg-light;
-  border-radius: 0 1rem 1rem 1rem;
-  overflow: hidden;
 }
 
 .content-wrapper {
@@ -130,6 +127,9 @@ body {
   align-items: flex-start;
   width: 100%;
   height: 100%;
+  background: $bg-light;
+  border-radius: 0 1rem 1rem 1rem;
+  overflow: hidden;
 }
 
 .content-header {
@@ -229,28 +229,6 @@ body {
       max-height: none;
     }
   }
-  &.editor-running {
-    border: thin solid $green;
-    .editor-header {
-      background: $green;
-    }
-    .run-all, .run-above, .editor-undo, .editor-reset {
-      display: none;
-    }
-    .stop-all {
-      display: block;
-    }
-  }
-  &.editor-loading {
-    opacity: 0.5;
-    pointer-events: none;
-    .run-all, .run-above, .editor-undo, .editor-reset {
-      display: none;
-    }
-    .loading-all {
-      display: block;
-    }
-  }
   .editor-header {
     width: 100%;
     height: 1.75rem;
@@ -274,22 +252,25 @@ body {
         height: 1.75rem;
         width: 1.75rem;
         filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(93deg) brightness(103%) contrast(103%);
-        &.run-all:hover,
-        &.run-above:hover {
-          filter: invert(63%) sepia(67%) saturate(505%) hue-rotate(115deg) brightness(97%) contrast(93%);
-        }
-        &.editor-undo:hover {
-          filter: invert(91%) sepia(18%) saturate(6140%) hue-rotate(320deg) brightness(103%) contrast(124%);
-        }
-        &.editor-reset:hover {
-          filter: invert(52%) sepia(47%) saturate(3211%) hue-rotate(328deg) brightness(95%) contrast(114%);
-        }
-        &.stop-all {
-          display: none;
-          &:hover {
-            filter: invert(52%) sepia(47%) saturate(3211%) hue-rotate(328deg) brightness(95%) contrast(114%);
-          }
-        }
+      }
+    }
+    .run-all:hover,
+    .run-above:hover {
+      filter: invert(63%) sepia(67%) saturate(505%) hue-rotate(115deg) brightness(97%) contrast(93%);
+    }
+    .editor-undo:hover {
+      filter: invert(91%) sepia(18%) saturate(6140%) hue-rotate(320deg) brightness(103%) contrast(124%);
+    }
+    .editor-reset:hover {
+      filter: invert(52%) sepia(47%) saturate(3211%) hue-rotate(328deg) brightness(95%) contrast(114%);
+    }
+    .loading-all {
+      display: none;
+    }
+    .stop-all {
+      display: none;
+      &:hover {
+        filter: invert(52%) sepia(47%) saturate(3211%) hue-rotate(328deg) brightness(95%) contrast(114%);
       }
     }
     .editor-header-text {
@@ -329,6 +310,34 @@ body {
     &:focus-within {
       border: thin solid rgba(10, 115, 220, 0.5);
     }
+    &.editor-loading {
+      opacity: 0.5;
+      pointer-events: none;
+      .editor-header {
+        .run-all, .run-above, .editor-undo, .editor-reset, .stop-all {
+          display: none;
+        }
+        .loading-all {
+          display: block;
+          &::after {
+            border: 2px solid $lightest;
+            border-color: $lightest transparent $lightest transparent;
+          }
+        }
+      }
+    }
+    &.editor-running {
+      border: thin solid $green;
+      .editor-header {
+        background: $green;
+        .run-all, .run-above, .editor-undo, .editor-reset, .loading-all {
+          display: none;
+        }
+        .stop-all {
+          display: block;
+        }
+      }
+    }
   }
   &.block {
     padding: 1rem;
@@ -349,15 +358,15 @@ body {
   border-radius: 0.5rem;
   border: thin solid $blue-dark;
   color: $lightest;
-  font: $mono;
+  font-family: $mono;
   overflow: hidden;
   &.terminal-loading {
-    border: thin solid $green;
+    border: thin solid $logo-mid;
   }
   &.terminal-running {
-    border: thin solid $logo-mid;
+    border: thin solid $green;
     .terminal-header {
-      background: $logo-mid;
+      background: $green;
     }
   }
 }
@@ -400,7 +409,7 @@ body {
     left: 0;
     width: 100%;
     height: 0;
-    background: $green;
+    background: $logo-mid;
     &.loading-10 {
       height: 10%;
       transition: height 0.4s ease-out;
@@ -492,7 +501,7 @@ body {
   }
   &.compile-loading {
     pointer-events: none;
-    background: $green;
+    background: $logo-mid;
     opacity: 0.5;
     i:nth-of-type(2) {
       display: inline-block;
@@ -500,20 +509,9 @@ body {
     div:nth-of-type(2) {
       display: block;
     }
-    .lds-dual-ring {
-      width: 1em;
-      height: 1em;
-    }
-    .lds-dual-ring:after {
-      content: " ";
-      display: block;
-      width: 0.7em;
-      height: 0.7em;
-      margin: 0.15em;
-      border-radius: 50%;
-      border: 6px solid #fff;
-      border-color: #fff transparent #fff transparent;
-      animation: lds-dual-ring 1.2s linear infinite;
+    .lds-dual-ring::after {
+      border: 4px solid $lightest;
+      border-color: $lightest transparent $lightest transparent;
     }
     i:not(:nth-of-type(2)),
     div:not(:nth-of-type(2)) {
@@ -546,6 +544,22 @@ body {
 .monaco-editor * {
   font-family: inherit;
   font-size: inherit;
+}
+
+.lds-dual-ring {
+  width: 1em;
+  height: 1em;
+  &::after {
+    content: " ";
+    display: block;
+    width: 0.7em;
+    height: 0.7em;
+    margin: 0.15em;
+    border-radius: 50%;
+    border: 6px solid $lightest;
+    border-color: $lightest transparent $lightest transparent;
+    animation: lds-dual-ring 1.2s linear infinite;
+  }
 }
 
 @keyframes lds-dual-ring {

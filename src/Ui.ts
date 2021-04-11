@@ -170,6 +170,8 @@ export class Ui {
         const stop = document.createElement("img");
         stop.src = "https://raw.githubusercontent.com/CreateBaseNZ/cb-simulation-model/main/images/stop.svg";
         headerLeft.appendChild(stop).className = "stop-all";
+        const loading = document.createElement("div");
+        headerLeft.appendChild(loading).className = "lds-dual-ring loading-all";
         // Right side buttons
         const headerRight = document.createElement("div");
         header.appendChild(headerRight).className = "editor-header-right";
@@ -305,6 +307,8 @@ export class Ui {
         const stop = document.createElement("img");
         stop.src = "https://raw.githubusercontent.com/CreateBaseNZ/cb-simulation-model/main/images/stop.svg";
         headerLeft.appendChild(stop).className = "stop-all";
+        const loading = document.createElement("div");
+        headerLeft.appendChild(loading).className = "lds-dual-ring loading-all";
         // Right side buttons
         const headerRight = document.createElement("div");
         header.appendChild(headerRight).className = "editor-header-right";
