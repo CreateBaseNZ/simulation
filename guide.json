@@ -85,7 +85,7 @@
         },
         {
             "type": "text",
-            "content": "To do this, we first created an <span class='array-keyword keyword'>array</span> that contains the pin numbers on the Arduino board that we want to connect each of our servo motors to. The motors will be attached to pins 8, 9, 10 and 11 respectively."
+            "content": "To do this, we first created an <span class='array-keyword keyword'>array</span> that contains the pin numbers on the Arduino board that we want to connect each of our servo motors to. The motors will be attached to pins 8, 9, 10, and 11 respectively."
         },
         {
             "type": "code-block",

@@ -359,6 +359,14 @@ body {
         }
       }
     }
+    &.editor-busy {
+      .run-all, .run-above, .editor-undo, .editor-reset, .loading-all, .stop-all {
+        display: none;
+      }
+      .stop-all {
+        display: block;
+      }
+    }
   }
   &.block {
     padding: 1rem;
