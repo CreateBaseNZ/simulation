@@ -181,6 +181,14 @@ body {
     margin: 1em 0;
     color: $darkest;
   }
+  .sim-img {
+    display: block;
+    width: 75%;
+    object-fit: contain;
+    margin: 2em 0;
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
 
 .editor-container {
