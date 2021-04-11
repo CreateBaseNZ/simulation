@@ -114,7 +114,7 @@ body {
   justify-content: flex-start;
   font-weight: 500;
   border-radius: 1.25rem 1.25rem 0 0;
-  background: blue;
+  background: #48A4D6;
   padding: 0 2rem;
   i {
     margin-right: 0.75rem;
@@ -154,7 +154,8 @@ body {
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  background: linear-gradient(to top right, #48A4D6, #6CC8BF);
+  // background: linear-gradient(to top right, #48A4D6, #6CC8BF);
+  background: #48A4D6;
   .sim-h1 {
     font-size: 1.5rem;
     font-weight: 600;
@@ -229,7 +230,7 @@ body {
         background: rgba(171, 171, 171, 0.5);
       }
       &::-webkit-scrollbar-thumb:hover {
-        background: rgba(171, 171, 171, 1);
+        background: rgba(171, 171, 171, 0.5);
       }
     }
   }
@@ -305,13 +306,19 @@ body {
     }
   }
   &.read-only {
-    border: thin solid $light;
+    border: thin solid rgba(171, 171, 171, 0.5);
+    &:focus-within {
+      border: thin solid rgba(10, 115, 220, 0.5);
+    }
     .editor-header {
       background: $light;
     }
   }
   &.writable {
-    border: thin solid $light;
+    border: thin solid rgba(171, 171, 171, 0.5);
+    &:focus-within {
+      border: thin solid rgba(10, 115, 220, 0.5);
+    }
     .editor-header {
       background: $blue-dark;
     }
