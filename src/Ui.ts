@@ -5,6 +5,8 @@ import * as data from "../guide.json";
 import * as data2 from "../keyword.json";
 import { RobotManager } from './RobotManager';
 import interact from 'interactjs';
+import { SceneManager } from "./SceneManager";
+import { defaultScene } from './scenes/Default';
 
 export class Ui {
 
@@ -106,7 +108,10 @@ export class Ui {
             });
         }
         this.CompileWrite(document.querySelector(".compile-btn"), 0);
-
+        // Add reset listener
+        document.querySelector(".reset-btn").addEventListener("click", () => {
+            SceneManager.instance.LoadScene(defaultScene);
+        });
         interact('.main-wrapper')
             .resizable({
                 edges: { top: false, left: false, bottom: true, right: false },
