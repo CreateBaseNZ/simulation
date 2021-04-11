@@ -390,12 +390,12 @@ export class Ui {
                     for (let i = 0; i < this._editorsWrite.length; i++) {
                         code = code.concat(this._editorsWrite[i].getModel().getValue() + "\n");
                     }
-                    this.TerminalLoading("running");
-                    RobotManager.instance.UploadCode(code).then(() => {
-                        this.TerminalLoading("complete");
-                    });
+                    this.UploadCode(code);
                 }
             } else if (running) {
+                document.querySelector(".compile-btn").classList.add("compile-idle");
+                document.querySelector(".compile-btn").classList.remove("compile-loading");
+                document.querySelector(".compile-btn").classList.remove("compile-running");
                 RobotManager.instance.Stop();
             }
         });
@@ -411,11 +411,29 @@ export class Ui {
                 for (let i = 0; i < this._editorsReadOnly.length; i++) {
                     code = code.concat(this._editorsReadOnly[i].getModel().getValue() + "\n");
                 }
-                this.TerminalLoading("running");
-                RobotManager.instance.UploadCode(code).then(() => {
-                    this.TerminalLoading("complete");
-                });
+                this.UploadCode(code);
             }
+        });
+    }
+
+    private UploadCode(code: string) {
+        this.TerminalLoading("running");
+        document.querySelector(".compile-btn").classList.remove("compile-idle");
+        document.querySelector(".compile-btn").classList.add("compile-loading");
+        document.querySelector(".compile-btn").classList.remove("compile-running");
+
+        let success = RobotManager.instance.UploadCode(code).then(() => {
+            this.TerminalLoading("complete");
+            if (success) {
+                document.querySelector(".compile-btn").classList.remove("compile-idle");
+                document.querySelector(".compile-btn").classList.remove("compile-loading");
+                document.querySelector(".compile-btn").classList.add("compile-running");
+            }
+            else {
+                document.querySelector(".compile-btn").classList.add("compile-idle");
+                document.querySelector(".compile-btn").classList.remove("compile-loading");
+                document.querySelector(".compile-btn").classList.remove("compile-running");
+            };
         });
     }
 
