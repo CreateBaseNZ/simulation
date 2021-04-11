@@ -1,6 +1,7 @@
 {
     "subsystem": "Catch the Stars",
-    "contents": [{
+    "contents": [
+        {
             "type": "subsystem-heading",
             "content": "Catch the Stars"
         },
