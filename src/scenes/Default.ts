@@ -36,11 +36,10 @@ export let defaultScene = (scene: BABYLON.Scene) => {
         });
     });
 
-    for (let i = 0; i < 5; i++) {
-        let x = (Math.random() < 0.5 ? -1 : 1) * RandomNumber(0.7, 2.2);
-        let z = (Math.random() < 0.5 ? -1 : 1) * RandomNumber(0.7, 2.2);
-        new Star(scene, new BABYLON.Vector3(x, RandomNumber(0.5, 3), z));
-    }
+    new Star(scene, new BABYLON.Vector3(-1.3, 1, 1.5));
+    new Star(scene, new BABYLON.Vector3(-1.5, 1.7,-1.4));
+    new Star(scene, new BABYLON.Vector3(1.6, 2, -1.1));
+    new Star(scene, new BABYLON.Vector3(1.5, 1.5, 1.5));
 
     new Buckets(scene, new BABYLON.Vector3(-1, 0.2, -2));
 }
