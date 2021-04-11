@@ -88,43 +88,46 @@ export class Ui {
         this.CompileWrite(document.querySelector(".compile-btn"), 0);
 
         interact('.main-wrapper')
-          .resizable({
-            edges: { top: false, left: false, bottom: true, right: false },
-            listeners: {
-              move: function (e) {
-                e.target.style.height = (e.clientY - e.target.offsetTop - 8) + 'px';
-                const terminalWrapper = document.querySelector('.terminal-wrapper') as HTMLElement;
-                terminalWrapper.style.height = (terminalWrapper.offsetTop - e.clientY + terminalWrapper.offsetHeight) + 'px';
-              }
-            }
-          })
+            .resizable({
+                edges: { top: false, left: false, bottom: true, right: false },
+                listeners: {
+                    move: function (e) {
+                        e.target.style.height = (e.clientY - e.target.offsetTop - 8) + 'px';
+                        const terminalWrapper = document.querySelector('.terminal-wrapper') as HTMLElement;
+                        terminalWrapper.style.height = (terminalWrapper.offsetTop - e.clientY + terminalWrapper.offsetHeight) + 'px';
+                    }
+                }
+            })
 
         interact('.terminal-wrapper')
-          .resizable({
-            edges: { top: true, left: false, bottom: false, right: false },
-            listeners: {
-              move: function (e) {
-                e.target.style.height = (e.target.offsetTop - e.clientY + e.target.offsetHeight) + 'px';
-                const mainWrapper = document.querySelector('.main-wrapper') as HTMLElement;
-                mainWrapper.style.height = (e.clientY - mainWrapper.offsetTop - 8) + 'px';
-              }
-            }
-          })
+            .resizable({
+                edges: { top: true, left: false, bottom: false, right: false },
+                listeners: {
+                    move: function (e) {
+                        e.target.style.height = (e.target.offsetTop - e.clientY + e.target.offsetHeight) + 'px';
+                        const mainWrapper = document.querySelector('.main-wrapper') as HTMLElement;
+                        mainWrapper.style.height = (e.clientY - mainWrapper.offsetTop - 8) + 'px';
+                    }
+                }
+            })
 
         educContent.addEventListener('scroll', (e) => {
-          const scrollPos = educContent.scrollTop;
-          const contentHeader = document.querySelector(".content-header");
-          if (scrollPos === 0) {
-            contentHeader.classList.add("large");
-            contentHeader.classList.remove("small");
-          } else {
-            contentHeader.classList.remove("large");
-            contentHeader.classList.add("small");
-          }
-        })
+            const scrollPos = educContent.scrollTop;
+            const contentHeader = document.querySelector(".content-header");
+            if (scrollPos === 0) {
+                contentHeader.classList.add("large");
+                contentHeader.classList.remove("small");
+            } else {
+                contentHeader.classList.remove("large");
+                contentHeader.classList.add("small");
+            }
+        });
+
+        const { keywords } = data2;
+        this.GenerateHover(keywords);
     }
 
-    
+
 
     private CreateSubsystemHeading(parentElement: HTMLElement, content: string) {
         document.querySelector('.sim-h1').innerHTML = content;
@@ -398,4 +401,23 @@ export class Ui {
         });
     }
 
+    private GenerateHover(keywords: Array<Object>) {
+        keywords.forEach(keyword => {
+            // Find the elements containing the class
+            const elements = document.querySelectorAll("." + keyword["class"]);
+            elements.forEach(element => {
+                element.addEventListener("mouseover", () => {
+                    this.CreateToolTip(element, keyword["contents"]);
+                });
+            });
+        });
+    }
+
+    private CreateToolTip(element, keyword: Array<Object>) {
+        console.log(element, keyword);
+    }
+
+    private DeleteToolTip() {
+
+    }
 }

@@ -1,6 +1,7 @@
 {
     "subsystem": "Catch the Stars",
-    "contents": [{
+    "contents": [
+        {
             "type": "subsystem-heading",
             "content": "Catch the Stars"
         },
@@ -23,7 +24,7 @@
         },
         {
             "type": "text",
-            "content": "Some programming principles are discussed below:<br/><br/>1. Functions: ffunctions are pieces of code that perform a certain task.<br/><br/>2. Library:  a library is a collection of functions we could add to our program."
+            "content": "Some programming principles are discussed below:<br/><br/>1. Functions: <span class='function-keyword keyword'>functions</span> are pieces of code that perform a certain task.<br/><br/>2. Library:  a library is a collection of functions we could add to our program."
         },
         {
             "type": "task-heading",
@@ -35,7 +36,7 @@
         },
         {
             "type": "text",
-            "content": "The code below gives us access to the RobotArm library within the RobotArm library. This library, called RobotArm.h, includes all the functions we need <span class='function-keyword keyword'>functions</span> we need"
+            "content": "The code below gives us access to the RobotArm library within the RobotArm library. This library, called RobotArm.h, includes all the <span class='function-keyword keyword'>functions</span> we need <span class='function-keyword keyword'>functions</span> we need"
         },
         {
             "type": "code-block",
