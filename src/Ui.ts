@@ -373,7 +373,7 @@ export class Ui {
         });
     }
 
-    private CompileWrite(button: HTMLElement, readOnlyEditorNumber: number) {
+    private async CompileWrite(button: HTMLElement, readOnlyEditorNumber: number) {
         button.addEventListener("click", () => {
             if (readOnlyEditorNumber) {
 
@@ -383,12 +383,15 @@ export class Ui {
                 for (let i = 0; i < this._editorsWrite.length; i++) {
                     code = code.concat(this._editorsWrite[i].getModel().getValue() + "\n");
                 }
-                RobotManager.instance.UploadCode(code);
+                this.TerminalLoading("running");
+                RobotManager.instance.UploadCode(code).then(() => {
+                    this.TerminalLoading("complete");
+                });
             }
         });
     }
 
-    private CompileReadOnly(button: HTMLElement, readOnlyEditorNumber: number) {
+    private async CompileReadOnly(button: HTMLElement, readOnlyEditorNumber: number) {
         button.addEventListener("click", () => {
             if (readOnlyEditorNumber) {
 
@@ -398,7 +401,10 @@ export class Ui {
                 for (let i = 0; i < this._editorsReadOnly.length; i++) {
                     code = code.concat(this._editorsReadOnly[i].getModel().getValue() + "\n");
                 }
-                RobotManager.instance.UploadCode(code);
+                this.TerminalLoading("running");
+                RobotManager.instance.UploadCode(code).then(() => {
+                    this.TerminalLoading("complete");
+                });
             }
         });
     }
@@ -424,15 +430,15 @@ export class Ui {
     }
 
     private TerminalLoading(status: string) {
-      const loadingBar = document.querySelector('.terminal-loading-bar');
-      if (status === 'running') {
-        loadingBar.classList.add('loading-80');
-      } else if (status === 'complete') {
-        loadingBar.classList.add('loading-100');
-        loadingBar.classList.remove('loading-80');
-        setTimeout(() => {
-          loadingBar.classList.remove('loading-100');
-        }, 1000)
-      }
+        const loadingBar = document.querySelector('.terminal-loading-bar');
+        if (status === 'running') {
+            loadingBar.classList.add('loading-80');
+        } else if (status === 'complete') {
+            loadingBar.classList.add('loading-100');
+            loadingBar.classList.remove('loading-80');
+            setTimeout(() => {
+                loadingBar.classList.remove('loading-100');
+            }, 1000)
+        }
     }
 }
