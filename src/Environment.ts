@@ -33,7 +33,7 @@ export class Environment {
         const gravityVector = new BABYLON.Vector3(0, -9.81, 0);
         scene.enablePhysics(gravityVector, new BABYLON.CannonJSPlugin());
 
-        var skybox = BABYLON.MeshBuilder.CreateSphere("skyBox", { segments: 1, diameter: 250 }, scene);
+        var skybox = BABYLON.MeshBuilder.CreateSphere("skyBox", { segments: 1, diameter: 300 }, scene);
         skybox.position.y -= 75;
         skybox.rotation.y += Math.PI/2;
         skybox.infiniteDistance = true;
