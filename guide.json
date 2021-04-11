@@ -103,7 +103,7 @@
         },
         {
             "type": "editor-read-only",
-            "content": "void setup(){\n\t//Write the motor pins\n\tint motorPins[4]={8,9,10,11};\n\t//Setup the pins for our virtual robot\n\trobotArm.ConfigurePins(motorPins);\n}"
+            "content": "void setup(){\n\t//Write the motor pins\n\tint motorPins[4]={8,9,10,11};\n\tSerial.begin(9600);\n\t//Setup the pins for our virtual robot\n\trobotArm.ConfigurePins(motorPins);\n}"
         },
         {
             "type": "task-heading",
