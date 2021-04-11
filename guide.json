@@ -68,7 +68,7 @@
         },
         {
             "type": "text",
-            "content": "When you think you are done, try running the code to make sure that you do not get any errors in the terminal at the bottom of your screen. \n If you cannot figure out the answer, reveal the solution below (and make sure that you update your code with the correct answer)."
+            "content": "When you think you are done, try running the code to make sure that you do not get any errors in the terminal at the bottom of your screen. <br><br>If you cannot figure out the answer, reveal the solution below using the collapse button on the right corner of the editor (but make sure that you update your code with the correct answer)."
         },
         {
             "type": "editor-read-only",
@@ -80,11 +80,11 @@
         },
         {
             "type": "text",
-            "content": "We need to add the positions of our four motors to the object we created. <span class='inline-code'>robotArm.ConfigurePins(motorPins)</span>: This function adds the motorPins to the robotArm object.<br/><br/>"
+            "content": "We now need to add the positions of our four motors to the RobotArm object we created."
         },
         {
             "type": "text",
-            "content": "First, we create an array of the pins we want to connect the motor to on the arduino board. The motors will be attached to pins 8, 9, 10 and 11 respectively."
+            "content": "To do this, we first created an <span class='array-keyword keyword'>array</span> that contains the pin numbers on the Arduino board that we want to connect each of our servo motors to. The motors will be attached to pins 8, 9, 10 and 11 respectively."
         },
         {
             "type": "code-block",
@@ -92,7 +92,7 @@
         },
         {
             "type": "text",
-            "content": "Next, we record the pins the servos are connected to ConfigurePins(motorPins) into the robotArm."
+            "content": "We now need to tell our RobotArm object which pins the servo motors are conencted to. We can do this by calling the function <span class='inline-code'>robotArm.ConfigurePins()</span> with the array that we created above as its input."
         },
         {
             "type": "code-block",
@@ -105,6 +105,10 @@
         {
             "type": "editor-write",
             "content": "void setup() {\n\n}"
+        },
+        {
+            "type": "text",
+            "content": "Once again, when you think you are done, try running the code to make sure that you do not get any errors in the terminal. Check your code with the hidden answer below."
         },
         {
             "type": "editor-read-only",
@@ -268,7 +272,7 @@
         },
         {
             "type": "editor-read-only",
-            "content": "void loop() {\n\t//Use the functions to input the x-y-z.\n\tgetToPosition(1.5,-1.3,0.4);\n\tgetToPosition(-1.4,-1.5,1.1);\n\tgetToPosition(1.5,1.5,0.9);\n\tgetToPosition(-1.1,1.6,1.4);\n\t//Create an infinite loop\n\twhile(true){}\n}"
+            "content": "void loop() {\n\t//Use the functions to input the x-y-z.\n\tgetToPosition(1.5,-1.3,0.6);\n\tgetToPosition(-1.4,-1.5,1.1);\n\tgetToPosition(1.5,1.5,0.9);\n\tgetToPosition(-1.1,1.6,1.4);\n\t//Create an infinite loop\n\twhile(true){}\n}"
         },
         {
             "type": "compile",
