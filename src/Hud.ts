@@ -17,7 +17,7 @@ export class Hud {
         advancedTexture.layer.layerMask = 0x10000000;
         this._advancedTexture = advancedTexture;
         scene.registerBeforeRender(() =>{
-            this._advancedTexture.renderScale = (parentCamera.radius/10) * 1.25;
+            this._advancedTexture.renderScale = Math.min((parentCamera.radius/10) * 1.25, 8);
         })
     }
 
