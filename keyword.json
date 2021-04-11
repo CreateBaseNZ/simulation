@@ -2,32 +2,206 @@
   "keywords":
   [
     {
-      "class": "function-keyword",
-      "contents":
-      [
-        {
-          "type": "text",
-          "content": "Functions are “self-contained” modules of code that accomplish a specific task. Functions usually “take in” data, process it, and “return” a result. Once a function is written, it can be used over and over again."
-        }
-      ]
-    },
-    {
       "class": "library-keyword",
       "contents":
       [
         {
           "type": "text",
-          "content": ""
+          "content": "A library is a file that contains prewritten code. By adding <span class='inline-code'>#include “name_of_function_library.h”</span> at the top of your code, you can use objects and call functions in the library as if they existed within your code."
         }
       ]
     },
+
+    {
+      "class": "function-keyword",
+      "contents":
+      [
+        {
+          "type": "text",
+          "content": "A function is a “self-contained” module of code that will only run when it is specifically called. Functions usually “take in” data, process it, and “return” a result."
+        },
+        {
+          "type": "text",
+          "content": "A function is composed of two parts: a declaration and a definition:"
+        },
+        {
+          "type": "code-block",
+          "content": "void myFunction() {  // declaration \n\t// code to be executed (definition) \n}"
+        },
+        {
+          "type": "text",
+          "content": "Once a function has been declared, you must call it whenever you want the code written inside the definition to run:"
+        },
+        {
+          "type": "code-block",
+          "content": "myFunction(); // call the function"
+        },
+        {
+          "type": "text",
+          "content": "Once a function has been written once, it can be called over and over again."
+        }
+      ]
+    },
+
+    {
+      "class": "functionParameters-keyword",
+      "contents":
+      [
+        {
+          "type": "text",
+          "content": "Information can be passed to functions as a parameter. Parameters act as variables inside of the function."
+        },
+        {
+          "type": "text",
+          "content": "Parameters are specified after the function name, inside the parentheses. You can add as many parameters as you want, just separate them with a comma:"
+        },
+        {
+          "type": "code-block",
+          "content": "void functionName(parameter1, parameter2, parameter3) { \n\t// code to be executed\n}"
+        }
+      ]
+    },
+
+    {
+      "class": "variables-keyword",
+      "contents":
+      [
+        {
+          "type": "text",
+          "content": "Variables are “containers” that store data values. Each variable can only store data of a specific type. Data types that we will be using are <span class='inline-code'>float</span> (short for floating decimal), <span class='inline-code'>int</span> (short for integer) and <span class='inline-code'>bool</span> (short for boolean)."
+        },
+        {
+          "type": "text",
+          "content": "You declare a variable by specifying its type, then name, then assigning it a value, like so:"
+        },
+        {
+          "type": "code-block",
+          "content": "type variable_name = value;"
+        }
+      ]
+    },
+
+    {
+      "class": "float-keyword",
+      "contents":
+      [
+        {
+          "type": "text",
+          "content": "<span class='inline-code'>float</span> is short for floating-point numbers. A floating-point number is a number that has a decimal point."
+        },
+        {
+          "type": "text",
+          "content": "They are often used to approximate analog and continuous values because they have greater resolution than integers."
+        },
+        {
+          "type": "text",
+          "content": "Examples of floating-point numbers: \n<span class='inline-code'>34.567</span> \n<span class='inline-code'>2.0</span> \n<span class='inline-code'>0.01</span>"
+        }
+      ]
+    },
+
+    {
+      "class": "int-keyword",
+      "contents":
+      [
+        {
+          "type": "text",
+          "content": "<span class='inline-code'>int</span> is short for integer. Integers are whole numbers (so they do not have any decimal points)."
+        },
+        {
+          "type": "text",
+          "content": "Integers are our primary data type for number storage."
+        },
+        {
+          "type": "text",
+          "content": "Examples of floating-point numbers: \n<span class='inline-code'>35</span> \n<span class='inline-code'>2</span> \n<span class='inline-code'>0</span>"
+        }
+      ]
+    },
+
+    {
+      "class": "bool-keyword",
+      "contents":
+      [
+        {
+          "type": "text",
+          "content": "<span class='inline-code'>bool</span> is short for boolean. A boolean only has one of two possible values: <span class='inline-code'>true</span> or <span class='inline-code'>false</span>."
+        },
+        {
+          "type": "text",
+          "content": "Booleans are useful if we want to check if a condition has been met (true) or has not (false) and store this result."
+        }
+      ]
+    },
+
+    {
+      "class": "array-keyword",
+      "contents":
+      [
+        {
+          "type": "text",
+          "content": "An array is a collection of variables of the same data type that are accessed with an index number."
+        },
+        {
+          "type": "text",
+          "content": "When creating an array, you must also declare the data types of the values stored in the array. In the example below, we create an array called <span class='inline-code'>mySensVals</span> that contains five integers."
+        },
+        {
+          "type": "code-block",
+          "content": "int mySensVals[] = {2, 4, -8, 3, 2};"
+        },
+        {
+          "type": "text",
+          "content": "An index number is a way to refer to each of the individual elements in the array. Indexes numbers start at 0. This means that the first item in the array will have an index of 0, the second item in the array will have an index of 1, the third will have an index of 2 and so on."
+        }
+      ]
+    },
+
+    {
+      "class": "sensor-keyword",
+      "contents":
+      [
+        {
+          "type": "text",
+          "content": "Sensors take input from their environment and send information to our code."
+        },
+        {
+          "type": "text",
+          "content": "Examples: \nThermometers measure temperature \nMicrophones measure sounds \nIR sensors measure and detect infrared radiation"
+        }
+      ]
+    },
+
     {
       "class": "actuator-keyword",
       "contents":
       [
         {
           "type": "text",
-          "content": ""
+          "content": "Actuators take input from our code and create an output in their environment."
+        },
+        {
+          "type": "text",
+          "content": "Examples: \nServo motors craete a circular movement \n Hydraulic cylinders create linear movement \n Speakers create sound \n Heaters/coolers create temperature changes"
+        }
+      ]
+    },
+
+    {
+      "class": "classAndObject-keyword",
+      "contents":
+      [
+        {
+          "type": "text",
+          "content": "Classes are the building blocks of Arduino code. They are types of data that include their own specific predefined variables and functions. An object is a specific instance of a class."
+        },
+        {
+          "type": "text",
+          "content": "A car is a real-world example of a class. Each car has a set of variables (weight, colour, top speed) and a set of functions (drive, brake turn)."
+        },
+        {
+          "type": "text",
+          "content": "If a car is a class, then each specific model of car is an object. Each model is built from the same car class, i.e. they share the same variables and functions however the values of those variables and the specific outputs of those functions will be different."
         }
       ]
     }
