@@ -12,7 +12,9 @@ export class Ui {
     private _editorsWrite: monaco.editor.IStandaloneCodeEditor[];
     private _numberOfEditors: number;
     private _readOnlyCompileButtons: HTMLElement[];
+    private _readOnlyStopButtons: HTMLElement[];
     private _writeCompileButtons: HTMLElement[];
+    private _writeStopButtons: HTMLElement[];
 
     constructor(scene: BABYLON.Scene) {
         monaco.editor.defineTheme("prototype", {
@@ -41,7 +43,9 @@ export class Ui {
         this._editorsWrite = new Array<monaco.editor.IStandaloneCodeEditor>();
         this._numberOfEditors = 0;
         this._readOnlyCompileButtons = new Array<HTMLElement>();
+        this._readOnlyStopButtons = new Array<HTMLElement>();
         this._writeCompileButtons = new Array<HTMLElement>();
+        this._writeStopButtons = new Array<HTMLElement>();
 
         //this handles interactions with the start button attached to the scene
         let educContent = document.querySelector(".educ-content") as HTMLElement;
@@ -80,10 +84,26 @@ export class Ui {
             const element = this._readOnlyCompileButtons[i];
             this.CompileReadOnly(element, 0);
         }
+        // Add the read-only stop system
+        for (let i = 0; i < this._readOnlyStopButtons.length; i++) {
+            const element = this._readOnlyStopButtons[i];
+            element.addEventListener("click", () => {
+                this.StopCode();
+                RobotManager.instance.Stop();
+            });
+        }
         // Add the write compile system
         for (let i = 0; i < this._writeCompileButtons.length; i++) {
             const element = this._writeCompileButtons[i];
             this.CompileWrite(element, 0);
+        }
+        // Add the write stop system
+        for (let i = 0; i < this._writeStopButtons.length; i++) {
+            const element = this._writeStopButtons[i];
+            element.addEventListener("click", () => {
+                this.StopCode();
+                RobotManager.instance.Stop();
+            });
         }
         this.CompileWrite(document.querySelector(".compile-btn"), 0);
 
@@ -228,6 +248,7 @@ export class Ui {
         editorID.innerHTML = "[" + this._numberOfEditors + "]";
         // Add button in the read-only array buttons
         this._readOnlyCompileButtons.push(runAll);
+        this._readOnlyStopButtons.push(stop);
         // Add collapse event listener
         containerEditor.classList.add("editor-wrapper-expand");
         containerEditor.classList.remove("editor-wrapper-collapse");
@@ -370,6 +391,7 @@ export class Ui {
         editorID.innerHTML = "[" + this._numberOfEditors + "]";
         // Add button in the read-only array buttons
         this._writeCompileButtons.push(runAll);
+        this._writeStopButtons.push(stop);
         // Add event listener on collapse and expand
         containerEditor.classList.add("editor-wrapper-expand");
         containerEditor.classList.remove("editor-wrapper-collapse");
