@@ -66,18 +66,18 @@ export class Arduino {
                 this.angleB = e.data.angleB;
                 this.angleC = e.data.angleC;
                 this.angleD = e.data.angleD;
-                this._terminal.innerText = this.compilerOutputText + e.data.serial;
+                this._terminal.innerHTML = this.compilerOutputText + e.data.serial;
             }
         }
     }
 
-    public async Compile(code: string) {
+    public async Compile(code: string, success: string = "<br><span class='terminal-success'>Program running...</span>") {
         //runButton.setAttribute('disabled', '1');
         try {
             const result = await buildHex(code);
-            this.compilerOutputText = result.stderr || result.stdout;
+            this.compilerOutputText = "<span class='terminal-error'>" + (result.stderr) + "</span>" || "<span class='terminal-success'>" + result.stdout + "</span>";
             if (result.hex) {
-                this.compilerOutputText += '\nProgram running...';
+                this.compilerOutputText += success;
                 return await result.hex;
             } else {
                 return await null;
