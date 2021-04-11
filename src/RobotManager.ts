@@ -67,7 +67,7 @@ export class RobotManager {
     public Stop() {
         this._robots.forEach(robot => {
             robot.arduino.Stop();
-            this._terminal.innerHTML = this._terminal.innerHTML + "Program Stopped<br>";
+            this._terminal.innerHTML = this._terminal.innerHTML + "Program stopped<br>";
         });
     }
 
