@@ -32,7 +32,8 @@ export class Hud {
         winText.height = "100%";
         winText.color = "black";
         winText.verticalAlignment = GUI.Control.VERTICAL_ALIGNMENT_CENTER;
-        winText.horizontalAlignment = GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
+        winText.horizontalAlignment = GUI.Control.HORIZONTAL_ALIGNMENT_RIGHT;
+        winText.left = "500px";
         winText.zIndex = 1;
 
         this._advancedTexture.addControl(winText);

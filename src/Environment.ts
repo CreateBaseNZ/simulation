@@ -82,7 +82,7 @@ export class Environment {
         });
 
         scene.meshes.forEach(mesh => {
-            (scene.getMeshByName("water.001").material as MATERIALS.WaterMaterial).addToRenderList(mesh);
+            (scene.getMeshByName("Water Cube").material as MATERIALS.WaterMaterial).addToRenderList(mesh);
             mesh.receiveShadows = true;
             mesh.cullingStrategy = BABYLON.AbstractMesh.CULLINGSTRATEGY_BOUNDINGSPHERE_ONLY;
             if (mesh.id == "robot" || mesh.id == "objective") {

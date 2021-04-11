@@ -47,7 +47,7 @@ export class Objective {
         rect.linkOffsetY = -300;
 
         const label = new GUI.TextBlock();
-        label.text = "(" + this.mesh.position.z.toFixed(1) + ", " + this.mesh.position.x.toFixed(1) + ", " + (this.mesh.position.y - 0.6).toFixed(1) + ")";
+        label.text = "(" + this.mesh.position.z.toFixed(1) + ", " + this.mesh.position.x.toFixed(1) + ", " + (this.mesh.position.y - 0.9).toFixed(1) + ")";
         label.fontSize = "54px";
         label.text.fontcolor("#fdfdfd");
         rect.addControl(label);

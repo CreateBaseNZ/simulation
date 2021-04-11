@@ -18,7 +18,7 @@ export let defaultScene = (scene: BABYLON.Scene) => {
     BABYLON.SceneLoader.ImportMeshAsync(null, rootURL, "seashank/seashank.babylon", scene).then((result) => {
         result.meshes.forEach(mesh => {
             mesh.position.y -= 0.6;
-            if (mesh.name == "water.001") {
+            if (mesh.name == "Water Cube") {
                 var water = new MATERIALS.WaterMaterial("water", scene);
                 water.bumpTexture = new BABYLON.Texture("https://raw.githubusercontent.com/CreateBaseNZ/cb-simulation-model/main/assets/seashank/waterbump.png", scene);
 
@@ -36,10 +36,10 @@ export let defaultScene = (scene: BABYLON.Scene) => {
         });
     });
 
-    new Star(scene, new BABYLON.Vector3(-1.3, 1, 1.5));
-    new Star(scene, new BABYLON.Vector3(-1.5, 1.7,-1.4));
-    new Star(scene, new BABYLON.Vector3(1.6, 2, -1.1));
-    new Star(scene, new BABYLON.Vector3(1.5, 1.5, 1.5));
+    new Star(scene, new BABYLON.Vector3(-1.3, 1.5, 1.5));
+    new Star(scene, new BABYLON.Vector3(-1.5, 2,-1.4));
+    new Star(scene, new BABYLON.Vector3(1.6, 2.3, -1.1));
+    new Star(scene, new BABYLON.Vector3(1.5, 1.8, 1.5));
 
     new Buckets(scene, new BABYLON.Vector3(-1, 0.2, -2));
 }

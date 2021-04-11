@@ -1,25 +1,25 @@
 const url = 'https://hexi.wokwi.com';
 
 export interface HexiResult {
-  stdout: string;
-  stderr: string;
-  hex: string;
+    stdout: string;
+    stderr: string;
+    hex: string;
 }
 
 export async function buildHex(source: string) {
-  const resp = await fetch(url + '/build', {
-    method: 'POST',
-    mode: 'cors',
-    cache: 'no-cache',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      sketch: source,
-      files: [
-        {
-          name: "Helper.h",
-          content: `#ifndef Helper_h
+    const resp = await fetch(url + '/build', {
+        method: 'POST',
+        mode: 'cors',
+        cache: 'no-cache',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            sketch: source,
+            files: [
+                {
+                    name: "Helper.h",
+                    content: `#ifndef Helper_h
           #define Helper_h
           
           #include "Geometry.h"
@@ -34,10 +34,10 @@ export async function buildHex(source: string) {
           void ParseCSV(String serialString, float outputData[]);
           
           #endif`
-        },
-        {
-          name: "Helper.cpp",
-          content: `#include "Helper.h"
+                },
+                {
+                    name: "Helper.cpp",
+                    content: `#include "Helper.h"
 
           // Transformation matrix for intrinsic rotation about object's X-axis
           Matrix<4, 4> Rotate_X(float theta)
@@ -81,10 +81,10 @@ export async function buildHex(source: string) {
           
               return (M);
           }`
-        },
-        {
-          name: "RobotArm.h",
-          content: `#ifndef RobotArm_h
+                },
+                {
+                    name: "RobotArm.h",
+                    content: `#ifndef RobotArm_h
           #define RobotArm_h
           
           #include "Arduino.h"
@@ -153,10 +153,10 @@ export async function buildHex(source: string) {
               float findAngle(float v1[], float v2[], int size);
           };
           #endif`
-        },
-        {
-          name: "RobotArm.cpp",
-          content: `#include "RobotArm.h"
+                },
+                {
+                    name: "RobotArm.cpp",
+                    content: `#include "RobotArm.h"
 
           RobotArm::RobotArm()
           {
@@ -385,76 +385,79 @@ export async function buildHex(source: string) {
           
           
           bool RobotArm::Move_position_xyz(float x=0, float y=0,float z=0){
-              float angles[4];
-              for (int i = 0; i < noOfJoints; i++){
-                  angles[i] = (servoMotors[i].read() - 90) * M_PI / 180;
-              }
-              float distance = 50000;
-              float tolernece = 0.01 ;
-              int maxreps = 10;
+                float angles[4];
+                for (int i = 0; i < noOfJoints; i++){
+                    angles[i] = (servoMotors[i].read() - 90) * M_PI / 180;
+                }
+                float distance = 50000;
+                float tolernece = 0.01 ;
+                int maxreps = 10;
               int maxCounter = maxreps * (noOfJoints - 1), repNo = 0;
-              float targetLoc[3] = {x, y, z};
-              int target = noOfJoints - 1;
-              float totalLength = 0;
-              if(noOfJoints>noOfJoints){
-                  return false;
-              }
-              for (int i = 1; i < noOfJoints;i++){
-                  totalLength += linkLengths[i];
-              }
-              /*if (sqrt(pow(x, 2) + pow(y, 2) + pow(z - linkLengths[0], 2)) > totalLength)
-              {
-                  Serial << "Postion Can't be reached\\n";
-                  return false;
-              }*/
-              angles[0] = atan2(x, -y);
-              if (angles[0] < 0)
-              {
-                  angles[0] += M_PI;
-              }
-              while (tolernece < distance)
-              {
+                float targetLoc[3] = {x, y, z};
+                int target = noOfJoints - 1;
+                float totalLength = 0;
+                if(noOfJoints>noOfJoints){
+                    return false;
+                }
+                for (int i = 1; i < noOfJoints;i++){
+                    totalLength += linkLengths[i];
+                }
+                /*if (sqrt(pow(x, 2) + pow(y, 2) + pow(z - linkLengths[0], 2)) > totalLength)
+                {
+                    Serial << "Postion Can't be reached\\n";
+                    return false;
+                }*/
+                angles[0] = atan2(x, -y);
+                if (angles[0] < 0)
+                {
+                    angles[0] += M_PI;
+                }
+                angles[1] = 0;
+                angles[2] = 0;
+                angles[3] = 0;
+
+                while (tolernece < distance)
+                {
                   //Find angle between the link to end effector and link to target
-                  Matrix<4, 4> o[noOfJoints + 1];
-                  ForwardKinematics(o, angles, linkLengths);
-                  float endEffectorDist[3], targetDist[3];
-                  for (int i = 0; i < 3; i++)
-                  {
-                      endEffectorDist[i] = o[noOfJoints](i, 3) - o[target](i, 3);
-                      targetDist[i] = targetLoc[i] - o[target](i, 3);
-                  }
-                  float angleBet = findAngle(endEffectorDist, targetDist, 3);
-                  angles[target] -= angleBet;
-          
-                  //confirm is in the correct direction
-                  ForwardKinematics(o, angles, linkLengths);
-                  for (int i = 0; i < 3; i++)
-                  {
-                      endEffectorDist[i] = o[noOfJoints](i, 3) - o[target ](i, 3);
-                      targetDist[i] = targetLoc[i] - o[target](i, 3);
-                  }
-                  angleBet = findAngle(endEffectorDist, targetDist, 3);
-                  angles[target] += angleBet;
-                  
+                    Matrix<4, 4> o[noOfJoints + 1];
+                    ForwardKinematics(o, angles, linkLengths);
+                    float endEffectorDist[3], targetDist[3];
+                    for (int i = 0; i < 3; i++)
+                    {
+                        endEffectorDist[i] = o[noOfJoints](i, 3) - o[target](i, 3);
+                        targetDist[i] = targetLoc[i] - o[target](i, 3);
+                    }
+                    float angleBet = findAngle(endEffectorDist, targetDist, 3);
+                    angles[target] -= angleBet;
+
+                    //confirm is in the correct direction
+                    ForwardKinematics(o, angles, linkLengths);
+                    for (int i = 0; i < 3; i++)
+                    {
+                        endEffectorDist[i] = o[noOfJoints](i, 3) - o[target ](i, 3);
+                        targetDist[i] = targetLoc[i] - o[target](i, 3);
+                    }
+                    angleBet = findAngle(endEffectorDist, targetDist, 3);
+                    angles[target] += angleBet;
+
                   //Find endeffector to target distance
-                  ForwardKinematics(o, angles, linkLengths);
-                  float d[3];
-                  for (int i = 0; i < 3; i++)
-                  {
-                      d[i] = targetLoc[i] - o[noOfJoints](i, 3);
-                  }
-          
-                  distance = vectorLength(d, 3);
-                  target--;
-                  if(target<0){
-                      target = noOfJoints - 1;
-                  }
-                  repNo++;
-                  if (repNo >= maxCounter)
-                  {
-                      break;
-                  }
-                  
+                    ForwardKinematics(o, angles, linkLengths);
+                    float d[3];
+                    for (int i = 0; i < 3; i++)
+                    {
+                        d[i] = targetLoc[i] - o[noOfJoints](i, 3);
+                    }
+                    distance = vectorLength(d, 3);
+                    target--;
+                    if(target<0){
+                        target = noOfJoints - 1;
+                    }
+                    repNo++;
+                    if (repNo >= maxCounter)
+                    {
+                        break;
+                    }
+
               }
           
               Matrix<4, 4> o[noOfJoints + 1];
@@ -957,10 +960,10 @@ export async function buildHex(source: string) {
               }
               Serial.println("Calibration Complete");
           }`
-        }
-      ]
+                }
+            ]
 
-    }),
-  });
-  return (await resp.json()) as HexiResult;
+        }),
+    });
+    return (await resp.json()) as HexiResult;
 }

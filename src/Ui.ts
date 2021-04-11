@@ -400,7 +400,6 @@ export class Ui {
                 }
             } else if (running) {
                 this.StopCode();
-                RobotManager.instance.Stop();
             }
         });
     }
@@ -448,14 +447,15 @@ export class Ui {
     }
 
     private StopCode() {
-        document.querySelector(".compile-btn").classList.add("compile-idle");
         document.querySelector(".compile-btn").classList.remove("compile-loading");
         document.querySelector(".compile-btn").classList.remove("compile-running");
+        document.querySelector(".compile-btn").classList.add("compile-idle");
         document.querySelectorAll(".editor-container").forEach(element => {
             element.classList.remove("editor-loading");
             element.classList.remove("editor-running");
         });
         document.querySelector(".terminal-wrapper").classList.remove("terminal-running");
+        RobotManager.instance.Stop();
     }
 
     private GenerateHover(keywords: Array<Object>) {
