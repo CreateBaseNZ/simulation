@@ -61,7 +61,7 @@ export class RobotManager {
             document.querySelector(".compile-btn").classList.remove("compile-loading");
             document.querySelector(".compile-btn").classList.remove("compile-running");
         }
-        this._terminal.innerHTML = this.BuildCompilerOutput();
+        this._terminal.innerHTML = this._terminal.innerHTML + this.BuildCompilerOutput();
     }
 
     private async CompileCode(code: string) {
@@ -84,7 +84,8 @@ export class RobotManager {
             document.querySelector(".compile-btn").classList.add("compile-idle");
             document.querySelector(".compile-btn").classList.remove("compile-loading");
             document.querySelector(".compile-btn").classList.remove("compile-running");
-        })
+            this._terminal.innerHTML = this._terminal.innerHTML + "Program Stopped<br>";
+        });
     }
 
     private BuildCompilerOutput() {
