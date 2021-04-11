@@ -35,11 +35,13 @@ export class RobotManager {
         // this._status.classList.remove("error");
         // this._status.classList.remove("success");
         // this._status.innerText = "Compiling sketch...";
+        let isSuccess = false;
         const hexs = await (this.CompileCode(code));
         if (hexs != null) {
             for (let i = 0; i < hexs.length; i++) {
                 this._robots[i].arduino.ExecuteProgram(hexs[i]);
             }
+            isSuccess = true;
             // this._status.innerText = success;
             // this._status.classList.remove("error");
             // this._status.classList.add("success");
@@ -48,6 +50,7 @@ export class RobotManager {
             // this._status.innerText = "An error occured while uploading the sketch.";
             // this._status.classList.add("error");
             // this._status.classList.remove("success");
+            isSuccess = false;
         }
         this._terminal.innerHTML = this.BuildCompilerOutput();
     }
