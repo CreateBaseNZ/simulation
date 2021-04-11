@@ -123,6 +123,8 @@ export class Ui {
             }
         });
 
+
+
         const { keywords } = data2;
         this.GenerateHover(keywords);
     }
@@ -419,5 +421,18 @@ export class Ui {
 
     private DeleteToolTip() {
 
+    }
+
+    private TerminalLoading(status: string) {
+      const loadingBar = document.querySelector('.terminal-loading-bar');
+      if (status === 'running') {
+        loadingBar.classList.add('loading-80');
+      } else if (status === 'complete') {
+        loadingBar.classList.add('loading-100');
+        loadingBar.classList.remove('loading-80');
+        setTimeout(() => {
+          loadingBar.classList.remove('loading-100');
+        }, 1000)
+      }
     }
 }
