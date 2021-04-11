@@ -1,13 +1,12 @@
 {
     "subsystem": "Catch the Stars",
-    "contents": [
-        {
+    "contents": [{
             "type": "subsystem-heading",
             "content": "Catch the Stars"
         },
         {
             "type": "text",
-            "content": "Five stars have fallen out of the sky! Using the special star catching device attached to your robotic arm, collect all five stars. The star catching device collects stars when by touching them so you need to program your robotic arm to move to the correct coordinates. We’ll help guide you but it’s up to you to collect them all.<br/><br/>We have broken this down into 5 tasks:<br/>0. Introduction<br/>1. Configure the robotic arm<br/>2.Setup<br/>3. Develop isError<br/>4. Get the job done<br/><br/>Good Luck!"
+            "content": "Four stars have fallen out of the sky! Using the special star catching device attached to your robotic arm, collect all five stars. The star catching device collects stars when by touching them so you need to program your robotic arm to move to the correct coordinates. We’ll help guide you but it’s up to you to collect them all.<br/><br/>We have broken this down into 5 tasks:<br/>0. Introduction<br/>1. Configure the robotic arm<br/>2.Setup<br/>3. Develop isError<br/>4. Develop getToPosition<br/>5. Get the job done<br/><br/>Good Luck!"
         },
         {
             "type": "task-heading",
@@ -160,7 +159,75 @@
         },
         {
             "type": "task-heading",
-            "content": "Task 4: Get the job done (loop)"
+            "content": "Task 4: Develop getToPosition"
+        },
+        {
+            "type": "text",
+            "content": "Now that we have a function that checks if one servo has reached its position, we need to make a function that instructs the robotic arm where to go and waits for it to reach the position."
+        },
+        {
+            "type": "text",
+            "content": "The first step of making a function is to write our function deceleration. As no output void is used for output type. The function is named getToPostion. The coordinates are input and of type float (short for floating decimal)."
+        },
+        {
+            "type": "code-block",
+            "content": "//Write function declaration\nvoid getToPosition(float x, float y, float z){"
+        },
+        {
+            "type": "text",
+            "content": "Next, we need to get the current angle of the servo. We will use .servoMotors[i].read() to get the readings."
+        },
+        {
+            "type": "code-block",
+            "content": "//Store the current locations of the servos\nint angle0 = robotArm.servoMotors[0].read();\nint angle1 = robotArm.servoMotors[1].read();\nint angle2 = robotArm.servoMotors[2].read();\nint angle3 = robotArm.servoMotors[3].read();"
+        },
+        {
+            "type": "text",
+            "content": "Next, we will use the move_position_xyz for the robotic arm to start moving."
+        },
+        {
+            "type": "code-block",
+            "content": "//Move the robotic arm to the star\nrobotArm.Move_position_xyz(x, y, z);"
+        },
+        {
+            "type": "text",
+            "content": "The next step is to store the target angles for each of the servos for comparison"
+        },
+        {
+            "type": "code-block",
+            "content": "//Store the target angles\nint target0=robotArm.targetAngles[0]\nint target1=robotArm.targetAngles[1]\nint target2=robotArm.targetAngles[2]\nint target3=robotArm.targetAngles[3]"
+        },
+        {
+            "type": "text",
+            "content": "The next step is to use a while loop. We will also use the function we developed in the previous function. An OR (denoted as ||) to combine the different outputs of the functions into one boolean value."
+        },
+        {
+            "type": "code-block",
+            "content": "//Write the while loop with condition\nwhile (isError(target0, angle0) || isError(target1, angle1) || isError(target2, angle2) || isError(target3, angle3)){\n\n}"
+        },
+        {
+            "type": "text",
+            "content": "Within, the while loop, we will have to update the reading of the current angle of the servos"
+        },
+        {
+            "type": "code-block",
+            "content": "//Update the current angles\nangle0 = robotArm.servoMotors[0].read();\nangle1 = robotArm.servoMotors[1].read();\nangle2 = robotArm.servoMotors[2].read();\nangle3 = robotArm.servoMotors[3].read();"
+        },
+        {
+            "type": "text",
+            "content": "Now it is your turn to write the code for the function!"
+        },
+        {
+            "type": "editor-write",
+            "content": ""
+        },
+        {
+            "type": "editor-read-only",
+            "content": "//Write function declaration\nvoid getToPosition(float x, float y, float z){\n\t//Store the current locations of the servos\n\tint angle0 = robotArm.servoMotors[0].read();\n\tint angle1 = robotArm.servoMotors[1].read();\n\tint angle2 = robotArm.servoMotors[2].read();\n\tint angle3 = robotArm.servoMotors[3].read();\n\t//Move the robotic arm to the star\n\trobotArm.Move_position_xyz(x, y, z);\n\t//Store the target angles\n\tint target0=robotArm.targetAngles[0]\n\tint target1=robotArm.targetAngles[1]\n\tint target2=robotArm.targetAngles[2]\n\tint target3=robotArm.targetAngles[3]\n\twhile (isError(target0, angle0) || isError(target1, angle1) || isError(target2, angle2) || isError(target3, angle3)){\n\t\t//Update the current angles\n\t\tangle0 = robotArm.servoMotors[0].read();\n\t\tangle1 = robotArm.servoMotors[1].read();\n\t\tangle2 = robotArm.servoMotors[2].read();\n\t\tangle3 = robotArm.servoMotors[3].read();\n\t}\n}"
+        },
+        {
+            "type": "task-heading",
+            "content": "Task 5: Get the job done (loop)"
         },
         {
             "type": "text",
