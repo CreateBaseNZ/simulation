@@ -451,6 +451,7 @@ export class Ui {
             element.classList.remove("editor-loading");
             element.classList.remove("editor-running");
         });
+        document.querySelector(".terminal-wrapper").classList.remove("terminal-running");
     }
 
     private GenerateHover(keywords: Array<Object>) {
