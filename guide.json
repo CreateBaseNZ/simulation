@@ -23,7 +23,7 @@
         },
         {
             "type": "text",
-            "content": "Some programming principles are discussed below:<br/><br/>1. Functions: <span class='function-keyword keyword'>functions</span> are pieces of code that perform a certain task.<br/><br/>2. Library:  a <span class='library-keyword keyword'>library</span> is a collection of prewritten that functions we can add to our program."
+            "content": "Some programming principles are discussed below:<br/><br/>1. Functions: <span class='function-keyword keyword'>functions</span> are pieces of code that perform a certain task.<br/><br/>2. Library:  a <span class='library-keyword keyword'>library</span> is a collection of pre-written that functions we can add to our program."
         },
 
 
@@ -70,7 +70,7 @@
         },
         {
             "type": "text",
-            "content": "When you think you are done, try running the code to make sure that you do not get any errors in the terminal at the bottom of your screen. <br><br>If you cannot figure out the answer, reveal the solution below using the collapse button on the right corner of the editor (but make sure that you update your code with the correct answer)."
+            "content": "When you think you are done, try running the code to make sure that you do not get any errors in the terminal at the bottom of your screen. <br><br>If you cannot figure out the answer, reveal the solution below using the un-collapse button (looks like an up and down arrow) on the right corner of the editor (but make sure that you update your code with the correct answer)."
         },
         {
             "type": "editor-read-only",
@@ -97,7 +97,7 @@
         },
         {
             "type": "text",
-            "content": "We now need to tell myRobot which pins the servo motors are conencted to. We can do this by calling the function <span class='inline-code'>myRobot.ConfigurePins()</span> with the array that we created above as its input."
+            "content": "We now need to tell myRobot which pins the servo motors are connected to. We can do this by calling the function <span class='inline-code'>myRobot.ConfigurePins()</span> with the array that we created above as its input. Note that this function belongs only to the myRobot object. This is why we need to add <span class='inline-code'>myRobot.</span> in front of the function name <span class='inline-code'>ConfigurePins()</span>"
         },
         {
             "type": "code-block",
@@ -132,15 +132,15 @@
 
         {
             "type": "task-heading",
-            "content": "Task 3: Develop isError."
+            "content": "Task 3: Develop isError"
         },
         {
             "type": "text",
-            "content": "Now we need to check if the serovs have reached their correct angles. If a servo has, then we need to stop it at that correct angle and repeat until all servos have stopped.<br/><br/>Let's develop our first <span class='function-keyword keyword'>function</span>. We will call the function <span class='inline-code'>isError()</span>. This function checks for an error between the target and current angles of the servo. An acceptable error of 1 degrees is allowed. The function returns true if the error is greater or equal to 1 and false otherwise.<br/>"
+            "content": "Now we need to check if the servos have reached their correct angles. If a servo has, then we need to stop it at that correct angle and repeat until all servos have stopped.<br/><br/>Let's develop our first <span class='function-keyword keyword'>function</span>. We will call the function <span class='inline-code'>isError()</span>. This function checks for an error between the target and current angles of the servo. An acceptable error of 1 degrees is allowed. The function returns <span class='inline-code'>true</span> if the error is greater than or equal to 1 and <span class='inline-code'>false</span> otherwise.<br/>"
         },
         {
             "type": "text",
-            "content": "The first step of making a function is to write our function deceleration. The output is type bool (boolean)<br/><br/>Next is the name of our function which is isError.<br/><br/>Between round brackets are the input(s). We will make them both int (integers)."
+            "content": "The first step of making our function is to write the <span class='function-keyword keyword'>function declaration</span>. The first part of the function declaration is the output data type, which will be <span class='bool-keyword keyword'>bool</span>. Next is the name of our function, which is <span class='inline-code'>isError</span>. Lastly, we put the inputs of the function, including their type declarations, in a pair of brackets. We will make both of their data types <span class='int-keyword keyword'>int</span>."
         },
         {
             "type": "code-block",
@@ -148,7 +148,7 @@
         },
         {
             "type": "text",
-            "content": "Next, we need to first find the absolute (i.e. sign is ignored) error between the two inputs."
+            "content": "Next, we need to first find the absolute error between the two inputs. Absolute means that the sign (+ or -) is removed from the start of the number. We can do this by calling the <span class='inline-code'>abs()</span> function on the difference between the <span class='inline-code'>target</span> and <span class='inline-code'>current</span> angles."
         },
         {
             "type": "code-block",
@@ -156,7 +156,7 @@
         },
         {
             "type": "text",
-            "content": "If the error is greater than the allowable error, then the function should end and return true as output."
+            "content": "If the error is greater than the allowable error, then the function should end and return <span class='inline-code'>true</span> as its output."
         },
         {
             "type": "code-block",
@@ -164,7 +164,7 @@
         },
         {
             "type": "text",
-            "content": "If the condition above is not met then it should return flase."
+            "content": "If the condition above is not met then it should return false."
         },
         {
             "type": "code-block",
@@ -182,17 +182,20 @@
             "type": "editor-read-only",
             "content": "//Declare function\nbool isError(int target, int current){\n\t//Find the absolute error between the two angles\n\tint absError = abs(target-current);\n\t//Check if the error is higher than the allowable error\n\tif(absError >= 1){\n\t\treturn true;\n\t}\n\t//If error is less than allowable error return false\n\telse{\n\t\treturn false;\n\t}\n}"
         },
+
+
+
         {
             "type": "task-heading",
             "content": "Task 4: Develop getToPosition"
         },
         {
             "type": "text",
-            "content": "Now that we have a function that checks if one servo has reached its position, we need to make a function that instructs the robotic arm where to go and waits for it to reach the position."
+            "content": "Now that we have a function that checks if a servo has reached a position, we now need to make a function that tells the robotic arm to move to that specific position."
         },
         {
             "type": "text",
-            "content": "The first step of making a function is to write our function deceleration. As no output void is used for output type. The function is named getToPostion. The coordinates are input and of type float (short for floating decimal)."
+            "content": "The first step of making our function is to write our function declaration. This function does not need to output anything, so we will use <span class='inline-code'>void</span> as the output data type. The function is named <span class='inline-code'>getToPosition</span>. The inputs to the function are the three cartesian coordinates (x, y, z) that we want the end of the arm to reach. Each of these inputs will be <span class='float-keyword keyword'>floats</span>."
         },
         {
             "type": "code-block",
@@ -200,7 +203,7 @@
         },
         {
             "type": "text",
-            "content": "Next, we need to get the current angle of the servo. We will use .servoMotors[i].read() to get the readings."
+            "content": "Next, we need to get the current angle of the servo. We will use the myRobot function <span class='inline-code'>servoMotors[i].read()</span> to read the angle of servo i in degrees. Note that we once again use <span class='inline-code'>myRobot.</span> before the function name as the function belongs to the <span class='inline-code'>myRobot</span> object."
         },
         {
             "type": "code-block",
@@ -208,7 +211,7 @@
         },
         {
             "type": "text",
-            "content": "Next, we will use the move_position_xyz for the robotic arm to start moving."
+            "content": "Next, we will use the <span class='inline-code'>myRobot</span> function <span class='inline-code'>Move_position_xyz()</span> to tell the robotic arm to start moving to the coordinates that we give it as inputs."
         },
         {
             "type": "code-block",
@@ -216,7 +219,7 @@
         },
         {
             "type": "text",
-            "content": "The next step is to store the target angles for each of the servos for comparison"
+            "content": "The next step is to store the target angles for each of the servos as variables of type <span class='int-keyword keyword'>int</span> so that we can compare them later."
         },
         {
             "type": "code-block",
@@ -224,7 +227,7 @@
         },
         {
             "type": "text",
-            "content": "The next step is to use a while loop. We will also use the function we developed in the previous function. An OR (denoted as ||) to combine the different outputs of the functions into one boolean value."
+            "content": "The next step is to use a while loop. We will also use the function <span class='inline-code'>isError()</span> that we developed in Task 3. <br><br>We want the loop to continue running as long as at least one of the <span class='inline-code'>isError()</span> functions returns true. To do this, we will use an OR operator (denoted as ||) to combine the outputs of each <span class='inline-code'>isError()</span> function. As long as at least one of the functions returns <span class='inline-code'>true</span>, then all of their outputs will be combined to <span class='inline-code'>true</span> and the code inside the loop will repeat. If all of the functions return <span class='inline-code'>false</span>, then all of their outputs will be combined to <span class='inline-code'>false</span> and we will exit the loop."
         },
         {
             "type": "code-block",
@@ -232,7 +235,7 @@
         },
         {
             "type": "text",
-            "content": "Within, the while loop, we will have to update the reading of the current angle of the servos"
+            "content": "Within, the while loop, we will have to update the reading of the current angles of the servos."
         },
         {
             "type": "code-block",
@@ -240,7 +243,7 @@
         },
         {
             "type": "text",
-            "content": "Now it is your turn to write the code for the function!"
+            "content": "Now it is your turn to write the code for the function by putting everything together!"
         },
         {
             "type": "editor-write",
@@ -250,17 +253,20 @@
             "type": "editor-read-only",
             "content": "//Write function declaration\nvoid getToPosition(float x, float y, float z){\n\t//Store the current locations of the servos\n\tint angle0 = myRobot.servoMotors[0].read();\n\tint angle1 = myRobot.servoMotors[1].read();\n\tint angle2 = myRobot.servoMotors[2].read();\n\tint angle3 = myRobot.servoMotors[3].read();\n\t//Move the robotic arm to the star\n\tmyRobot.Move_position_xyz(x, y, z);\n\t//Store the target angles\n\tint target0=myRobot.targetAngles[0];\n\tint target1=myRobot.targetAngles[1];\n\tint target2=myRobot.targetAngles[2];\n\tint target3=myRobot.targetAngles[3];\n\twhile (isError(target0, angle0) || isError(target1, angle1) || isError(target2, angle2) || isError(target3, angle3)){\n\t\t//Update the current angles\n\t\tangle0 = myRobot.servoMotors[0].read();\n\t\tangle1 = myRobot.servoMotors[1].read();\n\t\tangle2 = myRobot.servoMotors[2].read();\n\t\tangle3 = myRobot.servoMotors[3].read();\n\t}\n}"
         },
+
+
+
         {
             "type": "task-heading",
             "content": "Task 5: Get the job done (loop)"
         },
         {
             "type": "text",
-            "content": "Now that we have the building blocks for our program, we will finish by writing the loop.<br/>We will use getToPosition to move the robotic arm to the correct location. All this is written within function called loop()."
+            "content": "Now that we have the building blocks for our program, we will finish by writing the main loop.<br/><br/>We will use <span class='inline-code'>getToPosition</span> to move the robotic arm to the correct location. All of this will be written within a function called <span class='inline-code'>loop()</span>."
         },
         {
             "type": "text",
-            "content": "The first step is to use the getToPosition() function using the coordinate of each star. This will move the tip of the arm to that location to catch the star."
+            "content": "The first step is to use the <span class='inline-code'>getToPosition</span> function using the coordinates of each star. This will move the tip of the arm to that location to catch the star. The coordinates of each star can be found in the simulation to the right. <br><br>The example below showcases how to call the function with the coordinates of one of the stars."
         },
         {
             "type": "code-block",
@@ -268,11 +274,11 @@
         },
         {
             "type": "text",
-            "content": "Repeat the command for each star. You should have that four times"
+            "content": "You will need to repeat this command for each star, replacing the coordinates in the function input each time. You should end up calling this function four times, each one on a new line."
         },
         {
             "type": "text",
-            "content": "<br/>Next, we will run an infinite loop. Nothing else will run anymore"
+            "content": "Lastly, we will add an infinite loop at the end of the <span class='inline-code'>loop()</span> function (but after our four calls to <span class='inline-code'>getToPosition</span>). Because this new loop will repeat forever, nothing else will happen and we can manually exit our code using the button in the bottom right corner of your screen."
         },
         {
             "type": "code-block",
@@ -280,7 +286,7 @@
         },
         {
             "type": "text",
-            "content": "Now try to write your loop!"
+            "content": "Now try to write the contents of your <span class='inline-code'>loop()</span> function! Try and complete this final task without looking at the answers."
         },
         {
             "type": "editor-write",
@@ -289,6 +295,14 @@
         {
             "type": "editor-read-only",
             "content": "void loop() {\n\t//Use the functions to input the x-y-z.\n\tgetToPosition(1.5,-1.3,0.6);\n\tgetToPosition(-1.4,-1.5,1.1);\n\tgetToPosition(1.5,1.5,0.9);\n\tgetToPosition(-1.1,1.6,1.4);\n\t//Create an infinite loop\n\twhile(true){}\n}"
+        },
+        {
+            "type": "text",
+            "content": "Congratulations on reaching the end of this project! This is a very early prototype of some of the functionality and content you can expect from CreateBase in the future. We only ask for two more things from you:)"
+        },
+        {
+            "type": "text",
+            "content": "Firstly, please make sure that you fill out the survey that we have (or will) provide to you, as your feedback is absolutely vital to us. Try and make your answers as detailed and awesome as you are. <br><br>Secondly, we ask you to dream for a bit. Imagine the coolest things that you could possibly do with a tool such as this. They do not have to be realistic, let your imagination run wild, and make sure that you let one of us know what you can come up with."
         },
         {
             "type": "compile",

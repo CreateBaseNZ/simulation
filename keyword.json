@@ -6,7 +6,7 @@
       "contents": [
         {
           "type": "text",
-          "content": "A library is a file that contains prewritten code. By adding <span class='inline-code'>#include “name_of_function_library.h”</span> at the top of your code, you can use objects and call functions in the library as if they existed within your code."
+          "content": "A library is a file that contains pre-written code. By adding <span class='inline-code'>#include “name_of_function_library.h”</span> at the top of your code, you can use objects and call functions in the library as if they existed within your code."
         }
       ]
     },
@@ -86,11 +86,11 @@
       "contents": [
         {
           "type": "text",
-          "content": "<span class='inline-code'>float</span> is short for floating-point numbers. A floating-point number is a number that has a decimal point."
+          "content": "<span class='inline-code'>float</span> is short for floating-point number. A floating-point number is a number that has a decimal point."
         },
         {
           "type": "text",
-          "content": "They are often used to approximate analog and continuous values because they have greater resolution than integers."
+          "content": "They are often used to approximate analog and continuous values because they have a greater resolution than integers."
         },
         {
           "type": "text",
@@ -143,15 +143,15 @@
         },
         {
           "type": "text",
-          "content": "When creating an array, you must also declare the data types of the values stored in the array. In the example below, we create an array called <span class='inline-code'>mySensVals</span> that contains five integers."
-        },
-        {
-          "type": "code-block",
-          "content": "int mySensVals[] = {2, 4, -8, 3, 2};"
+          "content": "An index number is a way to refer to each of the individual elements in the array. Index numbers start at 0. This means that the first item in the array will have an index of 0, the second item in the array will have an index of 1, the third will have an index of 2 and so on."
         },
         {
           "type": "text",
-          "content": "An index number is a way to refer to each of the individual elements in the array. Indexes numbers start at 0. This means that the first item in the array will have an index of 0, the second item in the array will have an index of 1, the third will have an index of 2 and so on."
+          "content": "When creating an array, you must also declare the data types of the values stored in the array. In the example below, we create an array called <span class='inline-code'>arrayValues</span> that contains five integers."
+        },
+        {
+          "type": "code-block",
+          "content": "int arrayValues[] = {2, 4, -8, 3, 2};"
         }
       ]
     },
@@ -181,7 +181,7 @@
         },
         {
           "type": "text",
-          "content": "Examples: <br>Servo motors craete a circular movement <br> Hydraulic cylinders create linear movement <br> Speakers create sound <br> Heaters/coolers create temperature changes"
+          "content": "Examples: <br>Servo motors create a circular movement <br> Hydraulic cylinders create linear movement <br> Speakers create sound <br> Heaters/coolers create temperature changes"
         }
       ]
     },
@@ -196,11 +196,11 @@
         },
         {
           "type": "text",
-          "content": "A car is a real-world example of a class. Each car has a set of variables (weight, colour, top speed) and a set of functions (drive, brake turn)."
+          "content": "A car is a real-world example of a class. Each car has a set of variables (weight, colour, top speed) and a set of functions (drive, brake, turn)."
         },
         {
           "type": "text",
-          "content": "If a car is a class, then each specific model of car is an object. Each model is built from the same car class, i.e. they share the same variables and functions however the values of those variables and the specific outputs of those functions will be different."
+          "content": "If a car is a class, then each specific model of car is an object. Each model is built from the same car class, i.e. they share the same variables and functions, however the values of those variables and the specific outputs of those functions will be different for each model."
         }
       ]
     }
