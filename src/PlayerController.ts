@@ -5,8 +5,8 @@ export class PlayerController {
     private _navigationPlugin: BABYLON.RecastJSPlugin;
 
     constructor(mesh: BABYLON.AbstractMesh, scene) {
-        this._navigationPlugin = new BABYLON.RecastJSPlugin();
-        this.BakeNavMesh(mesh, scene);
+        //this._navigationPlugin = new BABYLON.RecastJSPlugin();
+        //this.BakeNavMesh(mesh, scene);
     }
 
     private BakeNavMesh(mesh: BABYLON.AbstractMesh, scene: BABYLON.Scene) {
