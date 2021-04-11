@@ -181,7 +181,7 @@
         },
         {
           "type": "text",
-          "content": "Examples: <br>Servo motors create a circular movement <br> Hydraulic cylinders create linear movement <br> Speakers create sound <br> Heaters/coolers create temperature changes"
+          "content": "Examples: <br><br><b>Servo motors</b> create a circular movement <br> <b>Hydraulic cylinders</b> create linear movement <br> <b>Speakers</b> create sound <br> <b>Heaters/coolers</b> create temperature changes"
         }
       ]
     },

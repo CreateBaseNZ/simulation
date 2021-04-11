@@ -14,16 +14,12 @@
         },
         {
             "type": "text",
-            "content": "Your robotic arm has 3 key features:<br/><br/>1. Links: Links in robotic arms are the parts that connect the different joints of the robotic arm together. This is similar to how your upper arm connects your shoulder and elbow joint, and your forearm connects your elbow and wrist joints.<br/><br/> 2. Servo motors. The servo motors are a type of <span class='actuator-keyword keyword'>actuator</span> that receive instructions from the arduino board on what their angle should be and then rotate to match. We use one of these servos at each joint to rotate the links.<br/><br/>3. Arduino board: The Arduino is a miniature computer that can be programmed to interact with the environment. The Arduino board has an important part called a pin. Pins are connectors on the Arduino board that we can connect the servos to, and each pin has its own name (mostly numbers)."
+            "content": "Your robotic arm has 3 key features:<br/><br/>1. Links: Links in robotic arms are the parts that connect the different joints of the robotic arm together. This is similar to how your upper arm connects your shoulder and elbow joint, and your forearm connects your elbow and wrist joints.<br/><br/> 2. Servo motors. The servo motors are a type of <span class='actuator-keyword keyword'>actuator</span> that receive instructions from the Arduino board on what their angle should be and then rotate to match. We use one of these servos at each joint to rotate the links.<br/><br/>3. Arduino board: The Arduino is a miniature computer that can be programmed to interact with the environment. The Arduino board has an important part called a pin. Pins are connectors on the Arduino board that we can connect the servos to, and each pin has its own name (mostly numbers)."
         },
         {
             "type": "image",
             "src": "https://raw.githubusercontent.com/CreateBaseNZ/cb-simulation-model/main/images/project/Arduino.png",
             "alt": "Arduino Board"
-        },
-        {
-            "type": "text",
-            "content": "Some programming principles are discussed below:<br/><br/>1. Functions: <span class='function-keyword keyword'>functions</span> are pieces of code that perform a certain task.<br/><br/>2. Library:  a <span class='library-keyword keyword'>library</span> is a collection of pre-written that functions we can add to our program."
         },
 
 
@@ -38,7 +34,7 @@
         },
         {
             "type": "text",
-            "content": "The code below gives us access to the RobotArm <span class='classAndObject-keyword keyword'>object</span> within the RobotArm <span class='library-keyword keyword'>library</span>. This library, called <span class='inline-code'>RobotArm.h</span>, includes all the <span class='function-keyword keyword'>functions</span> we need."
+            "content": "The code below gives us access to the RobotArm <span class='classAndObject-keyword keyword'>object</span> within the RobotArm <span class='library-keyword keyword'>library</span>. This library, called <span class='inline-code'>RobotArm.h</span>, includes all of the <span class='function-keyword keyword'>functions</span> we need."
         },
         {
             "type": "code-block",
@@ -62,7 +58,7 @@
         },
         {
             "type": "text",
-            "content": "Now let’s combine the code above into the editor below to write the code that configures your Robotic Arm!"
+            "content": "Let’s combine the code above into the editor below to write the code that configures your Robotic Arm! You can either copy and paste each piece of code above or type it yourself."
         },
         {
             "type": "editor-write",
@@ -70,7 +66,7 @@
         },
         {
             "type": "text",
-            "content": "When you think you are done, try running the code to make sure that you do not get any errors in the terminal at the bottom of your screen. <br><br>If you cannot figure out the answer, reveal the solution below using the un-collapse button (looks like an up and down arrow) on the right corner of the editor (but make sure that you update your code with the correct answer)."
+            "content": "When you think you are done, try running the code (with either the compile button in the bottom right corner of your screen or the run button (arrow) on the top left corner of the editor) to make sure that you do not get any errors in the terminal at the bottom of your screen. <br><br>If you cannot figure out the answer, reveal the solution below using the un-collapse button (looks like an up and down arrow) on the right corner of the editor (but make sure that you update your code with the correct answer)."
         },
         {
             "type": "editor-read-only",
@@ -105,7 +101,7 @@
         },
         {
             "type": "text",
-            "content": "We will now create a link between the arduino and the computer so we could communicate with the arduino through the terminal."
+            "content": "We will now create a link between the Arduino and the computer so that we can communicate (send and receive data/commands) between them."
         },
         {
             "type": "code-block",
@@ -164,7 +160,7 @@
         },
         {
             "type": "text",
-            "content": "If the condition above is not met then it should return false."
+            "content": "If the condition above is not met, then it should return false."
         },
         {
             "type": "code-block",
