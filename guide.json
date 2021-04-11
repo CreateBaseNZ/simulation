@@ -1,54 +1,57 @@
 {
     "subsystem": "Catch the Stars",
-    "contents": [
-        {
+    "contents": [{
             "type": "subsystem-heading",
             "content": "Catch the Stars"
         },
         {
             "type": "text",
-            "content": "We are programming the Robotic Arm to collect the stars."
+            "content": "Five stars have fallen out of the sky! Using the special star catching device attached to your robotic arm, collect all five stars. The star catching device collects stars when by touching them so you need to program your robotic arm to move to the correct coordinates. We’ll help guide you but it’s up to you to collect them all.<br/><br/>We have broken this down into 7 tasks:<br/>0. Introduction<br/>1. Configure<br/>2.Setup<br/>3. robotArm Object Commands<br/>4. Develop isError<br/>5. Develop getToPosition<br/>6. Get the job done<br/><br/>Good Luck!"
+        },
+        {
+            "type": "task-heading",
+            "content": "Task 0: Introduction"
+        },
+        {
+            "type": "text",
+            "content": "Your robotic arm has 3 key features:<br/><br/>1. Links: Links in robotic arms are the parts that connect the different joints of the robotic arm together.<br/><br/> 2. Servo motors. Servos are actuators. Your arm has four servos. Each servo is placed in the joint and will move the link after it. The servo motors receive instructions from the arduino board on what the angle of the link should be.<br/><br/>2. Arduino board, the brains of your arm. The arduino could be programmed to react to its environment through the use of sensors and actuators.<br/><br/>a. Pins: To connect the sensors and actuators to the arduino, the arduino has pins that you wires to. These pins are numbered and the numbers are used to inform the arduino which device is connected to which pin."
+        },
+        {
+            "type": "image",
+            "src": "https://raw.githubusercontent.com/CreateBaseNZ/cb-simulation-model/main/images/project/Arduino.png",
+            "alt": "Arduino Board"
+        },
+        {
+            "type": "text",
+            "content": "Some programming principles are discussed below:<br/><br/>1. Functions: functions are pieces of code that perform a certain task. They will take in inputs and will output a result. Once a function is developed it can be used multiple times, saving us time.<br/><br/>2. Library: a library is a collection of premade functions and objects that a program could use."
         },
         {
             "type": "task-heading",
             "content": "Task 1: Configure the Robotic Arm"
         },
         {
-            "type": "image",
-            "src": "https://raw.githubusercontent.com/CreateBaseNZ/cb-simulation-model/main/images/",
-            "alt": "Image Name"
+            "type": "text",
+            "content": "Before we start programming, we will first have to configure the robotic arm. This is where we create the robotic arm object and start to define  it with physical characteristics, e.g. link size."
         },
         {
             "type": "text",
-            "content": "Before we start programming the Robotic Arm, we will first have to configure it. This would include inserting information about the arm into our program. We will do his by having the following code:"
-        },
-        {
-            "type": "editor-read-only",
-            "content": "#include \"RobotArm.h\"\n\n// Define length of each robot arm link\nfloat linkLengths[] = {0.5, 1.05, 1.05, 0.45};\n// Create our robot arm object.\nRobotArm robotArm(linkLengths);"
-        },
-        {
-            "type": "text",
-            "content": "Now, we are going through each set of code to understand what is happening."
-        },
-        {
-            "type": "text",
-            "content": "The code below allows us to include all the <span class='function-keyword keyword'>functions</span> within the RobotArm library. For us, this library includes <span class='function-keyword keyword'>functions</span> we could use to perform specific tasks."
+            "content": "The code below gives us access to the RobotArm library within the RobotArm library. This library, called RobotArm.h, includes all the <span class='function-keyword keyword'>functions</span> we need"
         },
         {
             "type": "code-block",
-            "content": "#include \"RobotArm.h\""
+            "content": "//Include required libraries\n#include \"library.name\""
         },
         {
             "type": "text",
-            "content": "Next, we would need to provide the program with the size of each of the links the robotic arm has. This is one of the pieces of information we need for the program to work. The measurements of each link are 0.5, 1.05, 1.05 and 0.45 m, respectively."
+            "content": "Next, create a list of the physical size of each link. The lengths of each link from position 0-3 are 0.5m, 1.05m, 1.05m and 0.45m respectively."
         },
         {
             "type": "code-block",
-            "content": "// Define length of each robot arm link\nfloat linkLengths[] = {0.5, 1.05, 1.05, 0.45};"
+            "content": "// Define length of each robot arm link\nfloat linkLengths[] = {0.5, __, __, __};"
         },
         {
             "type": "text",
-            "content": "From the RobotArm.h library, we have this RobotArm object we could create. By  storing the size of each link within the object, the functions in the library will be applied to the robot arm with ours dimensions."
+            "content": "For the Robotic Arm to operate we need to define it as an object with code. Using the code below we are defining an object robotArm and adding the characteristics from the list linkLengths."
         },
         {
             "type": "code-block",
@@ -56,7 +59,7 @@
         },
         {
             "type": "text",
-            "content": "Now it is your turn to write the code to setup your Robotic Arm!"
+            "content": "Now let’s write the code to configure your Robotic Arm!"
         },
         {
             "type": "editor-write",
@@ -64,7 +67,7 @@
         },
         {
             "type": "text",
-            "content": "Before starting with the next step, there is something to consider. Each Arduino code needs to have two major parts:\n\t1. setup: The part of code that should run once at the start. Sensors, actuators and comunication channels should be intialised\n\t2. loop: The part of code that would run continuously. This typically includes the rest of the code\n"
+            "content": "Before beginning the next step we need to understand the structure of Arduino code:<br/><br/>Arduino code has two major parts:<br/><br/>1. setup: The code that runs once at the start. Which initialises sensors, actuators and communication channels.<br/><br/>2. loop: This code runs continuously and includes all remaining code"
         },
         {
             "type": "task-heading",
@@ -72,23 +75,19 @@
         },
         {
             "type": "text",
-            "content": "For the setup, we intialise the servo motors and save them into our robot arm object. In addition, communicate with the arduino board should be established. The code to perform this code is below:"
-        },
-        {
-            "type": "editor-read-only",
-            "content": "void setup() {\n\tint motorPins[4]={8,9,10,11};\n\tSerial.begin(9600);\n\t// Setup the pins for our virtual robot\n\trobotArm.ConfigurePins(motorPins);\n}"
+            "content": "We need to add the positions of our four motors to the object we created. The motors will be attached to pins 8, 9, 10 and 11 respectively. Finally, communication between the simulated arduino board and your computer needs to be established.<br/><br/>We use 2 functions to complete this, they are:<br/><br/>1. robotArm.ConfigurePins(motorPins): This function adds the motorPins to the robotArm object.<br/><br/>2. Serial.begin(speed): starts the communication link between the simulated arduino and the computer through terminal at the specified speed."
         },
         {
             "type": "text",
-            "content": "First, we will create an array of the pins we connected the motor to within the arduino board. This would enable us to pass it in with the next step"
+            "content": "First, we create an array of the pins we want to connect the motor to on the arduino board."
         },
         {
             "type": "code-block",
-            "content": "int motorPins[4]={8,9,10,11};"
+            "content": "//Write the motor pins\nint motorPins[4]={8,__,__,__};"
         },
         {
             "type": "text",
-            "content": "Next, we will pass on the pins to robotArm object through the function ConfigurePins. This function would make the object control the servos directly."
+            "content": "Next, we add the number of motors and their connected pins to our object using .ConfigurePins(motorPins)."
         },
         {
             "type": "code-block",
@@ -96,15 +95,15 @@
         },
         {
             "type": "text",
-            "content": "Finally, we will create a communication link between the robotic arm and the computer. This would enable us to recieve data within the serial in addtion to send data to the ardiuo if needed."
+            "content": "Finally, we will create a communication link between the robotic arm and your computer through terminal. This allows us to send and receive data from the arduino. The speed of the communication is 9600."
         },
         {
             "type": "code-block",
-            "content": "Serial.begin(9600);"
+            "content": "//begin the communication at the specified speed\nSerial.begin(__);"
         },
         {
             "type": "text",
-            "content": "Now it is your turn to write the code to setup your program!"
+            "content": "Now it is your turn to write the code to set up your program!"
         },
         {
             "type": "editor-write",
@@ -116,11 +115,11 @@
         },
         {
             "type": "text",
-            "content": "Before going further, we will through some of the functions and values needed for the later stages."
+            "content": "Before going further, we will go through some of the functions needed for the later stages."
         },
         {
             "type": "text",
-            "content": "The command below is made to output the current angle position of servo i (0-3)."
+            "content": ".servoMotors[i].read(): This command outputs the current angle of servo i.<br/><br/>Replace i with the servo you want by using its motorPins list position. "
         },
         {
             "type": "code-block",
@@ -128,7 +127,7 @@
         },
         {
             "type": "text",
-            "content": "The command below is made to output the angle position  servo i (0-3) is instructed to go to."
+            "content": ".targetAngles[i]: The command below outputs the angle position that servo i has been instructed to go to.<br/><br/>Replace i with the servo you want by using its motorPins list position."
         },
         {
             "type": "code-block",
@@ -136,7 +135,7 @@
         },
         {
             "type": "text",
-            "content": "The command below is made to determince the angle the servos should be for the end effector to be at the location specified in the input (x,y,z). The target angles are saved into robotArm.targetAngles[i] and the servo is instructed to reach these angles"
+            "content": ".Move_position_xyz: This command figures out which angle the servos should be at for the star catcher to be at the location specified by our input (x,y,z)(we should input the location of the star to catch it)."
         },
         {
             "type": "code-block",
@@ -144,51 +143,47 @@
         },
         {
             "type": "text",
-            "content": "Given these descriptions the best sequence of commands would be as follow:\n\t1. Use Move_position_xyz to start moving the arm\n\t2. Wait until all servos are at the right position.\n\t3. Repeat the steps for the next star until all are done."
+            "content": "Therefore the best order of commands is:<br/>1. Use Move_position_xyz to start moving the arm to a star’s location<br/>2. Wait until all servos are in the correct position for the arm to reach the star.<br/>3. Repeat the steps for the next star until all are done.<br/><br/>To do this we will create these two functions:<br/><br/>isError: this function determines whether a servo is still travelling to the target angle or not.<br/><br/>getToPosition: this function sends the arm to the imputed location and waits until all servos reach their positions."
         },
         {
             "type": "task-heading",
-            "content": "Task 4: Develop a function."
+            "content": "Task 4: Develop isError."
         },
         {
             "type": "text",
-            "content": "A function is used to avoid repeating pieces of code and making changes later easier. We will develop a function which would determine whether a servo has reached to its target angle. This is done through the code below:"
-        },
-        {
-            "type": "editor-read-only",
-            "content": "// Calculate if end effector reaches target\nbool error(float target, float current){\n\t/* Calculate how far away a target number is from \n\treference number*/\n\tfloat absError = abs(target-current);\n\t// Check if the absolute error is less than 1.\n\tif(absError > 1){\n\t\treturn true;\n\t}\n\treturn false;\n}"
+            "content": "Now we need to check if the serovs have reached the correct angle, if they have we need to stop the servo at the correct angle until all servos are stopped.<br/><br/>Let's develop our first function. We will call the function isError. This function checks for an error between the target and current angles of the servo. An acceptable error of 1 degree is allowed. The function returns true if the error is greater or equal to 1 and false otherwise.<br/>"
         },
         {
             "type": "text",
-            "content": "The code below is the function decleration. It has the type of output, name of function and, between brackets, the inputs with their data type."
+            "content": "The first step of making a function is to write our function deceleration. The purpose of this is to define the data type of the output.<br/>Our output will be true/false so a bool (short for boolean) data type is used.<br/><br/>The second step is naming the function.<br/>We want the name of our function to be isError.<br/><br/>Finally, between square brackets are the data type of input(s) and a variable name for these input(s).<br/>The function will compare two values, so two inputs are needed. Both angles are integers so the data type int (short for integer) is used."
         },
         {
             "type": "code-block",
-            "content": "bool error(float target, float current)"
+            "content": "bool isError(int target, int current)"
         },
         {
             "type": "text",
-            "content": "The first step within the function would be to find the absolute (i.e. sign is ignored) difference between the two inputs"
+            "content": "As mentioned in the purpose of the function, we need to first find the absolute (i.e. sign is ignored) error between the two inputs."
         },
         {
             "type": "code-block",
-            "content": "float absError = abs(target-current);"
+            "content": "//Find the absolute error between the two angles\nint absError = abs(target-current);"
         },
         {
             "type": "text",
-            "content": "Next, the absolute difference is checked if its more less than 1 degree. This value determines the accuracy of the location. If the error is higher than 1 degree the function will end and return true as output."
+            "content": "Once that is calculated, we can allow for a maximum error of 1. If the error is greater than 1 then an error exists and the function will end and return true as output."
         },
         {
             "type": "code-block",
-            "content": "if(absError > 1){\n\treturn true;\n}"
+            "content": "//Check if the error is higher than the allowable error\nif(absError >= __){\n\treturn true;\n}"
         },
         {
             "type": "text",
-            "content": "If the function reaches this point then the error was less than 1 degrees and the servo hasn't reached the point and false should be returned."
+            "content": "If the condition above is not true and the error is less than 1 then the function returns false. If the condition in the if statement is not satisfied the program will enter the else branch."
         },
         {
             "type": "code-block",
-            "content": "return false;"
+            "content": "//If error is less than allowable error return false\nelse{\n\treturn false;\n}"
         },
         {
             "type": "text",
@@ -200,55 +195,59 @@
         },
         {
             "type": "task-heading",
-            "content": "Task 5: Reach Point Number 1."
+            "content": "Task 5: Develop getToPosition"
         },
         {
             "type": "text",
-            "content": "Now that we have a function that would check whether one servo reached its position, we should make a function to move the robotic arm and wait till reach the position. The code for that would be as below:"
-        },
-        {
-            "type": "editor-read-only",
-            "content": "void getToPosition(float x, float y, float z){\n\t//Move robot arm to an x y z coordinate\n\trobotArm.Move_position_xyz(x, y, z);\n\t// Variable initialization \n\tint angle0 = robotArm.servoMotors[0].read();\n\tint angle1 = robotArm.servoMotors[1].read();\n\tint angle2 = robotArm.servoMotors[2].read();\n\tint angle3 = robotArm.servoMotors[3].read();\n\tfloat target0=robotArm.targetAngles[0];\n\tfloat target1=robotArm.targetAngles[1];\n\tfloat target2=robotArm.targetAngles[2];\n\tfloat target3=robotArm.targetAngles[3];\n\t// Keep moving to the position until the error function returns true\n\t// Check the error between the target angles calculated by for each\n\t// motor by our inverse kinematics function\n\t// compared to the current motor angles.\n\twhile (error(target0, angle0) || error(target1, angle1) || error(target2, angle2) || error(target3, angle3)) {\n\t\t// Update all the variables keeping track of our motor angles\n\t\tangle0 = robotArm.servoMotors[0].read();\n\t\tangle1 = robotArm.servoMotors[1].read();\n\t\tangle2 = robotArm.servoMotors[2].read();\n\t\tangle3 = robotArm.servoMotors[3].read();\n\t}\n}"
+            "content": "Now that we have a function that checks if one servo has reached its position, we need to make a function that instructs the robotic arm where to go and waits for it to reach the position."
         },
         {
             "type": "text",
-            "content": "The code below is the function decleration. It has the type of output, name of function and, between brackets, the inputs with their data type."
+            "content": "The first step of making a function is to write our function deceleration. The purpose of this is to define the data type of the output.<br/>No output is needed so void data type is used.<br/><br/>The second step is naming the function.<br/>We want the name of our function to be getToPostion.<br/><br/>Finally, between square brackets are the data type of input(s) and a variable name for these input(s).<br/>The function will need the coordinate of the point, so three inputs are needed. The coordinates are decimals so the data type float (short for floating decimal) is used."
         },
         {
             "type": "code-block",
-            "content": "void getToPosition(float x, float y, float z)"
+            "content": "//Write function declaration\nvoid getToPosition(float x, float y, float z)"
         },
         {
             "type": "text",
-            "content": "First, we will use the move_position_xyz for the robotic arm to start moving."
+            "content": "Next, we need to get the current angle of the servo. We will use .servoMotors[i].read() to get the readings."
         },
         {
             "type": "code-block",
-            "content": "robotArm.Move_position_xyz(x, y, z);"
+            "content": "//Store the current locations of the servos\nint angle0 = robotArm.servoMotors[0].read();\nint angle1 = robotArm.servoMotors[1].read();\nint angle2 = robotArm.servoMotors[2].read();\nint angle3 = robotArm.servoMotors[3].read();"
         },
         {
             "type": "text",
-            "content": "The next step is to store the values that would be compared. These would be both the current and target angles for each of the servos"
+            "content": "Next, we will use the move_position_xyz for the robotic arm to start moving. The coordinates we will input to the move_position_xyz function will be the inputs we will get to the getTOPosition"
         },
         {
             "type": "code-block",
-            "content": "int angle0 = robotArm.servoMotors[0].read();\nint angle1 = robotArm.servoMotors[1].read();\nint angle2 = robotArm.servoMotors[2].read();\nint angle3 = robotArm.servoMotors[3].read();\nint target0=robotArm.targetAngles[0]\nint target1=robotArm.targetAngles[1]\nint target2=robotArm.targetAngles[2]\nint target3=robotArm.targetAngles[3]"
+            "content": "//Move the robotic arm to the star\nrobotArm.Move_position_xyz(x, y, z);"
         },
         {
             "type": "text",
-            "content": "Now we will use a while loop. The while loop will continue if the condition within the bracket is true, otherwise it will terminate. As we want to wait until all servos are in the correct position, we will use the function we developed. The function would give true if the servo hasn't reached the required point. If one of the servos still hasn't reached its target the while should continue. Therefore, we will use or (denoted by ||) between each of the functions to get the required performance."
+            "content": "The next step is to store the target angles for each of the servos for comparison"
         },
         {
             "type": "code-block",
-            "content": "while (error(target0, angle0) || error(target1, angle1) || error(target2, angle2) || error(target3, angle3)){\n\n}"
+            "content": "//Store the target angles\nint target0=robotArm.targetAngles[0]\nint target1=robotArm.targetAngles[1]\nint target2=robotArm.targetAngles[2]\nint target3=robotArm.targetAngles[3]"
         },
         {
             "type": "text",
-            "content": "Lastly, the values of the current angles have to be updated within the while loop so we will register when the servos reach their target."
+            "content": "Now we will use a while loop. A while loop continue to run given the condition within the bracket is true, otherwise it will terminate. THe condition is checked at the start of each loop. So, if the condition is true, code within the loop runs again.<br/><br/>We want to wait until all the servos are in the correct angle for the arm tip to be at the coordinate specified, so we will use the function isError, we developed earlier. The function would give true if the servo hasn't reached the required point. <br/>If we run one iteration of the function on each servo we will get a true/false result for each servo. We would like them all tp return false. Therefore, for the while to continue one of the function will have to return true.If we have more than one condition, we combine them using AND (denoted &&) or OR(denoted ||). For this condition we want either first OR second OR third OR forth function to be true to continue. Therefore, we will use OR (denoted by ||) between each of the functions to get the required condition."
         },
         {
             "type": "code-block",
-            "content": "while (error(target0, angle0) || error(target1, angle1) || error(target2, angle2) || error(target3, angle3)){\n\tangle0 = robotArm.servoMotors[0].read();\n\tangle1 = robotArm.servoMotors[1].read();\n\tangle2 = robotArm.servoMotors[2].read();\n\tangle3 = robotArm.servoMotors[3].read();\n}"
+            "content": "//Write the while loop with condition\nwhile (isError(target0, angle0) || isError(target1, angle1) || isError(target2, angle2) || isError(target3, angle3)){\n\n}"
+        },
+        {
+            "type": "text",
+            "content": "The last part within the while is to make sure the condition can be changed from true to false. For us that would mean updating the current angle as it changes. Without this step, the while loop will never end"
+        },
+        {
+            "type": "code-block",
+            "content": "while (isError(target0, angle0) || isError(target1, angle1) || isError(target2, angle2) || isError(target3, angle3)){\n\t//Update the current angles\n\tangle0 = robotArm.servoMotors[0].read();\n\tangle1 = robotArm.servoMotors[1].read();\n\tangle2 = robotArm.servoMotors[2].read();\n\tangle3 = robotArm.servoMotors[3].read();\n}"
         },
         {
             "type": "text",
@@ -260,15 +259,27 @@
         },
         {
             "type": "task-heading",
-            "content": "Task 6: Loop"
+            "content": "Task 6: Get the job done"
         },
         {
             "type": "text",
-            "content": "Now that we have the building blocks for our program, we could finish it up by writing the loop. By simply typing the coordinates of the stars into the function getToPosition, we could get to all the stars. Below is the example code:"
+            "content": "Now that we have the building blocks for our program, we will finish by writing the loop.<br/>All we need to do is type the coordinates of the stars into the function getToPosition. Our Robotic Arm will then collect all the stars at the coordinates in one go. After we enter all the points, we would like to stop any new command."
+        },
+        {
+            "type": "text",
+            "content": "The first step is to use the getToPosition() function using the right inputs (i.e. coordinates of the stars to collect them. Use the function 5 times. With each time have the coordinate of a star."
         },
         {
             "type": "editor-read-only",
-            "content": "void loop() {\n\t// Use functions to reuse some code\n\t// multiple times without having\n\t// to code it again\n\t// Use the functions to input the x-y-z\n\t//coordinates to each star\n\tgetToPosition(1.6, 2.4, 1.7);\n\tgetToPosition(1.5, -2.2, 2.3);\n\tgetToPosition(-0.9, -2.2, 2.1);\n\tgetToPosition(-1.8, -0.8, 1.9);\n\tgetToPosition(-1, -2.1, 0.2);\n}"
+            "content": "void loop() {\n\t//Use the functions to input the x-y-z.\n\tgetToPosition(__, __, __);\n\t\"\"\n\t\"\"\n\t\"\"\n}"
+        },
+        {
+            "type": "text",
+            "content": "To prevent the code from running continuously after we collect the stars, we will create a piece of code that is not exitted with nothing happening within. We will use a while loop to create an infinte loop. By making the condition always true, the while loop won't be terminated."
+        },
+        {
+            "type": "editor-read-only",
+            "content": "//Create an infinite loop\nwhile(true){}"
         },
         {
             "type": "text",
