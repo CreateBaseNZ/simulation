@@ -102,7 +102,6 @@ export class Ui {
               move: function (e) {
                 e.target.style.height = (e.clientY - e.target.offsetTop - 8) + 'px';
                 const terminalWrapper = document.querySelector('.terminal-wrapper') as HTMLElement;
-                console.log(terminalWrapper)
                 terminalWrapper.style.height = (terminalWrapper.offsetTop - e.clientY + terminalWrapper.offsetHeight) + 'px';
               }
             }
@@ -119,6 +118,18 @@ export class Ui {
               }
             }
           })
+
+        educContent.addEventListener('scroll', (e) => {
+          const scrollPos = educContent.scrollTop;
+          const contentHeader = document.querySelector(".content-header");
+          if (scrollPos === 0) {
+            contentHeader.classList.add("large");
+            contentHeader.classList.remove("small");
+          } else {
+            contentHeader.classList.remove("large");
+            contentHeader.classList.add("small");
+          }
+        })
     }
 
     public GetAdvancedTexture() {
@@ -126,10 +137,7 @@ export class Ui {
     }
 
     private CreateSubsystemHeading(parentElement: HTMLElement, content: string) {
-        const text = document.createElement("div");
-        text.className = "sim-h1";
-        text.innerText = content;
-        parentElement.appendChild(text);
+        document.querySelector('.sim-h1').innerHTML = content;
     }
 
     private CreateTaskHeading(parentElement: HTMLElement, content: string) {
