@@ -400,21 +400,29 @@ export class Ui {
                 }
             } else if (running) {
                 this.StopCode();
+                RobotManager.instance.Stop();
             }
         });
     }
 
     private CompileReadOnly(button: HTMLElement, readOnlyEditorNumber: number) {
         button.addEventListener("click", () => {
-            if (readOnlyEditorNumber) {
+            const idle = document.querySelector(".compile-btn").classList.contains("compile-idle");
+            const running = document.querySelector(".compile-btn").classList.contains("compile-running");
+            if (idle) {
+                if (readOnlyEditorNumber) {
 
-            } else {
-                console.log("Compiling the entire read-only code");
-                let code = "";
-                for (let i = 0; i < this._editorsReadOnly.length; i++) {
-                    code = code.concat(this._editorsReadOnly[i].getModel().getValue() + "\n");
+                } else {
+                    console.log("Compiling the entire read-only code");
+                    let code = "";
+                    for (let i = 0; i < this._editorsReadOnly.length; i++) {
+                        code = code.concat(this._editorsReadOnly[i].getModel().getValue() + "\n");
+                    }
+                    this.UploadCode(code);
                 }
-                this.UploadCode(code);
+            } else if (running) {
+                this.StopCode();
+                RobotManager.instance.Stop();
             }
         });
     }
@@ -430,8 +438,8 @@ export class Ui {
         });
 
         RobotManager.instance.UploadCode(code).then((isSuccess) => {
-            this.TerminalLoading("complete");
             if (isSuccess) {
+                this.TerminalLoading("complete");
                 document.querySelector(".compile-btn").classList.remove("compile-idle");
                 document.querySelector(".compile-btn").classList.remove("compile-loading");
                 document.querySelector(".compile-btn").classList.add("compile-running");
@@ -441,21 +449,21 @@ export class Ui {
                 });
             }
             else {
+                this.TerminalLoading("failed");
                 this.StopCode();
             };
         });
     }
 
     private StopCode() {
+        document.querySelector(".compile-btn").classList.add("compile-idle");
         document.querySelector(".compile-btn").classList.remove("compile-loading");
         document.querySelector(".compile-btn").classList.remove("compile-running");
-        document.querySelector(".compile-btn").classList.add("compile-idle");
+        document.querySelector(".terminal-wrapper").classList.remove("terminal-running");
         document.querySelectorAll(".editor-container").forEach(element => {
             element.classList.remove("editor-loading");
             element.classList.remove("editor-running");
         });
-        document.querySelector(".terminal-wrapper").classList.remove("terminal-running");
-        RobotManager.instance.Stop();
     }
 
     private GenerateHover(keywords: Array<Object>) {
@@ -496,6 +504,9 @@ export class Ui {
                 terminalWrapper.classList.remove('terminal-loading');
                 terminalWrapper.classList.add('terminal-running');
             }, 1000)
+        } else if (status === 'failed') {
+            loadingBar.classList.remove('loading-80');
+            terminalWrapper.classList.remove('terminal-loading');
         }
     }
 }
