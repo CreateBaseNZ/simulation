@@ -34,13 +34,11 @@ export class Environment {
         scene.enablePhysics(gravityVector, new BABYLON.CannonJSPlugin());
 
         var skybox = BABYLON.MeshBuilder.CreateSphere("skyBox", { segments: 1, diameter: 300 }, scene);
-        skybox.position.y -= 75;
-        skybox.rotation.y += Math.PI/2;
         skybox.infiniteDistance = true;
         var skyboxMaterial = new BABYLON.StandardMaterial("skyBox", scene);
         skyboxMaterial.backFaceCulling = false;
 
-        skyboxMaterial.reflectionTexture = new BABYLON.CubeTexture("https://raw.githubusercontent.com/CreateBaseNZ/cb-simulation-model/main/assets/skybox/06/sky6", scene);
+        skyboxMaterial.reflectionTexture = new BABYLON.CubeTexture("https://raw.githubusercontent.com/CreateBaseNZ/cb-simulation-model/main/assets/skybox/custom/custom", scene);
         skyboxMaterial.reflectionTexture.coordinatesMode = BABYLON.Texture.SKYBOX_MODE;
         skyboxMaterial.diffuseColor = new BABYLON.Color3(0, 0, 0);
         skyboxMaterial.specularColor = new BABYLON.Color3(0, 0, 0);
