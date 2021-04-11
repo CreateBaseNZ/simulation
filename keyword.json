@@ -2,6 +2,7 @@
   "keywords": [
     {
       "class": "library-keyword",
+      "title": "Libraries",
       "contents": [
         {
           "type": "text",
@@ -9,6 +10,7 @@
         }
       ]
     },
+
     {
       "class": "function-keyword",
       "title": "Functions",
@@ -39,13 +41,14 @@
         }
       ]
     },
+
     {
       "class": "functionParameters-keyword",
       "title": "Function Parameters",
       "contents": [
         {
           "type": "text",
-          "content": "Information can be passed to functions as a parameter. Parameters act as variables inside of the function."
+          "content": "Information can be passed to functions as input however we must first specify the types and quantity of input that the function is expecting. Each of these inputs is called a parameter. Parameters act as variables inside of the function."
         },
         {
           "type": "text",
@@ -57,6 +60,7 @@
         }
       ]
     },
+
     {
       "class": "variables-keyword",
       "title": "Variables",
@@ -75,6 +79,7 @@
         }
       ]
     },
+
     {
       "class": "float-keyword",
       "title": "float",
@@ -89,10 +94,11 @@
         },
         {
           "type": "text",
-          "content": "Examples of floating-point numbers: \n<span class='inline-code'>34.567</span> \n<span class='inline-code'>2.0</span> \n<span class='inline-code'>0.01</span>"
+          "content": "Examples of floating-point numbers: <br><span class='inline-code'>34.567</span> <br><span class='inline-code'>2.0</span> <br><span class='inline-code'>0.01</span>"
         }
       ]
     },
+
     {
       "class": "int-keyword",
       "title": "int",
@@ -107,10 +113,11 @@
         },
         {
           "type": "text",
-          "content": "Examples of floating-point numbers: \n<span class='inline-code'>35</span> \n<span class='inline-code'>2</span> \n<span class='inline-code'>0</span>"
+          "content": "Examples of floating-point numbers: <br><span class='inline-code'>35</span> <br><span class='inline-code'>2</span> <br><span class='inline-code'>0</span>"
         }
       ]
     },
+
     {
       "class": "bool-keyword",
       "title": "bool",
@@ -125,6 +132,7 @@
         }
       ]
     },
+
     {
       "class": "array-keyword",
       "title": "Array",
@@ -147,6 +155,7 @@
         }
       ]
     },
+
     {
       "class": "sensor-keyword",
       "title": "Sensor",
@@ -157,10 +166,11 @@
         },
         {
           "type": "text",
-          "content": "Examples: \nThermometers measure temperature \nMicrophones measure sounds \nIR sensors measure and detect infrared radiation"
+          "content": "Examples: <br>Thermometers measure temperature <br>Microphones measure sounds <br>IR sensors measure and detect infrared radiation"
         }
       ]
     },
+
     {
       "class": "actuator-keyword",
       "title": "Actuator",
@@ -171,13 +181,14 @@
         },
         {
           "type": "text",
-          "content": "Examples: \nServo motors craete a circular movement \n Hydraulic cylinders create linear movement \n Speakers create sound \n Heaters/coolers create temperature changes"
+          "content": "Examples: <br>Servo motors craete a circular movement <br> Hydraulic cylinders create linear movement <br> Speakers create sound <br> Heaters/coolers create temperature changes"
         }
       ]
     },
+
     {
       "class": "classAndObject-keyword",
-      "title": "Class and Object",
+      "title": "Classes and Objects",
       "contents": [
         {
           "type": "text",
