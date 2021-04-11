@@ -1,21 +1,18 @@
 {
-  "keywords":
-  [
+  "keywords": [
     {
       "class": "library-keyword",
-      "contents":
-      [
+      "contents": [
         {
           "type": "text",
           "content": "A library is a file that contains prewritten code. By adding <span class='inline-code'>#include “name_of_function_library.h”</span> at the top of your code, you can use objects and call functions in the library as if they existed within your code."
         }
       ]
     },
-
     {
       "class": "function-keyword",
-      "contents":
-      [
+      "title": "Functions",
+      "contents": [
         {
           "type": "text",
           "content": "A function is a “self-contained” module of code that will only run when it is specifically called. Functions usually “take in” data, process it, and “return” a result."
@@ -42,11 +39,10 @@
         }
       ]
     },
-
     {
       "class": "functionParameters-keyword",
-      "contents":
-      [
+      "title": "Function Parameters",
+      "contents": [
         {
           "type": "text",
           "content": "Information can be passed to functions as a parameter. Parameters act as variables inside of the function."
@@ -61,11 +57,10 @@
         }
       ]
     },
-
     {
       "class": "variables-keyword",
-      "contents":
-      [
+      "title": "Variables",
+      "contents": [
         {
           "type": "text",
           "content": "Variables are “containers” that store data values. Each variable can only store data of a specific type. Data types that we will be using are <span class='inline-code'>float</span> (short for floating decimal), <span class='inline-code'>int</span> (short for integer) and <span class='inline-code'>bool</span> (short for boolean)."
@@ -80,11 +75,10 @@
         }
       ]
     },
-
     {
       "class": "float-keyword",
-      "contents":
-      [
+      "title": "float",
+      "contents": [
         {
           "type": "text",
           "content": "<span class='inline-code'>float</span> is short for floating-point numbers. A floating-point number is a number that has a decimal point."
@@ -99,11 +93,10 @@
         }
       ]
     },
-
     {
       "class": "int-keyword",
-      "contents":
-      [
+      "title": "int",
+      "contents": [
         {
           "type": "text",
           "content": "<span class='inline-code'>int</span> is short for integer. Integers are whole numbers (so they do not have any decimal points)."
@@ -118,11 +111,10 @@
         }
       ]
     },
-
     {
       "class": "bool-keyword",
-      "contents":
-      [
+      "title": "bool",
+      "contents": [
         {
           "type": "text",
           "content": "<span class='inline-code'>bool</span> is short for boolean. A boolean only has one of two possible values: <span class='inline-code'>true</span> or <span class='inline-code'>false</span>."
@@ -133,11 +125,10 @@
         }
       ]
     },
-
     {
       "class": "array-keyword",
-      "contents":
-      [
+      "title": "Array",
+      "contents": [
         {
           "type": "text",
           "content": "An array is a collection of variables of the same data type that are accessed with an index number."
@@ -156,11 +147,10 @@
         }
       ]
     },
-
     {
       "class": "sensor-keyword",
-      "contents":
-      [
+      "title": "Sensor",
+      "contents": [
         {
           "type": "text",
           "content": "Sensors take input from their environment and send information to our code."
@@ -171,11 +161,10 @@
         }
       ]
     },
-
     {
       "class": "actuator-keyword",
-      "contents":
-      [
+      "title": "Actuator",
+      "contents": [
         {
           "type": "text",
           "content": "Actuators take input from our code and create an output in their environment."
@@ -186,11 +175,10 @@
         }
       ]
     },
-
     {
       "class": "classAndObject-keyword",
-      "contents":
-      [
+      "title": "Class and Object",
+      "contents": [
         {
           "type": "text",
           "content": "Classes are the building blocks of Arduino code. They are types of data that include their own specific predefined variables and functions. An object is a specific instance of a class."

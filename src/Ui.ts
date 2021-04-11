@@ -494,14 +494,14 @@ export class Ui {
             const elements = document.querySelectorAll("." + keyword["class"]);
             elements.forEach(element => {
                 element.addEventListener("mouseover", () => {
-                    this.CreateToolTip(element, keyword["contents"]);
+                    this.CreateToolTip(element, keyword["title"], keyword["contents"]);
                 });
             });
         });
     }
 
-    private CreateToolTip(element, keyword: Array<Object>) {
-        console.log(element, keyword);
+    private CreateToolTip(element, title: String, keyword: Array<Object>) {
+        console.log(element, title, keyword);
     }
 
     private DeleteToolTip() {
