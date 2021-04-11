@@ -56,7 +56,7 @@ $green: #18DBAC;
   background: $lighter;
   padding: 0.2em 0.4em;
   color: #000000;
-  margin: 0 0.25em;
+  margin: 0 0.1em;
   border-radius: 0.25em;
 }
 
@@ -175,10 +175,11 @@ body {
     background: none;
   }
   &::-webkit-scrollbar-thumb {
-    background: rgba(120, 109, 151, 0.5) !important;
+    background: rgba(120, 109, 151, 0.5);
     border-radius: 1rem;
     border: thin solid $lightest;
-    transition: background-color 0.1s ease-out;  }
+    transition: background-color 0.1s ease-out;
+  }
   &::-webkit-scrollbar-thumb:hover {
     background: rgba(120, 109, 151, 1);
   }
@@ -375,6 +376,57 @@ body {
   &:hover {
     transform: translateY(-2px);
   }
+  &.compile-idle {
+    i:first-of-type,
+    div:first-of-type {
+      display: block;
+    }
+    i:not(:first-of-type),
+    div:not(:first-of-type) {
+      display: none;
+    }
+  }
+  &.compile-loading {
+    pointer-events: none;
+    background: $green;
+    opacity: 0.5;
+    i:nth-of-type(2) {
+      display: inline-block;
+    }
+    div:nth-of-type(2) {
+      display: block;
+    }
+    .lds-dual-ring {
+      width: 1em;
+      height: 1em;
+    }
+    .lds-dual-ring:after {
+      content: " ";
+      display: block;
+      width: 0.7em;
+      height: 0.7em;
+      margin: 0.15em;
+      border-radius: 50%;
+      border: 6px solid #fff;
+      border-color: #fff transparent #fff transparent;
+      animation: lds-dual-ring 1.2s linear infinite;
+    }
+    i:not(:nth-of-type(2)),
+    div:not(:nth-of-type(2)) {
+      display: none;
+    }
+  }
+  &.compile-running {
+    background: $red;
+    i:last-of-type,
+    div:last-of-type {
+      display: block;
+    }
+    i:not(:last-of-type),
+    div:not(:last-of-type) {
+      display: none;
+    }
+  }
 }
 
 .keyword {
@@ -390,4 +442,13 @@ body {
 .monaco-editor * {
   font-family: inherit;
   font-size: inherit;
+}
+
+@keyframes lds-dual-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
