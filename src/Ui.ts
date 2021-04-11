@@ -506,30 +506,75 @@ export class Ui {
             const elements = document.querySelectorAll("." + keyword["class"]);
             elements.forEach(element => {
                 element.addEventListener("mouseover", () => {
+                    sessionStorage.setItem('hoveringKeyword', 'true');
+                    sessionStorage.setItem('hoveringTooltip', 'false');
+                    this.DeleteToolTip('force');
                     this.CreateToolTip(element, keyword["title"], keyword["contents"]);
+                });
+                element.addEventListener("mouseout", () => {
+                  sessionStorage.setItem('hoveringKeyword', 'false');
+                  this.DeleteToolTip('passive');
                 });
             });
         });
     }
 
     private CreateToolTip(element, title: string, keyword: Array<Object>) {
-        console.log(element, keyword);
+      setTimeout(() => {
+        if (sessionStorage.getItem('hoveringKeyword') === 'true') {
+        // Tooltip container
         const toolTipContainer = document.createElement("div");
         document.body.appendChild(toolTipContainer).className = "tooltip-container";
+        // Tooltip header
         const toolTipHeader = document.createElement("div");
         toolTipContainer.appendChild(toolTipHeader).className = "tooltip-header";
-        const toolTipIcon = document.createElement("i");
-        toolTipIcon.innerHTML = "tungsten";
-        toolTipHeader.appendChild(toolTipIcon).className = "material-icons-outlined";
+        const toolTipIcon = document.createElement("img");
+        toolTipIcon.src = "https://raw.githubusercontent.com/CreateBaseNZ/cb-simulation-model/main/images/tooltip-icon.svg";
+        toolTipHeader.appendChild(toolTipIcon).className = "tooltip-icon";
         const toolTipTitle = document.createElement("div");
         toolTipTitle.innerHTML = title;
         toolTipHeader.appendChild(toolTipTitle).className = "tooltip-title";
+        // Tooltip wrapper
         const toolTipWrapper = document.createElement("div");
-        toolTipWrapper.appendChild(toolTipHeader).className = "tooltip-wrapper";
+        toolTipContainer.appendChild(toolTipWrapper).className = "tooltip-wrapper";
+
+        keyword.forEach((content: any) => {
+          let contentEl = document.createElement("div");
+          contentEl.innerHTML = content.content;
+          toolTipWrapper.appendChild(contentEl);
+        })
+        
+        let rect = element.getBoundingClientRect();
+        toolTipContainer.style.top = rect.top + 25 + 'px';
+        toolTipContainer.style.left = rect.left + 'px';
+
+        toolTipContainer.addEventListener("mouseover", (e) => {
+          sessionStorage.setItem('hoveringKeyword', 'false');
+          sessionStorage.setItem('hoveringTooltip', 'true');
+        })
+        toolTipContainer.addEventListener("mouseout", (e) => {
+          sessionStorage.setItem('hoveringTooltip', 'false');
+          this.DeleteToolTip('passive');
+        })
+        }
+      }, 250);
     }
 
-    private DeleteToolTip() {
-
+    private DeleteToolTip(action: string) {
+      const tooltip = document.querySelector('.tooltip-container');
+      if (action === 'force') {
+        if (tooltip) {
+          tooltip.remove();
+        }
+      } else {
+        setTimeout(() => {
+          if (sessionStorage.getItem('hoveringKeyword') === 'false' && sessionStorage.getItem('hoveringTooltip') === 'false') {
+            if (tooltip) {
+              tooltip.remove();
+            }
+          }
+        }, 250);
+      }
     }
 
     private TerminalLoading(status: string) {
