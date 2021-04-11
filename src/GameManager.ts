@@ -26,7 +26,7 @@ export class GameManager {
 
     public WinGame(){
         this._players.forEach(player => {
-            player.hud.WinUI();
+            player.ui.WinUI();
         });
     }
 }

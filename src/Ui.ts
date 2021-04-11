@@ -456,7 +456,6 @@ export class Ui {
                 }
             } else if (running) {
                 this.StopCode();
-                RobotManager.instance.Stop();
             }
         });
     }
@@ -498,6 +497,7 @@ export class Ui {
             element.classList.remove("editor-loading");
             element.classList.remove("editor-running");
         });
+        RobotManager.instance.Stop();
     }
 
     private GenerateHover(keywords: Array<Object>) {
@@ -554,5 +554,12 @@ export class Ui {
             loadingBar.classList.remove('loading-80');
             terminalWrapper.classList.remove('terminal-loading');
         }
+    }
+
+    public WinUI() {
+        this.StopCode();
+        let terminal = document.querySelector(".terminal");
+        terminal.innerHTML = "<br>Success Message!";
+        terminal.scrollTo(0, terminal.scrollHeight);
     }
 }

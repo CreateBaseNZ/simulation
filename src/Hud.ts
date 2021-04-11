@@ -24,18 +24,4 @@ export class Hud {
     public GetAdvancedTexture() {
         return this._advancedTexture;
     }
-
-    public WinUI() {
-        const winText = new GUI.TextBlock("win", "PROJECT COMPLETE");
-        winText.fontSize = 96;
-        winText.width = "100%"
-        winText.height = "100%";
-        winText.color = "black";
-        winText.verticalAlignment = GUI.Control.VERTICAL_ALIGNMENT_CENTER;
-        winText.horizontalAlignment = GUI.Control.HORIZONTAL_ALIGNMENT_RIGHT;
-        winText.left = "500px";
-        winText.zIndex = 1;
-
-        this._advancedTexture.addControl(winText);
-    }
 }
