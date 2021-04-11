@@ -239,7 +239,7 @@
         },
         {
             "type": "code-block",
-            "content": "//Write the while loop with condition\nwhile (error(target0, angle0) || error(target1, angle1) || error(target2, angle2) || error(target3, angle3)){\n\n}"
+            "content": "//Write the while loop with condition\nwhile (isError(target0, angle0) || isError(target1, angle1) || isError(target2, angle2) || isError(target3, angle3)){\n\n}"
         },
         {
             "type": "text",
@@ -247,7 +247,7 @@
         },
         {
             "type": "code-block",
-            "content": "while (error(target0, angle0) || error(target1, angle1) || error(target2, angle2) || error(target3, angle3)){\n\t//Update the current angles\n\tangle0 = robotArm.servoMotors[0].read();\n\tangle1 = robotArm.servoMotors[1].read();\n\tangle2 = robotArm.servoMotors[2].read();\n\tangle3 = robotArm.servoMotors[3].read();\n}"
+            "content": "while (isError(target0, angle0) || isError(target1, angle1) || isError(target2, angle2) || isError(target3, angle3)){\n\t//Update the current angles\n\tangle0 = robotArm.servoMotors[0].read();\n\tangle1 = robotArm.servoMotors[1].read();\n\tangle2 = robotArm.servoMotors[2].read();\n\tangle3 = robotArm.servoMotors[3].read();\n}"
         },
         {
             "type": "text",
