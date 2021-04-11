@@ -213,6 +213,12 @@ body {
   justify-content: flex-start;
   width: 100%;
   margin: 1.5rem 0;
+  .editor-collapse {
+    display: block;
+  }
+  .editor-expand {
+    display: none;
+  }
   &.editor-wrapper-collapse {
     .editor-collapse {
       display: none;
@@ -236,17 +242,6 @@ body {
       &::-webkit-scrollbar-thumb:hover {
         background: rgba(171, 171, 171, 0.5);
       }
-    }
-  }
-  &.editor-wrapper-expand {
-    .editor-collapse {
-      display: block;
-    }
-    .editor-expand {
-      display: none;
-    }
-    .editor-wrapper {
-      max-height: none;
     }
   }
   .editor-header {
@@ -311,6 +306,7 @@ body {
     width: 100%;
     padding: 1rem;
     padding-left: 0;
+    max-height: none;
     .editor {
       display: flex;
       flex-direction: column;

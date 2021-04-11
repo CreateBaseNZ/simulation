@@ -141,8 +141,6 @@ export class Ui {
             }
         });
 
-
-
         const { keywords } = data2;
         this.GenerateHover(keywords);
     }
@@ -178,7 +176,7 @@ export class Ui {
     private CreateEditorReadOnly(parentElement: HTMLElement, content: string) {
         // Create the container editor element
         const containerEditor = document.createElement("div");
-        containerEditor.className = "editor-container read-only";
+        containerEditor.className = "editor-container read-only editor-wrapper-collapse";
         parentElement.appendChild(containerEditor);
         // Create the header element
         const header = document.createElement("div");
@@ -257,14 +255,10 @@ export class Ui {
         this._readOnlyCompileButtons.push(runAll);
         this._readOnlyStopButtons.push(stop);
         // Add collapse event listener
-        containerEditor.classList.add("editor-wrapper-expand");
-        containerEditor.classList.remove("editor-wrapper-collapse");
         expand.addEventListener("click", () => {
-            containerEditor.classList.add("editor-wrapper-expand");
             containerEditor.classList.remove("editor-wrapper-collapse");
         });
         collapse.addEventListener("click", () => {
-            containerEditor.classList.remove("editor-wrapper-expand");
             containerEditor.classList.add("editor-wrapper-collapse");
         });
     }
@@ -403,14 +397,10 @@ export class Ui {
         this._writeCompileButtons.push(runAll);
         this._writeStopButtons.push(stop);
         // Add event listener on collapse and expand
-        containerEditor.classList.add("editor-wrapper-expand");
-        containerEditor.classList.remove("editor-wrapper-collapse");
         expand.addEventListener("click", () => {
-            containerEditor.classList.add("editor-wrapper-expand");
             containerEditor.classList.remove("editor-wrapper-collapse");
         });
         collapse.addEventListener("click", () => {
-            containerEditor.classList.remove("editor-wrapper-expand");
             containerEditor.classList.add("editor-wrapper-collapse");
         });
     }
