@@ -94,7 +94,7 @@ export class PlayerController {
         camera.inputs.remove(camera.inputs.attached.pointers);
         let pointerInput = new BABYLON.ArcRotateCameraPointersInput();
         pointerInput.panningSensibility = 100;
-        pointerInput.buttons = [1, 2];
+        pointerInput.buttons = [0, 1, 2];
         pointerInput.angularSensibilityX = 300;
         pointerInput.angularSensibilityY = 300;
         camera.inputs.add(pointerInput);
