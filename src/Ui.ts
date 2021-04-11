@@ -393,9 +393,7 @@ export class Ui {
                     this.UploadCode(code);
                 }
             } else if (running) {
-                document.querySelector(".compile-btn").classList.add("compile-idle");
-                document.querySelector(".compile-btn").classList.remove("compile-loading");
-                document.querySelector(".compile-btn").classList.remove("compile-running");
+                this.StopCode();
                 RobotManager.instance.Stop();
             }
         });
@@ -435,6 +433,12 @@ export class Ui {
                 document.querySelector(".compile-btn").classList.remove("compile-running");
             };
         });
+    }
+
+    private StopCode() {
+        document.querySelector(".compile-btn").classList.add("compile-idle");
+        document.querySelector(".compile-btn").classList.remove("compile-loading");
+        document.querySelector(".compile-btn").classList.remove("compile-running");
     }
 
     private GenerateHover(keywords: Array<Object>) {
