@@ -75,7 +75,7 @@
         },
         {
             "type": "text",
-            "content": "We need to add the positions of our four motors to the object we created. robotArm.ConfigurePins(motorPins): This function adds the motorPins to the robotArm object.<br/><br/>"
+            "content": "We need to add the positions of our four motors to the object we created. <span class='inline-code'>robotArm.ConfigurePins(motorPins)</span>: This function adds the motorPins to the robotArm object.<br/><br/>"
         },
         {
             "type": "text",

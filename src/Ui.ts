@@ -218,6 +218,17 @@ export class Ui {
         editorID.innerHTML = "[" + this._numberOfEditors + "]";
         // Add button in the read-only array buttons
         this._readOnlyCompileButtons.push(runAll);
+        // Add collapse event listener
+        containerEditor.classList.add("expand");
+        containerEditor.classList.remove("collapse");
+        expand.addEventListener("click", () => {
+            containerEditor.classList.add("expand");
+            containerEditor.classList.remove("collapse");
+        });
+        collapse.addEventListener("click", () => {
+            containerEditor.classList.remove("expand");
+            containerEditor.classList.add("collapse");
+        });
     }
 
     private CreateCodeBlock(parentElement: HTMLElement, content: string) {
@@ -344,6 +355,17 @@ export class Ui {
         editorID.innerHTML = "[" + this._numberOfEditors + "]";
         // Add button in the read-only array buttons
         this._writeCompileButtons.push(runAll);
+        // Add event listener on collapse and expand
+        containerEditor.classList.add("expand");
+        containerEditor.classList.remove("collapse");
+        expand.addEventListener("click", () => {
+            containerEditor.classList.add("expand");
+            containerEditor.classList.remove("collapse");
+        });
+        collapse.addEventListener("click", () => {
+            containerEditor.classList.remove("expand");
+            containerEditor.classList.add("collapse");
+        });
     }
 
     private CompileWrite(button: HTMLElement, readOnlyEditorNumber: number) {
