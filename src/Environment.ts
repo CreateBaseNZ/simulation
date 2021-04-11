@@ -19,7 +19,7 @@ export class Environment {
         sceneFunction(scene);
         this.player = new Player(scene);
         this.EvaluateEnvironment(scene);
-        this.ApplyPostProcessingEffects(scene);
+        //this.ApplyPostProcessingEffects(scene);
     }
 
     private async CreateEnvironmentDefaults(scene: BABYLON.Scene) {
@@ -84,6 +84,7 @@ export class Environment {
         scene.meshes.forEach(mesh => {
             (scene.getMeshByName("water.001").material as MATERIALS.WaterMaterial).addToRenderList(mesh);
             mesh.receiveShadows = true;
+            mesh.cullingStrategy = BABYLON.AbstractMesh.CULLINGSTRATEGY_BOUNDINGSPHERE_ONLY;
             if (mesh.id == "robot" || mesh.id == "objective") {
                 this.dynamicShadowGenerator.addShadowCaster(mesh, true);
             }
@@ -92,11 +93,12 @@ export class Environment {
             }
             this.staticShadowGenerator.getShadowMap().refreshRate = BABYLON.RenderTargetTexture.REFRESHRATE_RENDER_ONCE;
         });
+
+        scene.activeCameras = [scene.getCameraByName("mainCamera"), scene.getCameraByName("uiCamera")];
     }
 
     private ApplyPostProcessingEffects(scene: BABYLON.Scene) {
         let mainCamera = scene.getCameraByName("mainCamera");
-        scene.activeCameras = [mainCamera, scene.getCameraByName("uiCamera")];
         let motionBlur = new BABYLON.MotionBlurPostProcess('mb', scene, 1, mainCamera);
         motionBlur.motionStrength = 0.01;
         motionBlur.isObjectBased = false;

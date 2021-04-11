@@ -16,13 +16,14 @@ export class SceneManager {
 
     private _resizeFunction;
 
-    constructor(engine) {
+    constructor(engine: BABYLON.Engine) {
         if (SceneManager.instance == null) {
             SceneManager.instance = this;
         }
         else {
             return SceneManager.instance;
         }
+        engine.setHardwareScalingLevel(1.25);
         this.engine = engine;
         this.scene = new BABYLON.Scene(engine);
         new GameManager();
