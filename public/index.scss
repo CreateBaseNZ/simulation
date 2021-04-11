@@ -42,6 +42,11 @@ $green: #18DBAC;
   font-size: 1rem;
 }
 
+b {
+  font-size: inherit;
+  font-weight: 600;
+}
+
 .span-inherit {
   font-size: inherit;
   font-family: inherit;
