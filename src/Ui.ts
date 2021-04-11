@@ -373,7 +373,7 @@ export class Ui {
         });
     }
 
-    private async CompileWrite(button: HTMLElement, readOnlyEditorNumber: number) {
+    private CompileWrite(button: HTMLElement, readOnlyEditorNumber: number) {
         button.addEventListener("click", () => {
             if (readOnlyEditorNumber) {
 
@@ -391,7 +391,7 @@ export class Ui {
         });
     }
 
-    private async CompileReadOnly(button: HTMLElement, readOnlyEditorNumber: number) {
+    private CompileReadOnly(button: HTMLElement, readOnlyEditorNumber: number) {
         button.addEventListener("click", () => {
             if (readOnlyEditorNumber) {
 
