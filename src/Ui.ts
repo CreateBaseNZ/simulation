@@ -219,6 +219,8 @@ export class Ui {
         // Add button in the read-only array buttons
         this._readOnlyCompileButtons.push(runAll);
         // Add collapse event listener
+        containerEditor.classList.add("expand");
+        containerEditor.classList.remove("collapse");
         expand.addEventListener("click", () => {
             containerEditor.classList.add("expand");
             containerEditor.classList.remove("collapse");
@@ -354,6 +356,8 @@ export class Ui {
         // Add button in the read-only array buttons
         this._writeCompileButtons.push(runAll);
         // Add event listener on collapse and expand
+        containerEditor.classList.add("expand");
+        containerEditor.classList.remove("collapse");
         expand.addEventListener("click", () => {
             containerEditor.classList.add("expand");
             containerEditor.classList.remove("collapse");
