@@ -182,12 +182,11 @@ export class Ui {
         const headerLeft = document.createElement("div");
         header.appendChild(headerLeft).className = "editor-header-left";
         const runAll = document.createElement("img");
+        runAll.title = "Run all chunks";
         runAll.src = "https://raw.githubusercontent.com/CreateBaseNZ/cb-simulation-model/main/images/run-all.svg";
         headerLeft.appendChild(runAll).className = "run-all";
-        const runAbove = document.createElement("img");
-        runAbove.src = "https://raw.githubusercontent.com/CreateBaseNZ/cb-simulation-model/main/images/run-above.svg";
-        headerLeft.appendChild(runAbove).className = "run-above";
         const stop = document.createElement("img");
+        stop.title = "Stop running";
         stop.src = "https://raw.githubusercontent.com/CreateBaseNZ/cb-simulation-model/main/images/stop.svg";
         headerLeft.appendChild(stop).className = "stop-all";
         const loading = document.createElement("div");
@@ -205,9 +204,11 @@ export class Ui {
         headerSep = document.createElement("div");
         headerRight.appendChild(headerSep).className = "editor-header-sep";
         const expand = document.createElement("img");
+        expand.title = "Expand";
         expand.src = "https://raw.githubusercontent.com/CreateBaseNZ/cb-simulation-model/main/images/expand.svg";
         headerRight.appendChild(expand).className = "editor-expand";
         const collapse = document.createElement("img");
+        collapse.title = "Collapse";
         collapse.src = "https://raw.githubusercontent.com/CreateBaseNZ/cb-simulation-model/main/images/collapse.svg";
         headerRight.appendChild(collapse).className = "editor-collapse";
         // Create the wrapper element
@@ -314,18 +315,19 @@ export class Ui {
         const headerLeft = document.createElement("div");
         header.appendChild(headerLeft).className = "editor-header-left";
         const runAll = document.createElement("img");
+        runAll.title = "Run all chunks";
         runAll.src = "https://raw.githubusercontent.com/CreateBaseNZ/cb-simulation-model/main/images/run-all.svg";
         headerLeft.appendChild(runAll).className = "run-all";
-        const runAbove = document.createElement("img");
-        runAbove.src = "https://raw.githubusercontent.com/CreateBaseNZ/cb-simulation-model/main/images/run-above.svg";
-        headerLeft.appendChild(runAbove).className = "run-above";
         const undo = document.createElement("img");
+        undo.title = "Undo";
         undo.src = "https://raw.githubusercontent.com/CreateBaseNZ/cb-simulation-model/main/images/undo.svg";
         headerLeft.appendChild(undo).className = "editor-undo";
         const reset = document.createElement("img");
+        reset.title = "Clear";
         reset.src = "https://raw.githubusercontent.com/CreateBaseNZ/cb-simulation-model/main/images/reset.svg";
         headerLeft.appendChild(reset).className = "editor-reset";
         const stop = document.createElement("img");
+        stop.title = "Stop running";
         stop.src = "https://raw.githubusercontent.com/CreateBaseNZ/cb-simulation-model/main/images/stop.svg";
         headerLeft.appendChild(stop).className = "stop-all";
         const loading = document.createElement("div");
@@ -343,9 +345,11 @@ export class Ui {
         headerSep = document.createElement("div");
         headerRight.appendChild(headerSep).className = "editor-header-sep";
         const expand = document.createElement("img");
+        expand.title = "Expand";
         expand.src = "https://raw.githubusercontent.com/CreateBaseNZ/cb-simulation-model/main/images/expand.svg";
         headerRight.appendChild(expand).className = "editor-expand";
         const collapse = document.createElement("img");
+        collapse.title = "Collapse";
         collapse.src = "https://raw.githubusercontent.com/CreateBaseNZ/cb-simulation-model/main/images/collapse.svg";
         headerRight.appendChild(collapse).className = "editor-collapse";
         // Create the wrapper element
@@ -500,8 +504,20 @@ export class Ui {
         });
     }
 
-    private CreateToolTip(element, title: String, keyword: Array<Object>) {
-        console.log(element, title, keyword);
+    private CreateToolTip(element, title: string, keyword: Array<Object>) {
+        console.log(element, keyword);
+        const toolTipContainer = document.createElement("div");
+        document.body.appendChild(toolTipContainer).className = "tooltip-container";
+        const toolTipHeader = document.createElement("div");
+        toolTipContainer.appendChild(toolTipHeader).className = "tooltip-header";
+        const toolTipIcon = document.createElement("i");
+        toolTipIcon.innerHTML = "tungsten";
+        toolTipHeader.appendChild(toolTipIcon).className = "material-icons-outlined";
+        const toolTipTitle = document.createElement("div");
+        toolTipTitle.innerHTML = title;
+        toolTipHeader.appendChild(toolTipTitle).className = "tooltip-title";
+        const toolTipWrapper = document.createElement("div");
+        toolTipWrapper.appendChild(toolTipHeader).className = "tooltip-wrapper";
     }
 
     private DeleteToolTip() {
