@@ -156,7 +156,7 @@
         },
         {
             "type": "editor-read-only",
-            "content": "//Declare function\nbool isError(int target, int current){\n\t//Find the absolute error between the two angles\n\tint absError = abs(target-current);\n\t//Check if the error is higher than the allowable error\n\tif(absError >= 1){\n\t\treturn true;\n\t}\n\t//If error is less than allowable error return false\n\telse{\n\t\treturn false;\n}\n}"
+            "content": "//Declare function\nbool isError(int target, int current){\n\t//Find the absolute error between the two angles\n\tint absError = abs(target-current);\n\t//Check if the error is higher than the allowable error\n\tif(absError >= 1){\n\t\treturn true;\n\t}\n\t//If error is less than allowable error return false\n\telse{\n\t\treturn false;\n\t}\n}"
         },
         {
             "type": "task-heading",
@@ -196,7 +196,7 @@
         },
         {
             "type": "editor-read-only",
-            "content": "void loop() {\n\t//Use the functions to input the x-y-z.\n\tgetToPosition(1.5,-1.3.0.4);\n\tgetToPosition(-1.4,-1.5,1.1);\n\tgetToPosition(1.5,1.5,0.9);\n\tgetToPosition(-1.1,1.6,1.4);\n\t//Create an infinite loop\n\twhile(true){}\n}"
+            "content": "void loop() {\n\t//Use the functions to input the x-y-z.\n\tgetToPosition(1.5,-1.3,0.4);\n\tgetToPosition(-1.4,-1.5,1.1);\n\tgetToPosition(1.5,1.5,0.9);\n\tgetToPosition(-1.1,1.6,1.4);\n\t//Create an infinite loop\n\twhile(true){}\n}"
         },
         {
             "type": "compile",
