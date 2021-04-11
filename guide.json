@@ -1,7 +1,6 @@
 {
     "subsystem": "Catch the Stars",
-    "contents": [
-        {
+    "contents": [{
             "type": "subsystem-heading",
             "content": "Catch the Stars"
         },
@@ -56,7 +55,7 @@
         },
         {
             "type": "code-block",
-            "content": "// Create our robot arm object.\nRobotArm robotArm(linkLengths);"
+            "content": "// Create our robot arm object.\nRobotArm myRobot(linkLengths);"
         },
         {
             "type": "text",
@@ -72,7 +71,7 @@
         },
         {
             "type": "editor-read-only",
-            "content": "//Include required libraries\n#include \"RobotArm.h\"\n// Define length of each robot arm link\nfloat linkLengths[] = {0.5,1.05,1.05,0.45};\n// Create our robot arm object.\nRobotArm robotArm(linkLengths);"
+            "content": "//Include required libraries\n#include \"RobotArm.h\"\n// Define length of each robot arm link\nfloat linkLengths[] = {0.5,1.05,1.05,0.45};\n// Create our robot arm object.\nRobotArm myRobot(linkLengths);"
         },
         {
             "type": "task-heading",
@@ -80,7 +79,7 @@
         },
         {
             "type": "text",
-            "content": "We now need to add the positions of our four motors to the RobotArm object we created."
+            "content": "We now need to add the positions of our four motors to myRobot."
         },
         {
             "type": "text",
@@ -92,11 +91,19 @@
         },
         {
             "type": "text",
-            "content": "We now need to tell our RobotArm object which pins the servo motors are conencted to. We can do this by calling the function <span class='inline-code'>robotArm.ConfigurePins()</span> with the array that we created above as its input."
+            "content": "We now need to tell myRobot which pins the servo motors are conencted to. We can do this by calling the function <span class='inline-code'>myRobot.ConfigurePins()</span> with the array that we created above as its input."
         },
         {
             "type": "code-block",
-            "content": "//Setup the pins for our virtual robot\nrobotArm.ConfigurePins(motorPins);"
+            "content": "//Setup the pins for our virtual robot\nmyRobot.ConfigurePins(motorPins);"
+        },
+        {
+            "type": "text",
+            "content": "We will now create a link between the arduino and the computer so we could communicate with the arduino through the terminal."
+        },
+        {
+            "type": "code-block",
+            "content": "//Initiate communication\nSerial.begin(9600);"
         },
         {
             "type": "text",
@@ -112,7 +119,7 @@
         },
         {
             "type": "editor-read-only",
-            "content": "void setup(){\n\t//Write the motor pins\n\tint motorPins[4]={8,9,10,11};\n\tSerial.begin(9600);\n\t//Setup the pins for our virtual robot\n\trobotArm.ConfigurePins(motorPins);\n}"
+            "content": "void setup(){\n\t//Write the motor pins\n\tint motorPins[4]={8,9,10,11};\n\t//Setup the pins for our virtual robot\n\tmyRobot.ConfigurePins(motorPins);\n\t//Initiate communication\n\tSerial.begin(9600);\n}"
         },
         {
             "type": "task-heading",
@@ -188,7 +195,7 @@
         },
         {
             "type": "code-block",
-            "content": "//Store the current locations of the servos\nint angle0 = robotArm.servoMotors[0].read();\nint angle1 = robotArm.servoMotors[1].read();\nint angle2 = robotArm.servoMotors[2].read();\nint angle3 = robotArm.servoMotors[3].read();"
+            "content": "//Store the current locations of the servos\nint angle0 = myRobot.servoMotors[0].read();\nint angle1 = myRobot.servoMotors[1].read();\nint angle2 = myRobot.servoMotors[2].read();\nint angle3 = myRobot.servoMotors[3].read();"
         },
         {
             "type": "text",
@@ -196,7 +203,7 @@
         },
         {
             "type": "code-block",
-            "content": "//Move the robotic arm to the star\nrobotArm.Move_position_xyz(x, y, z);"
+            "content": "//Move the robotic arm to the star\nmyRobot.Move_position_xyz(x, y, z);"
         },
         {
             "type": "text",
@@ -204,7 +211,7 @@
         },
         {
             "type": "code-block",
-            "content": "//Store the target angles\nint target0=robotArm.targetAngles[0];\nint target1=robotArm.targetAngles[1];\nint target2=robotArm.targetAngles[2];\nint target3=robotArm.targetAngles[3];"
+            "content": "//Store the target angles\nint target0=myRobot.targetAngles[0];\nint target1=myRobot.targetAngles[1];\nint target2=myRobot.targetAngles[2];\nint target3=myRobot.targetAngles[3];"
         },
         {
             "type": "text",
@@ -220,7 +227,7 @@
         },
         {
             "type": "code-block",
-            "content": "//Update the current angles\nangle0 = robotArm.servoMotors[0].read();\nangle1 = robotArm.servoMotors[1].read();\nangle2 = robotArm.servoMotors[2].read();\nangle3 = robotArm.servoMotors[3].read();"
+            "content": "//Update the current angles\nangle0 = myRobot.servoMotors[0].read();\nangle1 = myRobot.servoMotors[1].read();\nangle2 = myRobot.servoMotors[2].read();\nangle3 = myRobot.servoMotors[3].read();"
         },
         {
             "type": "text",
@@ -232,7 +239,7 @@
         },
         {
             "type": "editor-read-only",
-            "content": "//Write function declaration\nvoid getToPosition(float x, float y, float z){\n\t//Store the current locations of the servos\n\tint angle0 = robotArm.servoMotors[0].read();\n\tint angle1 = robotArm.servoMotors[1].read();\n\tint angle2 = robotArm.servoMotors[2].read();\n\tint angle3 = robotArm.servoMotors[3].read();\n\t//Move the robotic arm to the star\n\trobotArm.Move_position_xyz(x, y, z);\n\t//Store the target angles\n\tint target0=robotArm.targetAngles[0];\n\tint target1=robotArm.targetAngles[1];\n\tint target2=robotArm.targetAngles[2];\n\tint target3=robotArm.targetAngles[3];\n\twhile (isError(target0, angle0) || isError(target1, angle1) || isError(target2, angle2) || isError(target3, angle3)){\n\t\t//Update the current angles\n\t\tangle0 = robotArm.servoMotors[0].read();\n\t\tangle1 = robotArm.servoMotors[1].read();\n\t\tangle2 = robotArm.servoMotors[2].read();\n\t\tangle3 = robotArm.servoMotors[3].read();\n\t}\n}"
+            "content": "//Write function declaration\nvoid getToPosition(float x, float y, float z){\n\t//Store the current locations of the servos\n\tint angle0 = myRobot.servoMotors[0].read();\n\tint angle1 = myRobot.servoMotors[1].read();\n\tint angle2 = myRobot.servoMotors[2].read();\n\tint angle3 = myRobot.servoMotors[3].read();\n\t//Move the robotic arm to the star\n\tmyRobot.Move_position_xyz(x, y, z);\n\t//Store the target angles\n\tint target0=myRobot.targetAngles[0];\n\tint target1=myRobot.targetAngles[1];\n\tint target2=myRobot.targetAngles[2];\n\tint target3=myRobot.targetAngles[3];\n\twhile (isError(target0, angle0) || isError(target1, angle1) || isError(target2, angle2) || isError(target3, angle3)){\n\t\t//Update the current angles\n\t\tangle0 = myRobot.servoMotors[0].read();\n\t\tangle1 = myRobot.servoMotors[1].read();\n\t\tangle2 = myRobot.servoMotors[2].read();\n\t\tangle3 = myRobot.servoMotors[3].read();\n\t}\n}"
         },
         {
             "type": "task-heading",
