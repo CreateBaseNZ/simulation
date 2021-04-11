@@ -71,11 +71,11 @@ export class Arduino {
         }
     }
 
-    public async Compile(code: string, success: string = "<br><span class='terminal-success'>Program running...</span>") {
+    public async Compile(code: string, success: string = "<br><span class='terminal-text-success'>Program running...</span>") {
         //runButton.setAttribute('disabled', '1');
         try {
             const result = await buildHex(code);
-            this.compilerOutputText = "<span class='terminal-error'>" + (result.stderr) + "</span>" || "<span class='terminal-success'>" + result.stdout + "</span>";
+            this.compilerOutputText = "<span class='terminal-text-error'>" + (result.stderr) + "</span>" || "<span class='terminal-text-success'>" + result.stdout + "</span>";
             if (result.hex) {
                 this.compilerOutputText += success;
                 return await result.hex;
