@@ -37,6 +37,7 @@
     "cannon": "^0.6.2",
     "express": "^4.17.1",
     "intel-hex": "^0.1.2",
+    "interactjs": "^1.10.11",
     "monaco-editor": "^0.22.3",
     "monaco-editor-webpack-plugin": "^3.0.0",
     "open-cb-editor": "^1.0.26",
