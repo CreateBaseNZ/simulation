@@ -1,0 +1,30 @@
+{
+  "platform":
+  {
+    "url": "https://raw.githubusercontent.com/CreateBaseNZ/cb-simulation-model/main/assets/seashank/seashank.babylon"
+  },
+  "assets":
+  [
+    {
+      "default": {
+        "url": "https://raw.githubusercontent.com/CreateBaseNZ/cb-simulation-model/main/assets/seashank/plant.babylon",
+        "material": ""
+      },
+      "physics": true,
+      "static": true,
+      "position": { "x": "0", "y": "0", "z": "0" },
+      "rotation": { "x": "0", "y": "0", "z": "0" },
+      "scale":    { "x": "0", "y": "0", "z": "0" },
+      "objective": { "active": true, "id": "1", "class": "pair" }
+    },
+    {
+      "url": "https://raw.githubusercontent.com/CreateBaseNZ/cb-simulation-model/main/assets/seashank/barrel.babylon",
+      "physics": false,
+      "static": false,
+      "position": { "x": "0", "y": "0", "z": "0" },
+      "rotation": { "x": "0", "y": "0", "z": "0" },
+      "scale":    { "x": "0", "y": "0", "z": "0" },
+      "objective": { "active": true, "id": "1", "class": "pair" }
+    }
+  ]
+}
