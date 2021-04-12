@@ -85,7 +85,7 @@
         },
         {
             "type": "text",
-            "content": "To do this, we first created an <span class='array-keyword keyword'>array</span> that contains the pin numbers on the Arduino board that we want to connect each of our servo motors to. The motors will be attached to pins 8, 9, 10 and 11 respectively."
+            "content": "To do this, we first created an <span class='array-keyword keyword'>array</span> that contains the pin numbers on the Arduino board that we want to connect each of our servo motors to. The motors will be attached to pins 8, 9, 10, and 11 respectively."
         },
         {
             "type": "code-block",
@@ -292,6 +292,9 @@
             "type": "editor-read-only",
             "content": "void loop() {\n\t//Use the functions to input the x-y-z.\n\tgetToPosition(1.5,-1.3,0.6);\n\tgetToPosition(-1.4,-1.5,1.1);\n\tgetToPosition(1.5,1.5,0.9);\n\tgetToPosition(-1.1,1.6,1.4);\n\t//Create an infinite loop\n\twhile(true){}\n}"
         },
+
+
+
         {
             "type": "text",
             "content": "Congratulations on reaching the end of this project! This is a very early prototype of some of the functionality and content you can expect from CreateBase in the future. We only ask for two more things from you :)"

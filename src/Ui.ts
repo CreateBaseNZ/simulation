@@ -421,7 +421,7 @@ export class Ui {
                     for (let i = 0; i < this._editorsWrite.length; i++) {
                         code = code.concat(this._editorsWrite[i].getModel().getValue() + "\n");
                     }
-                    this.UploadCode(code);
+                    this.UploadCode(code, 'write');
                 }
             } else if (running) {
                 this.StopCode();
@@ -442,7 +442,7 @@ export class Ui {
                     for (let i = 0; i < this._editorsReadOnly.length; i++) {
                         code = code.concat(this._editorsReadOnly[i].getModel().getValue() + "\n");
                     }
-                    this.UploadCode(code);
+                    this.UploadCode(code, 'read');
                 }
             } else if (running) {
                 this.StopCode();
@@ -450,7 +450,7 @@ export class Ui {
         });
     }
 
-    private UploadCode(code: string) {
+    private UploadCode(code: string, type: string) {
         this.TerminalLoading("running");
         document.querySelector(".compile-btn").classList.remove("compile-idle");
         document.querySelector(".compile-btn").classList.add("compile-loading");
@@ -466,10 +466,25 @@ export class Ui {
                 document.querySelector(".compile-btn").classList.remove("compile-idle");
                 document.querySelector(".compile-btn").classList.remove("compile-loading");
                 document.querySelector(".compile-btn").classList.add("compile-running");
-                document.querySelectorAll(".editor-container").forEach(element => {
-                    element.classList.remove("editor-loading");
-                    element.classList.add("editor-running");
+                if (type === 'read') {
+                  document.querySelectorAll(".editor-container.read-only").forEach(element => {
+                      element.classList.remove("editor-loading");
+                      element.classList.add("editor-running");
+                    });
+                    document.querySelectorAll(".editor-container.writable").forEach(element => {
+                      element.classList.remove("editor-loading");
+                      element.classList.add("editor-busy");
                 });
+                } else {
+                  document.querySelectorAll(".editor-container.writable").forEach(element => {
+                      element.classList.remove("editor-loading");
+                      element.classList.add("editor-running");
+                    });
+                    document.querySelectorAll(".editor-container.read-only").forEach(element => {
+                    element.classList.remove("editor-loading");
+                    element.classList.add("editor-busy");
+                  });
+                }
             }
             else {
                 this.TerminalLoading("failed");
@@ -486,6 +501,7 @@ export class Ui {
         document.querySelectorAll(".editor-container").forEach(element => {
             element.classList.remove("editor-loading");
             element.classList.remove("editor-running");
+            element.classList.remove("editor-busy");
         });
         RobotManager.instance.Stop();
     }
