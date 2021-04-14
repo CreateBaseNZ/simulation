@@ -1,0 +1,42 @@
+{
+  "name": "",
+  "include": {
+    "uri": ""
+  },
+  "pose": {
+    "x": 0,
+    "y": 0,
+    "z": 0,
+    "roll": 0,
+    "pitch": 0,
+    "yaw": 0,
+    "relative_to": ""
+  },
+  "gravity": { "x": 0, "y": 0, "z": 0 },
+  "model": [
+    {
+      "name": "",
+      "self_collide": true,
+      "include": {
+        "uri": ""
+      },
+      "pose": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "roll": 0,
+        "pitch": 0,
+        "yaw": 0,
+        "relative_to": ""
+      }
+    },
+    {
+
+    }
+  ],
+  "actor": [
+    {
+
+    }
+  ]
+}
