@@ -74,7 +74,7 @@ export class Ui {
                     this.CreateWriteEditor(educContent, element.content);
                     break;
                 case "image":
-                    this.CreateImage(educContent, element.src, element.alt);
+                    //this.CreateImage(educContent, element.src, element.alt);
                     break;
                 default:
                     break;

@@ -5,7 +5,7 @@ import { GameManager } from "./GameManager";
 import { ObjectiveManager } from './ObjectiveManager';
 import { Player } from "./Player";
 import { RobotManager } from './RobotManager';
-import { defaultScene } from './scenes/Default';
+import { defaultScene, anotherProject } from './scenes/Default';
 window.CANNON = require('cannon');
 
 export class SceneManager {
@@ -29,7 +29,7 @@ export class SceneManager {
         new GameManager();
         new ObjectiveManager();
         new RobotManager();
-        this.LoadScene(defaultScene);
+        this.LoadScene(anotherProject);
         this.engine.runRenderLoop(() => {
             this.scene.render();
         });

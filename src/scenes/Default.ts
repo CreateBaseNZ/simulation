@@ -48,7 +48,14 @@ export let defaultScene = (scene: BABYLON.Scene) => {
 
 export let anotherProject = (scene: BABYLON.Scene) => {
 
-    new Diamond(scene, new Vector3(1,1,1), Vector3.Zero(), Vector3.One());
-
-
+    new RoboticArm('roboticArm', scene);
+    let ground = BABYLON.MeshBuilder.CreateBox("ground", { width: 20, height: 1, depth: 20 }, scene);
+    let mat = new BABYLON.PBRMaterial('pbr', scene);
+    mat.albedoColor = BABYLON.Color3.Gray();
+    mat.environmentIntensity = 0.2;
+    mat.roughness = 1;
+    mat.specularIntensity = 0;
+    mat.metallic = 0;
+    ground.material = mat;
+    ground.position.y -= 0.5;
 }
