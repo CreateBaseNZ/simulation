@@ -5,6 +5,8 @@ import { RoboticArm } from "../RoboticArm";
 import { Star } from "../Star";
 import * as MATERIALS from "@babylonjs/materials";
 import { Buckets } from "../Buckets";
+import { Vector3 } from "@babylonjs/core";
+import { Diamond } from "../Diamond";
 
 export let defaultScene = (scene: BABYLON.Scene) => {
     // Create roboticArm
@@ -36,10 +38,17 @@ export let defaultScene = (scene: BABYLON.Scene) => {
         });
     });
 
-    new Star(scene, new BABYLON.Vector3(-1.3, 1.5, 1.5));
-    new Star(scene, new BABYLON.Vector3(-1.5, 2,-1.4));
-    new Star(scene, new BABYLON.Vector3(1.6, 2.3, -1.1));
-    new Star(scene, new BABYLON.Vector3(1.5, 1.8, 1.5));
+    new Star(scene, new Vector3(-1.3, 1.5, 1.5));
+    new Star(scene, new Vector3(-1.5, 2, -1.4));
+    new Star(scene, new Vector3(1.6, 2.3, -1.1));
+    new Star(scene, new Vector3(1.5, 1.8, 1.5));
+    new Buckets(scene, new Vector3(-1, 0.2, -2));
+}
 
-    new Buckets(scene, new BABYLON.Vector3(-1, 0.2, -2));
+
+export let anotherProject = (scene: BABYLON.Scene) => {
+
+    new Diamond(scene, new Vector3(1,1,1), Vector3.Zero(), Vector3.One());
+
+
 }

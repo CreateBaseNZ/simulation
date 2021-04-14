@@ -467,23 +467,23 @@ export class Ui {
                 document.querySelector(".compile-btn").classList.remove("compile-loading");
                 document.querySelector(".compile-btn").classList.add("compile-running");
                 if (type === 'read') {
-                  document.querySelectorAll(".editor-container.read-only").forEach(element => {
-                      element.classList.remove("editor-loading");
-                      element.classList.add("editor-running");
+                    document.querySelectorAll(".editor-container.read-only").forEach(element => {
+                        element.classList.remove("editor-loading");
+                        element.classList.add("editor-running");
                     });
                     document.querySelectorAll(".editor-container.writable").forEach(element => {
-                      element.classList.remove("editor-loading");
-                      element.classList.add("editor-busy");
-                });
+                        element.classList.remove("editor-loading");
+                        element.classList.add("editor-busy");
+                    });
                 } else {
-                  document.querySelectorAll(".editor-container.writable").forEach(element => {
-                      element.classList.remove("editor-loading");
-                      element.classList.add("editor-running");
+                    document.querySelectorAll(".editor-container.writable").forEach(element => {
+                        element.classList.remove("editor-loading");
+                        element.classList.add("editor-running");
                     });
                     document.querySelectorAll(".editor-container.read-only").forEach(element => {
-                    element.classList.remove("editor-loading");
-                    element.classList.add("editor-busy");
-                  });
+                        element.classList.remove("editor-loading");
+                        element.classList.add("editor-busy");
+                    });
                 }
             }
             else {
@@ -518,74 +518,74 @@ export class Ui {
                     this.CreateToolTip(element, keyword["title"], keyword["contents"]);
                 });
                 element.addEventListener("mouseout", () => {
-                  sessionStorage.setItem('hoveringKeyword', 'false');
-                  this.DeleteToolTip('passive');
+                    sessionStorage.setItem('hoveringKeyword', 'false');
+                    this.DeleteToolTip('passive');
                 });
             });
         });
     }
 
     private CreateToolTip(element, title: string, keyword: Array<Object>) {
-      console.log(keyword)
-      setTimeout(() => {
-        if (sessionStorage.getItem('hoveringKeyword') === 'true') {
-        // Tooltip container
-        const toolTipContainer = document.createElement("div");
-        document.body.appendChild(toolTipContainer).className = "tooltip-container";
-        // Tooltip header
-        const toolTipHeader = document.createElement("div");
-        toolTipContainer.appendChild(toolTipHeader).className = "tooltip-header";
-        const toolTipIcon = document.createElement("img");
-        toolTipIcon.src = "https://raw.githubusercontent.com/CreateBaseNZ/cb-simulation-model/main/images/tooltip-icon.svg";
-        toolTipHeader.appendChild(toolTipIcon).className = "tooltip-icon";
-        const toolTipTitle = document.createElement("div");
-        toolTipTitle.innerHTML = title;
-        toolTipHeader.appendChild(toolTipTitle).className = "tooltip-title";
-        // Tooltip wrapper
-        const toolTipWrapper = document.createElement("div");
-        toolTipContainer.appendChild(toolTipWrapper).className = "tooltip-wrapper";
+        console.log(keyword)
+        setTimeout(() => {
+            if (sessionStorage.getItem('hoveringKeyword') === 'true') {
+                // Tooltip container
+                const toolTipContainer = document.createElement("div");
+                document.body.appendChild(toolTipContainer).className = "tooltip-container";
+                // Tooltip header
+                const toolTipHeader = document.createElement("div");
+                toolTipContainer.appendChild(toolTipHeader).className = "tooltip-header";
+                const toolTipIcon = document.createElement("img");
+                toolTipIcon.src = "https://raw.githubusercontent.com/CreateBaseNZ/cb-simulation-model/main/images/tooltip-icon.svg";
+                toolTipHeader.appendChild(toolTipIcon).className = "tooltip-icon";
+                const toolTipTitle = document.createElement("div");
+                toolTipTitle.innerHTML = title;
+                toolTipHeader.appendChild(toolTipTitle).className = "tooltip-title";
+                // Tooltip wrapper
+                const toolTipWrapper = document.createElement("div");
+                toolTipContainer.appendChild(toolTipWrapper).className = "tooltip-wrapper";
 
-        keyword.forEach((content: any) => {
-          if (content.type === 'code-block') {
-            this.CreateCodeBlock(toolTipWrapper, content.content);
-          } else {
-            let contentEl = document.createElement("div");
-            contentEl.innerHTML = content.content;
-            toolTipWrapper.appendChild(contentEl);
-          }
-        })
-        
-        let rect = element.getBoundingClientRect();
-        toolTipContainer.style.top = rect.top + 25 + 'px';
-        toolTipContainer.style.left = rect.left + 'px';
+                keyword.forEach((content: any) => {
+                    if (content.type === 'code-block') {
+                        this.CreateCodeBlock(toolTipWrapper, content.content);
+                    } else {
+                        let contentEl = document.createElement("div");
+                        contentEl.innerHTML = content.content;
+                        toolTipWrapper.appendChild(contentEl);
+                    }
+                })
 
-        toolTipContainer.addEventListener("mouseover", (e) => {
-          sessionStorage.setItem('hoveringKeyword', 'false');
-          sessionStorage.setItem('hoveringTooltip', 'true');
-        })
-        toolTipContainer.addEventListener("mouseout", (e) => {
-          sessionStorage.setItem('hoveringTooltip', 'false');
-          this.DeleteToolTip('passive');
-        })
-        }
-      }, 250);
+                let rect = element.getBoundingClientRect();
+                toolTipContainer.style.top = rect.top + 25 + 'px';
+                toolTipContainer.style.left = rect.left + 'px';
+
+                toolTipContainer.addEventListener("mouseover", (e) => {
+                    sessionStorage.setItem('hoveringKeyword', 'false');
+                    sessionStorage.setItem('hoveringTooltip', 'true');
+                })
+                toolTipContainer.addEventListener("mouseout", (e) => {
+                    sessionStorage.setItem('hoveringTooltip', 'false');
+                    this.DeleteToolTip('passive');
+                })
+            }
+        }, 250);
     }
 
     private DeleteToolTip(action: string) {
-      const tooltip = document.querySelector('.tooltip-container');
-      if (action === 'force') {
-        if (tooltip) {
-          tooltip.remove();
-        }
-      } else {
-        setTimeout(() => {
-          if (sessionStorage.getItem('hoveringKeyword') === 'false' && sessionStorage.getItem('hoveringTooltip') === 'false') {
+        const tooltip = document.querySelector('.tooltip-container');
+        if (action === 'force') {
             if (tooltip) {
-              tooltip.remove();
+                tooltip.remove();
             }
-          }
-        }, 250);
-      }
+        } else {
+            setTimeout(() => {
+                if (sessionStorage.getItem('hoveringKeyword') === 'false' && sessionStorage.getItem('hoveringTooltip') === 'false') {
+                    if (tooltip) {
+                        tooltip.remove();
+                    }
+                }
+            }, 250);
+        }
     }
 
     private TerminalLoading(status: string) {
