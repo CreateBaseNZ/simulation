@@ -2,7 +2,6 @@ import * as BABYLON from '@babylonjs/core';
 import { ObjectiveManager } from './ObjectiveManager';
 import { Player } from './Player';
 import { RobotManager } from './RobotManager';
-import { request } from "@octokit/request";
 import { SceneManager } from './SceneManager';
 import * as MATERIALS from '@babylonjs/materials';
 
