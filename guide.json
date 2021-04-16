@@ -1,9 +1,7 @@
 {
     "subsystem": "Catch the Stars",
-    "contents": [
-        {
-            "type": "editor-write",
-            "content": ""
-        }
-    ]
+    "contents": [{
+        "type": "editor-write",
+        "content": "#include \"RobotArm.h\"\n\nfloat linkLengths[] = {0.5, 1.05, 1.05, 0.45};\nRobotArm robotArm(linkLengths);\nvoid setup(){\n\tint servos[4]={8,9,10,11};\n\trobotArm.ConfigurePins(servos);\n\tSerial.begin(9600);\n}\n\nvoid loop(){\n\t\n}"
+    }]
 }
