@@ -17,6 +17,8 @@ export class Player {
     constructor(scene) {
         let mesh = BABYLON.MeshBuilder.CreateBox("player", { size: 0.5 }, scene);
         mesh.position.y += 0.5;
+        mesh.physicsImpostor = new BABYLON.PhysicsImpostor(mesh, BABYLON.PhysicsImpostor.BoxImpostor, {mass: 0}, scene);
+        mesh.physicsImpostor.setScalingUpdated();
         //createPs(mesh, scene);
 
         this.camera = new PlayerCamera(mesh, scene);

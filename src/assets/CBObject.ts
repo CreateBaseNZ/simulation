@@ -46,7 +46,7 @@ export class CBObject {
                 if (this._options.objective && this.meshes.length === 1) {
                     this.objective = new Objective(mesh);
                 }
-                if (this._options.frozen) {
+                if (this._options.frozen && !this._options.physics) {
                     mesh.freezeWorldMatrix();
                 }
                 if (this._options.physics) {
@@ -58,7 +58,7 @@ export class CBObject {
                         mesh.physicsImpostor = new BABYLON.PhysicsImpostor(mesh, BABYLON.PhysicsImpostor.BoxImpostor, { mass: 0 }, scene);
                     }
                     else if(!mesh.parent && mesh.getChildMeshes().length > 0) {
-                        mesh.physicsImpostor = new BABYLON.PhysicsImpostor(mesh, BABYLON.PhysicsImpostor.NoImpostor, { mass: 1 }, scene);
+                        mesh.physicsImpostor = new BABYLON.PhysicsImpostor(mesh, BABYLON.PhysicsImpostor.NoImpostor, { mass: m }, scene);
                     }
 
                     mesh.physicsImpostor.setScalingUpdated();
