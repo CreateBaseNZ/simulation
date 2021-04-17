@@ -14,7 +14,7 @@ export class CBObject {
     private _options: AssetOptions;
 
     constructor(scene: Scene, fileURL: string,
-        position: Vector3 = Vector3.Zero(), rotation: Vector3 = Vector3.Zero(), scale: Vector3 = Vector3.One(),
+        position: Vector3 = null, rotation: Vector3 = null, scale: Vector3 = null,
         options: AssetOptions = { frozen: false, physics: false, objective: false },
         importMod: (result: BABYLON.ISceneLoaderAsyncResult) => void = null) {
 
@@ -32,17 +32,18 @@ export class CBObject {
     }
 
     protected ImportAsset(scene: Scene,
-        position: Vector3 = Vector3.Zero(), rotation: Vector3 = Vector3.Zero(), scale: Vector3 = Vector3.One(),
+        position: Vector3 = null, rotation: Vector3 = null, scale: Vector3 = null,
         customImport: (result: BABYLON.ISceneLoaderAsyncResult) => void = null) {
 
         BABYLON.SceneLoader.ImportMeshAsync(null, this.rootURL + this._fileURL, null, scene).then((result) => {
             this.meshes = result.meshes;
             if (customImport != null) { customImport(result); }
-            this.meshes.forEach(mesh => {
 
-                mesh.position = position;
-                mesh.rotation = rotation;
-                mesh.scaling = scale;
+            this.meshes.forEach(mesh => {
+                mesh.position = position === null ? mesh.position : position;
+                mesh.rotation = rotation === null ? mesh.rotation : rotation;
+                mesh.scaling = scale === null ? mesh.scaling : scale;
+
                 if (this._options.objective && this.meshes.length === 1) {
                     this.objective = new Objective(mesh);
                 }
@@ -54,10 +55,10 @@ export class CBObject {
                     if (!mesh.parent && mesh.getChildMeshes().length === 0) {
                         mesh.physicsImpostor = new BABYLON.PhysicsImpostor(mesh, BABYLON.PhysicsImpostor.BoxImpostor, { mass: m }, scene);
                     }
-                    else if(mesh.parent){
+                    else if (mesh.parent) {
                         mesh.physicsImpostor = new BABYLON.PhysicsImpostor(mesh, BABYLON.PhysicsImpostor.BoxImpostor, { mass: 0 }, scene);
                     }
-                    else if(!mesh.parent && mesh.getChildMeshes().length > 0) {
+                    else if (!mesh.parent && mesh.getChildMeshes().length > 0) {
                         mesh.physicsImpostor = new BABYLON.PhysicsImpostor(mesh, BABYLON.PhysicsImpostor.NoImpostor, { mass: m }, scene);
                     }
 

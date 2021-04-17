@@ -1,0 +1,50 @@
+{
+    "platform": {
+        "url": "https://raw.githubusercontent.com/CreateBaseNZ/cb-simulation-model/main/assets/seashank/seashank.babylon"
+    },
+    "assets": [
+        {
+            "default": {
+                "url": "default/box/default_floor.babylon",
+                "material": ""
+            },
+            "position": {
+                "x": "0",
+                "y": "0",
+                "z": "0"
+            },
+            "rotation": {
+                "x": "0",
+                "y": "0",
+                "z": "0"
+            },
+            "scale": {
+                "x": "1",
+                "y": "1",
+                "z": "1"
+            },
+            "frozen": false,
+            "physics": true,
+            "objective": false
+        },
+        {
+            "default": {
+                "url": "default/floor/default_floor.babylon",
+                "material": ""
+            },
+            "position": {
+                "x": "0",
+                "y": "-1",
+                "z": "0"
+            },
+            "rotation": {
+                "x": "0",
+                "y": "0",
+                "z": "0"
+            },
+            "frozen": true,
+            "physics": true,
+            "objective": false
+        }
+    ]
+}

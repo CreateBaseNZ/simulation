@@ -30,7 +30,8 @@ export class Environment {
         scene.environmentTexture = BABYLON.CubeTexture.CreateFromPrefilteredData("https://raw.githubusercontent.com/CreateBaseNZ/cb-simulation-model/main/assets/skybox/Country.env", scene, '.env');
 
         const gravityVector = new BABYLON.Vector3(0, -9.81, 0);
-        scene.enablePhysics(gravityVector, new BABYLON.CannonJSPlugin());
+        const physicsPlugin = new BABYLON.CannonJSPlugin();
+        scene.enablePhysics(gravityVector, physicsPlugin);
 
         var skybox = BABYLON.MeshBuilder.CreateSphere("skyBox", { segments: 1, diameter: 300 }, scene);
         skybox.infiniteDistance = true;

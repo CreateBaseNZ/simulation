@@ -33,6 +33,7 @@ export class PlayerController {
                     navMeshList.push(mesh);
                 }
             });
+            
             this._navigationPlugin.createNavMesh(navMeshList, parameters);
             mesh.parent = this.CreateNavAgent(scene);
         });

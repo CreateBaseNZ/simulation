@@ -7,7 +7,7 @@ let fileURL = "buckets/buckets.babylon";
 export class Buckets extends CBObject {
 
     constructor(scene: Scene,
-        position: Vector3 = Vector3.Zero(), rotation: Vector3 = Vector3.Zero(), scale: Vector3 = Vector3.One(),
+        position: Vector3 = null, rotation: Vector3 = null, scale: Vector3 = null,
         options: AssetOptions = {frozen: false, physics: false, objective: false}) {
 
         super(scene, fileURL, position, rotation, scale, options, (result) => {
