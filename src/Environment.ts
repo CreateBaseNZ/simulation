@@ -31,6 +31,7 @@ export class Environment {
 
         const gravityVector = new BABYLON.Vector3(0, -9.81, 0);
         scene.enablePhysics(gravityVector, new BABYLON.CannonJSPlugin());
+        let x = new BABYLON.CannonJSPlugin();
 
         var skybox = BABYLON.MeshBuilder.CreateSphere("skyBox", { segments: 1, diameter: 300 }, scene);
         skybox.infiniteDistance = true;
@@ -49,7 +50,7 @@ export class Environment {
         staticDirectionalLight.shadowMinZ = -1;
         staticDirectionalLight.shadowMaxZ = 50;
 
-        const dynamicDirectionalLight = new BABYLON.DirectionalLight("dynamicDirectionalLight", new BABYLON.Vector3(-0.75, -1, 0), scene);
+        const dynamicDirectionalLight = new BABYLON.DirectionalLight("dynamicDirectionalLight", new BABYLON.Vector3(-0.75, -1, 0), scene);        
         dynamicDirectionalLight.diffuse = new BABYLON.Color3(1, 1, 0.98);
         dynamicDirectionalLight.intensity = 3;
         dynamicDirectionalLight.shadowMinZ = -1;

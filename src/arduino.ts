@@ -53,11 +53,11 @@ export class Arduino {
     private _terminal: HTMLElement;
 
     constructor() {
-        this._terminal = document.querySelector(".terminal");
+        /*this._terminal = document.querySelector(".terminal");
         document.querySelector(".terminal-clear").addEventListener("click", () => {
             this._terminal.innerHTML = "";
             this._terminal.scrollTo(0, this._terminal.scrollHeight);
-        });
+        });*/
     }
 
     public ExecuteProgram(hex: string) {

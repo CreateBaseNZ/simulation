@@ -19,13 +19,13 @@ export class RobotManager {
         }
 
         this._robots = new Array<Robot>();
-        this._terminal = document.querySelector(".terminal");
+        /*this._terminal = document.querySelector(".terminal");
         this._status = document.getElementById("status");
         document.querySelector(".terminal-clear").addEventListener("click", () => {
             this._terminal.innerHTML = "";
             this._terminal.scrollTo(0, this._terminal.scrollHeight);
 
-        });
+        });*/
     }
 
     public AddRobot(robot: Robot) {

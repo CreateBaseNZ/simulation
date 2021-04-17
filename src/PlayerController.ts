@@ -5,8 +5,8 @@ export class PlayerController {
     private _navigationPlugin: BABYLON.RecastJSPlugin;
 
     constructor(mesh: BABYLON.AbstractMesh, scene) {
-        //this._navigationPlugin = new BABYLON.RecastJSPlugin();
-        //this.BakeNavMesh(mesh, scene);
+        this._navigationPlugin = new BABYLON.RecastJSPlugin();
+        this.BakeNavMesh(mesh, scene);
     }
 
     private BakeNavMesh(mesh: BABYLON.AbstractMesh, scene: BABYLON.Scene) {
@@ -29,7 +29,7 @@ export class PlayerController {
         scene.executeWhenReady(() => {
             let navMeshList = []
             scene.meshes.forEach(mesh => {
-                if (mesh.name != "player") {
+                if (mesh.name != "player" && mesh.name != "skyBox") {
                     navMeshList.push(mesh);
                 }
             });
@@ -83,23 +83,11 @@ export class PlayerController {
             switch (pointerInfo.type) {
                 case BABYLON.PointerEventTypes.POINTERDOWN:
                     if (pointerInfo.pickInfo.hit && pointerInfo.event.button == 0) {
-                        //pointerDown();
+                        pointerDown();
                     }
                     break;
             }
         });
     }
     
-    public CreateCameraControls(camera: BABYLON.Camera) {
-        camera.inputs.remove(camera.inputs.attached.pointers);
-        let pointerInput = new BABYLON.ArcRotateCameraPointersInput();
-        pointerInput.panningSensibility = 100;
-        pointerInput.buttons = [0, 1, 2];
-        pointerInput.angularSensibilityX = 300;
-        pointerInput.angularSensibilityY = 300;
-        camera.inputs.add(pointerInput);
-        camera.attachControl();
-
-        return camera;
-    }
 }

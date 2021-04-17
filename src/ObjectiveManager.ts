@@ -38,7 +38,6 @@ export class ObjectiveManager {
     public RemoveObjective(objective: Objective = this._objectives[0], advancedTexture: GUI.AdvancedDynamicTexture = null) {
         this._objectives.splice(this._objectives.indexOf(objective), 1);
         objective.SetActive(false, advancedTexture);
-        objective.mesh.dispose();
         if (this._objectives.length == 0) {
             GameManager.instance.WinGame();
         }

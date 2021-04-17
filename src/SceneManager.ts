@@ -23,7 +23,7 @@ export class SceneManager {
         else {
             return SceneManager.instance;
         }
-        engine.setHardwareScalingLevel(1.25);
+        //engine.setHardwareScalingLevel(1.25);
         this.engine = engine;
         this.scene = new BABYLON.Scene(engine);
         new GameManager();
@@ -33,6 +33,7 @@ export class SceneManager {
         this.engine.runRenderLoop(() => {
             this.scene.render();
         });
+        
     }
 
     public async LoadScene(sceneFunction: (scene: BABYLON.Scene) => void) {

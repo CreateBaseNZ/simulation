@@ -1,7 +1,5 @@
 import * as BABYLON from '@babylonjs/core';
-import { GameManager } from './GameManager';
 import { ObjectiveManager } from './ObjectiveManager';
-import { SceneManager } from "./SceneManager";
 import * as GUI from "@babylonjs/gui";
 
 export class Objective {
@@ -10,7 +8,8 @@ export class Objective {
     private _active: boolean;
     private _controls: GUI.Control[];
 
-    constructor() {
+    constructor(mesh: BABYLON.AbstractMesh) {
+        this.mesh = mesh;
         this._active = false;
         this._controls = new Array<GUI.Control>();
         ObjectiveManager.instance.AddObjective(this);
@@ -19,15 +18,12 @@ export class Objective {
     public SetActive(active: boolean, advancedTexture: GUI.AdvancedDynamicTexture = null) {
         this._active = active;
         this.mesh.isVisible = active;
-        if (active) {
-            this.CreateLabel(advancedTexture);
+        if (this._controls.length == 0) {
+            this.CreateLabel(advancedTexture)
         }
-        else {
-            this._controls.forEach(control => {
-                advancedTexture.removeControl(control);
-                control.dispose();
-            });
-        }
+        this._controls.forEach(control => {
+            control.isVisible = active;
+        });
     }
 
     public GetActive() {
