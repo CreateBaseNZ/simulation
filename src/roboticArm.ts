@@ -1,7 +1,6 @@
 import * as BABYLON from "@babylonjs/core";
 import "@babylonjs/loaders";
 import { Robot } from "./Robot";
-import { request } from "@octokit/request";
 
 export class RoboticArm extends Robot {
 

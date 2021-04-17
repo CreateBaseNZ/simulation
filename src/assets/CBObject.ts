@@ -36,21 +36,34 @@ export class CBObject {
         customImport: (result: BABYLON.ISceneLoaderAsyncResult) => void = null) {
 
         BABYLON.SceneLoader.ImportMeshAsync(null, this.rootURL + this._fileURL, null, scene).then((result) => {
+            this.meshes = result.meshes;
             if (customImport != null) { customImport(result); }
-            
             this.meshes.forEach(mesh => {
+
                 mesh.position = position;
                 mesh.rotation = rotation;
                 mesh.scaling = scale;
-                if (this._options.objective && this.meshes.length == 1) {
+                if (this._options.objective && this.meshes.length === 1) {
                     this.objective = new Objective(mesh);
                 }
                 if (this._options.frozen) {
                     mesh.freezeWorldMatrix();
                 }
                 if (this._options.physics) {
-                    let m = this._options.frozen ? 1 : 0;
-                    mesh.physicsImpostor = new BABYLON.PhysicsImpostor(mesh, BABYLON.PhysicsImpostor.BoxImpostor, { mass: m }, scene);
+                    let m = this._options.frozen ? 0 : 1;
+                    if (!mesh.parent && mesh.getChildMeshes().length === 0) {
+                        mesh.physicsImpostor = new BABYLON.PhysicsImpostor(mesh, BABYLON.PhysicsImpostor.BoxImpostor, { mass: m }, scene);
+                    }
+                    else if(mesh.parent){
+                        mesh.physicsImpostor = new BABYLON.PhysicsImpostor(mesh, BABYLON.PhysicsImpostor.BoxImpostor, { mass: 0 }, scene);
+                    }
+                    else if(!mesh.parent && mesh.getChildMeshes().length > 0) {
+                        mesh.physicsImpostor = new BABYLON.PhysicsImpostor(mesh, BABYLON.PhysicsImpostor.NoImpostor, { mass: 1 }, scene);
+                    }
+
+                    mesh.physicsImpostor.setScalingUpdated();
+                    this.meshes.push(mesh);
+
                 }
             });
 

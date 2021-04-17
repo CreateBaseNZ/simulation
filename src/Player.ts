@@ -1,4 +1,5 @@
 import * as BABYLON from '@babylonjs/core';
+import { METHODS } from 'node:http';
 import { GameManager } from './GameManager';
 import { Hud } from './Hud';
 import { createPs } from './Particles';
@@ -18,7 +19,8 @@ export class Player {
         mesh.position.y += 0.5;
         //createPs(mesh, scene);
 
-        this.camera = new PlayerCamera(scene);
+        this.camera = new PlayerCamera(mesh, scene);
+        new PlayerController(mesh, scene);
         //this.ui = new Ui(scene);
         this.hud = new Hud(this.camera.GetCamera(), scene);
         this.mesh = mesh;

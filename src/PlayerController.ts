@@ -29,13 +29,13 @@ export class PlayerController {
         scene.executeWhenReady(() => {
             let navMeshList = []
             scene.meshes.forEach(mesh => {
-                if (mesh.name != "player" && mesh.name != "skyBox") {
+                if (mesh.name != "player" && mesh.name != "skyBox" && mesh.id != "robot") {
                     navMeshList.push(mesh);
                 }
             });
             this._navigationPlugin.createNavMesh(navMeshList, parameters);
             mesh.parent = this.CreateNavAgent(scene);
-        })
+        });
     }
 
     private CreateNavAgent(scene: BABYLON.Scene) {

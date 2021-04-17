@@ -4,10 +4,7 @@ export class PlayerCamera {
 
     private _camera: BABYLON.Camera;
 
-    constructor(scene) {
-        let mesh = BABYLON.MeshBuilder.CreateBox("player", { size: 0.5 }, scene);
-        mesh.position.y += 0.5;
-        //createPs(mesh, scene);
+    constructor(mesh: BABYLON.AbstractMesh, scene: BABYLON.Scene) {
 
         let camera = new BABYLON.ArcRotateCamera("mainCamera", 0.8, 0.8, 55, BABYLON.Vector3.Zero(), scene);
         camera.lowerRadiusLimit = 10;

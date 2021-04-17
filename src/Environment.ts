@@ -31,7 +31,6 @@ export class Environment {
 
         const gravityVector = new BABYLON.Vector3(0, -9.81, 0);
         scene.enablePhysics(gravityVector, new BABYLON.CannonJSPlugin());
-        let x = new BABYLON.CannonJSPlugin();
 
         var skybox = BABYLON.MeshBuilder.CreateSphere("skyBox", { segments: 1, diameter: 300 }, scene);
         skybox.infiniteDistance = true;
@@ -46,13 +45,13 @@ export class Environment {
 
         const staticDirectionalLight = new BABYLON.DirectionalLight("staticDirectionalLight", new BABYLON.Vector3(-0.75, -1, 0), scene);
         staticDirectionalLight.diffuse = new BABYLON.Color3(1, 1, 0.98);
-        staticDirectionalLight.intensity = 3;
+        staticDirectionalLight.intensity = 1;
         staticDirectionalLight.shadowMinZ = -1;
         staticDirectionalLight.shadowMaxZ = 50;
 
-        const dynamicDirectionalLight = new BABYLON.DirectionalLight("dynamicDirectionalLight", new BABYLON.Vector3(-0.75, -1, 0), scene);        
+        const dynamicDirectionalLight = new BABYLON.DirectionalLight("dynamicDirectionalLight", new BABYLON.Vector3(-0.75, -1, 0), scene);
         dynamicDirectionalLight.diffuse = new BABYLON.Color3(1, 1, 0.98);
-        dynamicDirectionalLight.intensity = 3;
+        dynamicDirectionalLight.intensity = 1;
         dynamicDirectionalLight.shadowMinZ = -1;
         dynamicDirectionalLight.shadowMaxZ = 50;
 
@@ -91,9 +90,11 @@ export class Environment {
                 );
             });
         });
-
         scene.meshes.forEach(mesh => {
-            (scene.getMeshByName("Water Cube").material as MATERIALS.WaterMaterial).addToRenderList(mesh);
+            try {
+                (scene.getMeshByName("Water Cube").material as MATERIALS.WaterMaterial).addToRenderList(mesh);
+            }
+            catch { }
             mesh.receiveShadows = true;
             mesh.cullingStrategy = BABYLON.AbstractMesh.CULLINGSTRATEGY_BOUNDINGSPHERE_ONLY;
             if (mesh.id == "robot" || mesh.id == "objective") {
@@ -104,7 +105,6 @@ export class Environment {
             }
             this.staticShadowGenerator.getShadowMap().refreshRate = BABYLON.RenderTargetTexture.REFRESHRATE_RENDER_ONCE;
         });
-
         scene.activeCameras = [scene.getCameraByName("mainCamera"), scene.getCameraByName("uiCamera")];
     }
 

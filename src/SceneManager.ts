@@ -3,9 +3,9 @@ import "@babylonjs/loaders";
 import { Environment } from './Environment';
 import { GameManager } from "./GameManager";
 import { ObjectiveManager } from './ObjectiveManager';
-import { Player } from "./Player";
 import { RobotManager } from './RobotManager';
-import { defaultScene } from './scenes/Default';
+import { defaultScene, prototypeScene } from './scenes/Default';
+
 window.CANNON = require('cannon');
 
 export class SceneManager {
